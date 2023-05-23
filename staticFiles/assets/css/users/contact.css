@@ -1,0 +1,169 @@
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/*Thanh dieu huong*/
+.breadcrumb {
+    font-size: large;
+    background-color: white;
+    cursor: pointer;
+    margin-bottom: 3%;
+    display: flex;
+    align-items: center;
+}
+
+/*color chu + icon truoc khi tro chuot*/
+.breadcrumb a {
+    color: #4caf50;
+}
+
+/*khi tro chuot*/
+.breadcrumb a:hover {
+    font-weight: bold;
+}
+
+/*icon home*/
+.breadcrumb i {
+    font-size: large;
+    transition: 0.3s ease-in-out;
+}
+
+/*khi tro chuot vao bieu tuong home*/
+.breadcrumb i:hover {
+    font-size: x-large;
+    transition: 0.3s ease-in-out;
+}
+
+/*dau > */
+.breadcrumb-item+.breadcrumb-item::before {
+    content: ">";
+}
+
+/*------------------BANNER------------------*/
+.banner__name {
+    width: 100%;
+    height: 200px;
+    background-color: #d8d3d3;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner__name--title {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+/*------------------FORM------------------*/
+/* Style the container */
+.container {
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+/* Style khung nhập text */
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+textarea:focus {
+    outline: none;
+    border: 1.5px solid #f6ab49;
+}
+
+/* style border của khung nhap*/
+input[type="text"]:focus,
+input[type="number"]:focus {
+    outline: none;
+    border: 1.5px solid #f6ab49;
+}
+
+input[type="subject"]:focus {
+    outline: none;
+    border: 1.5px solid #f6ab49;
+}
+
+/* label: name, email, province, message */
+label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Submit btn*/
+.btn--submit {
+    background-color: #aaa;
+    padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.submit {
+    text-align: center;
+    margin-bottom: 5%;
+    margin-top: 2%;
+}
+
+.btn--submit:hover {
+    background-color: #f6ab49;
+    transition: 0.2s;
+    /*màu bóng btn*/
+    box-shadow: 0 0 10px 0 #f6ab49;
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+
+    .col-25,
+    .col-75,
+    input[type="submit"] {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}

@@ -1,0 +1,253 @@
+/* .row{
+    margin-left: 0%;
+    margin-right: 0%;
+} */
+body{
+    overflow: auto;
+    overflow-x: hidden;
+    /* max-width: 100%; */
+}
+a {
+    text-decoration: none;
+    color: inherit;
+    /* color: black; */
+}
+a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+/*banner*/
+#banner {
+    width: 100%;
+}
+/*Thanh dieu huong*/
+.breadcrumb {
+    font-size: larger;
+    background-color: white;
+    cursor: pointer;
+}
+/*color chu + icon truoc khi tro chuot*/
+.breadcrumb a {
+    color: #4caf50;
+}
+/*khi tro chuot*/
+.breadcrumb a:hover {
+    font-weight: bold;
+}
+/*khi tro chuot vao bieu tuong home*/
+.breadcrumb i:hover {
+    font-size: x-large;
+}
+/*icon home*/
+.breadcrumb i {
+    font-size: larger;
+}
+/*dau > */
+.breadcrumb-item + .breadcrumb-item::before {
+    content: ">";
+}
+
+/* search button*/
+input[type="text"]:focus {
+    border-color: #aaa;
+    box-shadow: 0 0 8px 0 #aaa;
+}
+.inputWithIcon input[type="text"] {
+    padding-left: 40px;
+}
+.inputWithIcon input {
+    padding-right: 25%;
+}
+.inputWithIcon {
+    position: relative;
+}
+.inputWithIcon i {
+    position: absolute;
+    left: 0;
+    top: 2px;
+    padding: 9px 8px;
+    color: #aaa;
+}
+.inputWithIcon input[type="text"] + i {
+    color: #aaa;
+}
+#searchbtn:focus {
+    outline-color: #aaa;
+}
+#searchbtn {
+    border-radius: 50px;
+}
+
+/* Categorties */
+.categorties {
+    cursor: pointer;
+}
+.titleCategorties {
+    font-size: x-large;
+}
+.contentCategorties {
+    font-size: large;
+    margin-left: 3%;
+}
+.content:hover {
+    color: orangered;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* categorties selectbox */
+#selectboxcategories {
+    border-radius: 30px;
+    border: 1px solid;
+}
+.small {
+    font-size: 0.9em;
+}
+.custom-dropdown select {
+    background-color: #fff;
+    color: #aaa;
+    font-size: inherit;
+    padding: 0.4em;
+    padding-right: 40%;
+    border: 0;
+    margin: 0;
+    border-radius: 3px;
+    text-indent: 0.01px;
+    text-overflow: "";
+}
+/*  Custom dropdown arrow */
+.custom-dropdown::after {
+    height: 1em;
+    font-size: 0.625em;
+    line-height: 1;
+    right: 1.2em;
+    top: 50%;
+    margin-top: -0.5em;
+}
+#selectboxcategories:focus {
+    outline-color: #aaa;
+}
+/* categorties mobile duoi 600px*/
+.small {
+    display: none;
+}
+
+/*Trending product */
+.trending {
+    cursor: pointer;
+}
+.titleTrending {
+    font-size: x-large;
+}
+
+.trendingproduct {
+    font-size: 14px;
+    flex-wrap: nowrap;
+}
+
+.trendingproduct img {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+}
+
+.trendingname:hover {
+    transform: scale(1.01);
+    text-decoration: underline;
+}
+.contentTrending {
+    margin-left: 3%;
+    word-wrap: break-word;
+}
+.trendingname {
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+}
+.imageradius{
+    border-radius: 5%;
+}
+
+/*  grid-product */
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 10px;
+}
+.product-content {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    text-align: center;
+}
+.radius-product {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 5%;
+    -moz-border-radius: 3%;
+    -webkit-border-radius: 3%;
+}
+/* .radius-product{
+    border-radius: 5%;
+} */
+/* product*/
+.imageproduct:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    transform: scale(1.01);
+}
+/* .imageproduct{
+    border-radius: 10%;
+} */
+.detailproduct {
+    /*can chinh ten product dai*/
+    max-width: 20em;
+    margin-left: 3rem;
+}
+.productname {
+    text-align: center;
+}
+
+/* bo tron anh */
+.imageradius {
+    border-radius: 3%;
+    -moz-border-radius: 3%;
+    -webkit-border-radius: 3%;
+}
+
+/* next page */
+.nextpage1 {
+    text-align: center;
+    margin: 2rem 0 4rem 0;
+}
+.pagination1 {
+    display: inline-block;
+}
+.pagination1 a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+}
+.pagination1 a.active {
+    background-color: #4caf50;
+    color: white;
+    border-radius: 50%;
+    border: 1px solid #4caf50;
+}
+.arrow {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    margin: 1rem 0 0 1rem;
+    cursor: pointer;
+}
+.pagination1 a:hover:not(.active) {
+    background-color: #ddd;
+}

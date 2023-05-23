@@ -1,0 +1,359 @@
+body {
+    font-family: "Montserrat", sans-serif !important;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+/* Top nav bar */
+.navbar__container {
+    width: 100%;
+    margin: 0;
+    position: relative;
+}
+
+.navbar__topnav {
+    height: 70px;
+    background-color: #fac176;
+    padding: 0 30px;
+}
+
+.navbar__topnav-sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    animation: fadding 0.8s linear;
+}
+
+@keyframes fadding {
+    from {
+        height: 30px;
+        opacity: 0;
+    }
+
+    to {
+        height: 70px;
+        opacity: 1;
+    }
+}
+
+.navbar__topnav-main {
+    display: flex;
+    justify-content: space-between;
+}
+
+.topnav__item {
+    display: flex;
+    align-items: center;
+}
+
+.topnav__item img {
+    /* padding-left: 20px; */
+}
+
+.topnav__item-fullscreen {
+    display: none;
+}
+
+.topnav__item__button {
+    padding: 23px 10px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    transition: 0.3s linear;
+}
+
+.topnav__item__button:hover {
+    text-decoration: none;
+    color: white;
+    transition: 0.3s linear;
+}
+
+.topnav__item-icon {
+    font-size: 23px;
+    cursor: pointer;
+}
+
+.topnav__item-burger {
+    cursor: pointer;
+    font-size: 23px;
+}
+
+@media (min-width: 576px) {
+    .topnav__item-fullscreen {
+        display: flex;
+    }
+
+    .topnav__item {
+        flex: 0.3333333;
+    }
+
+    .topnav__item:nth-child(1) {
+        justify-content: start;
+    }
+
+    .topnav__item:nth-child(2) {
+        justify-content: center;
+    }
+
+    .topnav__item:nth-child(3) {
+        justify-content: end;
+    }
+}
+
+/* Feature topnav */
+#topnav__search__input {
+    border-radius: 20px;
+    display: none;
+    width: 0px;
+    padding: 4px 10px;
+    font-size: 14px;
+    background-color: whitesmoke;
+    border: none;
+    opacity: 0.8;
+}
+
+#topnav__search__input:focus {
+    outline: none;
+}
+
+/* Top nav dropdown */
+.product__dropdown__content {
+    margin-top: 20px;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 8px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.product__dropdown__content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.product__dropdown__content a:hover {
+    background-color: #f1f1f1;
+    text-decoration: none;
+}
+
+#topnav__item-product:hover .product__dropdown__content {
+    background-color: #f9f9f9;
+    display: block;
+    animation: dropdown-in 0.8s linear;
+}
+
+@keyframes dropdown-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* ======== Shopping cart dropdown ==== */
+.cart__dropdown {
+    margin-top: 18px;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 8px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    width: 30%;
+    float: right;
+    right: 2%;
+    padding: 20px;
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+/* ====Cart item==== */
+.cart__dropdown__item {
+    display: flex;
+    text-decoration: none;
+    color: inherit;
+    font-size: small;
+}
+
+.cart__dropdown__item:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.cart__dropdown__image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 10px;
+    margin-right: 10px;
+    min-width: 90px;
+}
+
+.cart__dropdown__content {
+    flex-grow: 2;
+    align-self: center;
+}
+
+.cart__dropdown__content-name {
+    /* margin-bottom: 6px; */
+    text-decoration: none;
+    color: inherit;
+    transition: 0.3s linear;
+}
+
+.cart__dropdown__content-price {
+    color: rgb(104, 97, 97);
+}
+
+.cart__dropdown__content-name:hover {
+    color: sandybrown !important;
+    text-decoration: none;
+}
+
+.cart__dropdown__delete {
+    font-size: 20px;
+    font-weight: 300;
+    transition: 0.3s linear;
+    color: gray;
+}
+
+.cart__dropdown__delete:hover {
+    color: sandybrown;
+}
+
+/* end cart item */
+
+.cart__dropdown__selection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.cart__dropdown__button {
+    text-decoration: none;
+    width: 70%;
+    border: 1px solid gray;
+    border-radius: 20px;
+    padding: 5px;
+    margin-bottom: 10px;
+    transition: 0.3s linear;
+    color: inherit;
+}
+
+.cart__dropdown__button:hover {
+    text-decoration: none;
+    background-color: sandybrown;
+    color: white !important;
+    transition: 0.3s linear;
+    border: 1px solid white;
+}
+
+.cart__dropdown__button:last-child {
+    margin-bottom: 0px;
+}
+
+/* ===== End shopping cart dropdown====== */
+
+/* End top navbar */
+
+/* Side navbar */
+.panel {
+    display: none;
+    width: 100%;
+    padding: 0 20px;
+    background-color: white;
+    max-height: 150px;
+    overflow-y: scroll;
+}
+
+.panel-stickey {
+    margin-top: 69px;
+    position: fixed;
+    width: 100%;
+    z-index: 101;
+    animation: panel-fadding 0.8s linear;
+}
+
+@keyframes panel-fadding {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.panel__item {
+    font-weight: 600;
+    padding: 6px 0;
+    display: block;
+    text-decoration: none;
+    color: rgb(102, 91, 91);
+}
+
+.panel__item:hover {
+    text-decoration: none;
+    background-color: whitesmoke;
+    color: black;
+}
+
+.panel__item:nth-child(even) {
+    border-top: 1px solid rgb(110, 104, 104);
+    border-bottom: 1px solid rgb(110, 104, 104);
+}
+
+.panel__item__icon {
+    margin-right: 5px;
+}
+
+/* End sidenav content */
+/* End sidenav */
+
+/* Backdrop */
+.nav-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    content: "";
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-overlay-active {
+    display: block;
+}
+
+.modal-overlay-inactive {
+    display: none;
+}
+
+/* End backdrop */

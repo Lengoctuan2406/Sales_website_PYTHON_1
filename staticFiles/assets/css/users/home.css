@@ -1,0 +1,406 @@
+* {
+    box-sizing: border-box;
+}
+
+/*bỏ phần thừa bên phải*/
+
+/* .row {
+    margin-left: 0;
+    margin-right: 0;
+} */
+body{
+    overflow: auto;
+    overflow-x: hidden;
+    /* max-width: 100%; */
+}
+/* Slideshow container */
+
+.slideshow-container {
+    /* max-width: 1000px; */
+    position: relative;
+    margin: auto;
+}
+
+/* Hide the images by default */
+
+.mySlides {
+    display: none;
+    /* opacity: 0; */
+    animation: mymove 1s linear;
+}
+
+@keyframes mymove {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Next & previous buttons */
+
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+/* Position the "next button" to the right */
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+/* ICON 3 CHẤM */
+
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-flex;
+    transition: background-color 0.6s ease;
+}
+
+.dot-slide {
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: -20px;
+    bottom: 15px;
+}
+
+.active,
+.dot:hover {
+    background-color: #717171;
+}
+
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 5px;
+}
+
+/*===============category banner=================*/
+.category--container {
+    display: flex;
+    align-items: center;
+    -webkit-justify-content: center;
+    /* Safari */
+    justify-content: center;
+}
+
+.category--item {
+    padding: 10px;
+}
+
+.category--item img {
+    max-width: 80%;
+    height: auto;
+    display: block;
+    margin: auto;
+}
+
+.category--item img:hover {
+    cursor: pointer;
+    transform: scale(1.01);
+}
+
+/* ===============Supplier Div=========== */
+.supplier--container {
+    display: flex;
+    align-items: center;
+    margin: 20px;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+.supplier--photo {
+    padding: 10px;
+}
+
+.supplier--photo img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.supplier--photo img:hover {
+    cursor: pointer;
+    transform: scale(1.01);
+}
+
+.supplier--info {
+    padding: 10px 10px 10px 20px;
+    max-width: 750px;
+}
+
+.supplier--info h3 {
+    color: #e75115;
+    text-decoration: double;
+}
+
+
+/* ===============8 trending product photos=========== */
+.products__grid--container {
+    display: grid;
+    gap: 15px 70px;
+    justify-content: center;
+    grid-template-columns: repeat(4, auto);
+    grid-template-rows: auto auto auto auto;
+    padding: 0 50px;
+}
+
+.products__grid--item {
+    text-align: center;
+}
+
+.products__grid--item:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.products__grid--container img {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+}
+
+.products__grid--item img:hover {
+    filter: grayscale(0);
+    transform: scale(1.01);
+    cursor: pointer;
+}
+
+.product-name {
+    padding: 15px 0 5px;
+}
+
+/*style underline categories*/
+
+#categories {
+    margin-bottom: 1rem;
+}
+
+/*style underline*/
+
+.box-e {
+    position: relative;
+    display: block;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.custom-underline {
+    position: relative;
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.custom-underline,
+.custom-underline:hover,
+.custom-underline:focus,
+.custom-underline:active {
+    color: rgb(17, 1, 1);
+    text-decoration: none;
+}
+
+.custom-underline::after {
+    content: "";
+    position: absolute;
+}
+
+.box-e .custom-underline::after {
+    top: 85%;
+    height: 2px;
+    width: 0%;
+    left: 5%;
+    background-color: rgba(247, 25, 25, 0.6);
+    transition: 0.5s ease all 0.2s;
+}
+
+.box-e:hover .custom-underline::after {
+    width: 90%;
+    transition: 0.3s ease all;
+}
+
+/*bo tròn ảnh*/
+
+.imageradius {
+    border-radius: 3%;
+    -moz-border-radius: 3%;
+    -webkit-border-radius: 3%;
+}
+
+/*price*/
+
+.product-price {
+    margin-top: -10px;
+}
+
+/*'Show All' Button*/
+
+.show-button {
+    background-color: rgb(187, 186, 186);
+    border: 0 solid #e2e8f0;
+    border-radius: 3rem;
+    box-sizing: border-box;
+    color: #0d172a;
+    cursor: pointer;
+    display: inline-block;
+
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1;
+    padding: 20px 60px;
+    text-align: center;
+    text-decoration: none #0d172a solid;
+    transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0px 1px 2px rgba(166, 175, 195, 0.25);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    /* margin-left: 45%; */
+}
+
+.show-button:hover {
+    background-color: #1e293b;
+    color: #fff;
+}
+
+.show-button a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/*===============sale off banner=================*/
+.saleoff--container {
+    display: flex;
+    align-items: center;
+    -webkit-justify-content: center;
+    /* Safari */
+    justify-content: center;
+    margin: 20px;
+}
+
+.saleoff--item {
+    padding: 25px;
+}
+
+.saleoff--item img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: auto;
+}
+
+.saleoff--item img:hover {
+    cursor: pointer;
+    transform: scale(1.01);
+}
+
+
+/* ===============our partnership=========== */
+
+/*Style Partnership*/
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    padding: 10px;
+}
+.partner-logo {
+    border-radius: 5px;
+    text-align: center;
+}
+
+.partner-logo img {
+    width: 185px;
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.partner-logo img:hover {
+    cursor: pointer;
+    transform: scale(1.01);
+}
+
+
+
+/* ===============Follow Us=========== */
+
+.follow-us {
+    background-color: #fac176;
+}
+
+.follow-us p {
+    padding: 1rem 0 1rem;
+}
+
+.follow-photos {
+    background-color: #d1d5db;
+    margin-top: -10px;
+    width: 100%;
+    display: flex;
+}
+
+.follow-photos img {
+    transition: transform 0.5s, filter 1.5s ease-in-out;
+    flex-direction: column;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.text {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.follow-photos img:hover {
+    filter: grayscale(0);
+    transform: scale(1.01);
+}
+
+.follow-content {
+    width: 25%;
+    height: fit-content;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+

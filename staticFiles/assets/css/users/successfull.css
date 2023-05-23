@@ -1,0 +1,45 @@
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* ===============Supplier Div=========== */
+.notification--container {
+    display: flex;
+    align-items: center;
+    margin: 20px;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+.notification--photo {
+    padding: 10px;
+}
+
+.notification--photo img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.notification--photo img:hover {
+    cursor: pointer;
+    transform: scale(1.01);
+}
+
+.notification--paragraph img {
+    max-width: 550px;
+    max-height: 250px
+}
+
+.notification--paragraph img:hover {
+    cursor: pointer;
+    transform: scale(1.01);
+}
+
+
+@media only screen and (max-width: 1230px) {
+    .notification--container {
+        flex-wrap: wrap;
+    }
+}

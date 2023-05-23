@@ -1,0 +1,169 @@
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+body{
+    overflow: auto;
+    overflow-x: hidden;
+    /* max-width: 100%; */
+}
+.banner__name {
+    width: 100%;
+    height: 200px;
+    background-color: #eeeeee; /* mau background banner */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.banner__name--size {
+    font-size: x-large;
+    font-weight: 600;
+}
+/* body checkout */
+.checkout__page {
+    margin-top: 3%;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.section__title {
+    font-size: x-large;
+    font-weight: bold;
+    margin-bottom: 3%;
+}
+
+/* setting input text*/
+input[type="text"] {
+    width: 100%;
+    padding: 10px 16px;
+    border: 1px solid #aaa; /* mau vien border */
+    border-radius: 4px;
+}
+input[type="text"]:focus {
+    outline: none;
+    border: 2px solid #f6ab49; /* mau vien border khi click vao */
+}
+
+/* input email */
+.input__field {
+    margin-bottom: 16px;
+}
+
+.input__field__title {
+    margin-bottom: 1%;
+    font-size: large;
+}
+
+/* login */
+.login_account {
+    text-align: right;
+    padding-top: 1%;
+}
+#login {
+    color: #f6ab49; /* mau chu */
+    padding-right: 2%;
+    transition: 0.2s linear;
+}
+#login:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* proince Selector */
+.input__field__selector {
+    margin-top: 1%;
+    width: 100%;
+    padding: 10px 16px;
+    border: 1px solid #aaa; /* mau vien border */
+    border-radius: 4px;
+    background-color: #f1f1f1; /* mau cua select province/city */
+}
+.input__field__selector:focus {
+    outline: none;
+    border: 2px solid #f6ab49; /* mau vien select khi click */
+}
+.input__field__selector:hover {
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+/* note input */
+textarea {
+    width: 100%;
+    height: 150px;
+    padding: 10px 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc; /* mau vien boder note input */
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+}
+textarea:focus {
+    outline: none;
+    border: 2px solid #f6ab49; /* mau vien khi click vao */
+}
+
+/* boder chung cua your order */
+.border__order {
+    border: 2px solid #ccc; /* mau vien border cua your order */
+    width: 100%;
+    padding: 20px 20px;
+}
+
+/* ke ngang giua cac div */
+.line {
+    margin-top: 4%;
+    margin-bottom: 4%;
+}
+
+.body__order__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.body__order__product__name {
+    width: 50%;
+}
+
+/* loai shipping */
+.body_ordershipping__type {
+    color: #aaa; /*  mau chu cua loai shipping*/
+}
+
+/* dong total */
+.body__ordertotal {
+    margin-top: 5%;
+}
+/* gia tong cong */
+.body__ordertotal__total {
+    font-size: x-large;
+}
+
+/* dong Your personal data will.... */
+.body__order__remind {
+    text-align: justify;
+    font-size: small;
+    margin-bottom: 5%;
+}
+
+/* button place order */
+.placeorder--btn {
+    background-color: #aaa; /* mau backgound btn cua place order */
+    color: #fff; /* mau chu cua btn place order */
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: larger;
+    width: 100%;
+}
+.placeorder {
+    margin-bottom: 5%;
+    margin-top: 2%;
+}
+.placeorder--btn:hover {
+    background-color: #f6ab49; /* mau backgound btn cua placeorder khi hover */
+    transition: 0.2s;
+    box-shadow: 0 0 20px 0 #f6ab49; /* mau bong btn khi hover */
+    opacity: 0.8;
+}

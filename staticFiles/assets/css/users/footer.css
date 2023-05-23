@@ -1,0 +1,36 @@
+.first__footer{
+    padding-top: 2rem;
+}
+.body__footer{
+     cursor: default;
+}
+.option__footer:hover{
+    cursor:pointer;
+    text-decoration: underline;
+    transition: .2s;
+}
+
+.copyright__meow{
+    cursor: pointer;
+}
+
+.copyright__page{
+    text-align: right;
+    font-weight: bold;
+    color: #aaa;
+}
+
+#copyright__page--hover:hover{
+    color: black;
+    cursor:pointer; 
+    transition: .2s;
+}
+
+@media only screen and (max-width: 650px){
+    .first__footer {
+        text-align: center;
+    }
+    .copyright__page{
+        text-align: left;
+    }
+}

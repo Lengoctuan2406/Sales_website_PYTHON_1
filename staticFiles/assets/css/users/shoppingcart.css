@@ -1,0 +1,315 @@
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.banner {
+    width: 100%;
+    height: 200px;
+    background-color: #eeeeee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: x-large;
+}
+
+/*Thanh dieu huong*/
+.breadcrumb {
+    font-size: large;
+    background-color: white;
+    cursor: pointer;
+    margin-bottom: 3%;
+    display: flex;
+    align-items: center;
+}
+
+/*color chu + icon truoc khi tro chuot*/
+.breadcrumb a {
+    color: #4caf50;
+}
+
+/*khi tro chuot*/
+.breadcrumb a:hover {
+    font-weight: bold;
+}
+
+/*icon home*/
+.breadcrumb i {
+    font-size: large;
+    transition: 0.3s ease-in-out;
+}
+
+/*khi tro chuot vao bieu tuong home*/
+.breadcrumb i:hover {
+    font-size: x-large;
+    transition: 0.3s ease-in-out;
+}
+
+/*dau > */
+.breadcrumb-item + .breadcrumb-item::before {
+    content: ">";
+}
+
+.cart__container {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+/* tieu de */
+.cart {
+    font-size: medium;
+    font-weight: bold;
+    background-color: #fac176;
+}
+
+.cart__title {
+    display: flex;
+    justify-content: center;
+}
+
+/* product (anh va checkbox) */
+.product__set {
+    margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.product__set--image {
+    width: 160px;
+    height: 130px;
+    object-fit: contain;
+    border-radius: 3%;
+    -moz-border-radius: 3%;
+    -webkit-border-radius: 3%;
+}
+
+.product__set--image:hover {
+    cursor: pointer;
+    transform: scale(1.01);
+}
+
+.product__property {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+    text-decoration: none;
+}
+
+.product__name {
+    text-decoration: none;
+    color: black;
+}
+
+.product__name:hover {
+    text-decoration: underline;
+    color: #fac176;
+}
+
+/* so luong product */
+.product__quanlity {
+    text-align: center;
+    padding-top: 5%;
+}
+
+/* button quanlity */
+.buttons_added {
+    opacity: 1;
+    display: inline-block;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    white-space: nowrap;
+    vertical-align: top;
+    cursor: pointer;
+    margin-right: 3%;
+}
+
+.is-form {
+    overflow: hidden;
+    position: relative;
+    background-color: #f9f9f9;
+    /* background cua button */
+    height: 2.2rem;
+    width: 1.9rem;
+    padding: 0;
+    border: 1px solid #ddd;
+    /* mau vien btn */
+}
+
+.is-form:focus,
+.input-text:focus {
+    outline: none;
+}
+
+/* nut - */
+.is-form.minus {
+    border-radius: 4px 0 0 4px;
+}
+
+.is-form.minus:hover {
+    cursor: pointer;
+    background-color: #ff3f55;
+    /* mau vien btn - khi hover */
+    box-shadow: 0 0 5px 0 #ff3f55;
+    /*  bong btn - khi hover */
+    transition: 0.2s;
+}
+
+/* nut + */
+.is-form.plus {
+    border-radius: 0 4px 4px 0;
+}
+
+.is-form.plus:hover {
+    cursor: pointer;
+    background-color: #93d84a;
+    /* mau vien btn + khi hover */
+    box-shadow: 0 0 5px 0 #93d84a;
+    /*  bong btn + khi hover */
+    transition: 0.2s;
+}
+
+/* quanlity  */
+.input-qty {
+    background-color: #fff;
+    /* background btn so  */
+    height: 2.2rem;
+    text-align: center;
+    font-size: 1rem;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0;
+    border-top: 1px solid #ddd;
+    /* vien tren */
+    border-bottom: 1px solid #ddd;
+    /* vien duoi */
+    border-left: 0;
+    border-right: 0;
+    outline: none;
+}
+
+.input-qty::-webkit-outer-spin-button,
+.input-qty::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* icon bin */
+.btn__bin {
+    color: #aaa !important;
+    /* mau btn bin */
+    text-align: center;
+}
+
+.btn__bin:hover {
+    font-size: large;
+    color: red !important;
+    /* mau btn bin khi hover */
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+/* btn continue shopping va clear cart*/
+.btn__main {
+    background-color: #aaa;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    text-align: center;
+    color: white !important;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+    outline: none;
+    border: 0;
+    cursor: pointer;
+}
+
+/* Container cho button card */
+.btn__cart {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: end;
+}
+
+.btn__cart a {
+    color: inherit;
+}
+.btn__cart a:hover {
+    text-decoration: none;
+}
+
+.btn__main:hover {
+    text-decoration: none !important;
+    background-color: #f6ab49;
+    /* mau background btn clear khi hover */
+    transition: 0.2s;
+    color: #fff !important;
+    outline: none;
+    box-shadow: 0 0 20px 0 #f6ab49;
+    /* mau bong btn clear khi hover */
+}
+
+/* table cart total */
+.carttotal {
+    margin-top: 2%;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+}
+
+.continue--btn {
+    margin-right: 1rem;
+}
+
+@media only screen and (max-width: 600px) {
+    .cart__delete {
+        display: none;
+    }
+
+    .cart__product {
+        text-align: center;
+    }
+
+    .cart__name {
+        display: none;
+    }
+
+    .cart {
+        display: none;
+    }
+
+    .checkbox__delete {
+        text-align: center;
+    }
+
+    .product__set {
+        text-align: center;
+    }
+
+    .product__property {
+        margin-bottom: 1rem;
+    }
+
+    /* btn continue */
+    .overlay__btn {
+        margin-bottom: 5%;
+        cursor: pointer;
+        /* margin-left: 12%; */
+    }
+
+    .btn__cart {
+        margin-bottom: 1%;
+        display: flex;
+        align-items: center;
+        flex-flow: column;
+    }
+
+    .continue--btn {
+        margin-right: 0rem;
+    }
+}
