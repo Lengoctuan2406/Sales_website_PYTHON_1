@@ -1,6 +1,6 @@
-{% extends "base_user_2.html" %}
+{% extends "base_user_1.html" %}
 {% block script %}
-{% if msg %}
+{% if(msg != '') %}
 <script>alert('{{ msg }}');</script>
 {% endif %}
 {% endblock script %}
@@ -54,7 +54,6 @@
             </div>
         </a>
     </div>
-    <!-- suppliers information-->
     <div class="supplier--container">
         <div class="supplier--photo">
             <img class="imageradius" style="max-width: 800px;" src="/staticFiles/assets/img/others/slide2.png" alt="supplier-photo">
@@ -67,49 +66,33 @@
             </p>
         </div>
     </div>
-    <!--Trending Products-->
     <div id="trendingProducts">
         <p class="h2 text-center">Trending Products</p>
     </div>
-
     <div class="row ml-0 mr-0 justify-content-center" id="categories">
-
-        <?php
-        $query_trending_type = mysqli_query($con, "SELECT product_types.product_type_id, product_type_name FROM count_sales, products, product_types WHERE count_sales.product_id=products.product_id AND products.product_type_id=product_types.product_type_id ORDER BY count_sale DESC LIMIT 3;");
-        while ($row = mysqli_fetch_array($query_trending_type)) {
-            ?>
+        {% for array in arrays_product_hot %}
             <div class="box-e col col-lg-2">
-                <a href="page_category.php?product_type_id=<?php echo htmlentities($row['product_type_id']); ?>" class="custom-underline"><?php echo htmlentities($row['product_type_name']); ?></a>
+                <a href="/_users/page_category/{{ array.product_type_id }}" class="custom-underline">{{ array.product_type_name }}</a>
             </div>
-        <?php } ?>
+        {% endfor %}
     </div>
-
-    <!--Product Photos-->
     <div class="products__grid--container">
-        <?php
-        $infor_product = "products.product_id, product_name, product_price, product_image_1, discount";
-        $query_products = mysqli_query($con, "SELECT " . $infor_product . " FROM products, count_sales, product_types, coupons WHERE products.product_type_id=product_types.product_type_id AND product_types.coupon_id=coupons.coupon_id AND count_sales.product_id=products.product_id ORDER BY count_sale DESC LIMIT 3;");
-        while ($row = mysqli_fetch_array($query_products)) {
-            ?>
-            <a style="color: rgb(22, 22, 22)" href="product_detail.php?product_id=<?php echo htmlentities($row['product_id']); ?>">
-                <img class="imageradius" src="/staticFiles/assets/img/image_products/<?php echo htmlentities($row['product_image_1']); ?>" alt="product1">
-                <p class="h6 text-center product-name"><?php echo htmlentities(substr($row['product_name'], 0, 25)); ?>...</p>
+        {% for array in arrays_product_hot_detail %}
+            <a style="color: rgb(22, 22, 22)" href="/_users/product_detail/{{ array.product_id }}">
+                <img class="imageradius" src="/staticFiles/assets/img/image_products/{{ array.product_image_1 }}" alt="product1">
+                <p class="h6 text-center product-name">{{ array.product_name }}...</p>
                 <p class="h6 text-center product-price">
-                    <del style="margin-right: 4px">$<?php echo htmlentities($row['product_price']); ?></del>
-                    <strong>$<?php echo htmlentities(round($row['product_price'] - ($row['product_price'] * ($row['discount'] / 100)), 2)); ?></strong>
+                    <del style="margin-right: 4px">${{ array.product_price }}</del>
+                    <strong>${{array.product_price_total}}</strong>
                 </p>
             </a>
-        <?php } ?>
+        {% endfor %}
     </div>
-
-    <!--'Show All' Button-->
     <div class="row justify-content-center" id="show-button">
         <button class="show-button" role="button">
-            <a href="page_product.php?next_page=0">Show all</a>
+            <a href="/_users/page_product/0">Show all</a>
         </button>
     </div>
-
-    <!-- sale off banner -->
     <div class="saleoff--container">
         <div class="saleoff--item">
             <img class="imageradius" src="/staticFiles/assets/img/others/sale-off-1.jpg" alt="saleoff1">
@@ -118,13 +101,10 @@
             <img class="imageradius" src="/staticFiles/assets/img/others/sale-off-2.png" alt="saleoff2">
         </div>
     </div>
-
-    <!--OUR PARTNERS-->
     <div id="partners">
         <p class="h2 text-center">Our Partners</p>
         <p class="h7 text-center">Vision, commitment, partnership</p>
     </div>
-
     <div class="grid-container partner-photos">
         <div class="col partner-logo">
             <img src="/staticFiles/assets/img/others/logo1.png" alt="logo1">
@@ -154,7 +134,6 @@
             <img src="/staticFiles/assets/img/others/logo8.png" alt="logo8">
         </div>
     </div>
-    <!--follow us-->
     <br>
     <div class="follow-us">
         <p class="h4 text-center">FOLLOW US ON FACEBOOK</p>
@@ -182,51 +161,33 @@
                         $('#close-top').css('display', 'inline-block');
                         $(".panel").slideToggle();
                     });
-
                     $('#close-top').click(() => {
                         $('#burger-top').css('display', 'inline-block');
                         $('#close-top').css('display', 'none');
                         $(".panel").slideToggle();
                     });
-
-                    // Shopping cart dropdown
                     $('#topnav__item__cart').click(() => {
                         $('.cart__dropdown').slideDown();
-
                     });
-
                     $(document).click(function (e) {
                         if ($(e.target).is('.cart__dropdown, #topnav__item__cart *'))
                             return;
                         $('.cart__dropdown').slideUp();
                     });
-
-
-                    // $('#topnav__item__cart').click(() => {
-                    //     $('.cart__dropdown').slideUp();
-                    // })
-
-                    //Sticky navbar
                     const navbarOffset = $('.navbar__topnav').offset();
                     window.onscroll = function () {
                         StickNavBar(navbarOffset.top)
                     };
-
-                    // console.log(offset.top);
                 });
-
                 function StickNavBar(navbarOffset) {
                     if (window.pageYOffset >= 80) {
                         $('.navbar__topnav').addClass('navbar__topnav-sticky ');
                         $(".panel").addClass('panel-stickey');
-
                     } else {
                         $('.navbar__topnav').removeClass('navbar__topnav-sticky ');
                         $(".panel").removeClass('panel-stickey');
-
                     }
                 }
-
                 function RemoveDropDownItem(id) {
                     $.ajax({
                         url: '/cart/remove/' + id,
@@ -235,14 +196,12 @@
                         RemoveItemInCart(response);
                     });
                 }
-
                 function RemoveItemInCart(response) {
                     var newDropDownItems = $('.cart__dropdown__list', $($.parseHTML(response)));
                     if (newDropDownItems) {
                         $('.cart__dropdown__list').empty();
                         $('.cart__dropdown__list').append(newDropDownItems);
                     }
-
                     var newCartItems = $('#changing-cart', $($.parseHTML(response)));
                     if (newCartItems) {
                         $('#changing-cart').empty();

@@ -1,0 +1,182 @@
+{% extends "base_user_1.html" %} 
+{% block stylesheet %}
+<link rel="stylesheet" href="/staticFiles/assets/css/users/footer.css" />
+<link rel="stylesheet" href="/staticFiles/assets/css/users/header.css" />
+<link rel="stylesheet" href="/staticFiles/assets/css/users/product_detail.css" />
+{% endblock stylesheet %} 
+{% block title %}
+<title>Product Detail</title>
+{% endblock title %} 
+{% block body %}
+<body>
+        <nav aria-label="breadcrumb breadcrumb--container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item ml-5"><a href="/_users/index"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                <li class="breadcrumb-item"><a href="page_product.php?next_page=0">Products</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ arrays_product_detail.product_name }}</li>
+            </ol>
+        </nav>
+        <div class="prod-content container-fluid">
+            <div class="prod-content__row row justify-content-center">
+                <div class="mini-photos__warrper col-md-2">
+                    <img id="slideLeft" class="arrow" src="/staticFiles/assets/img/others/arrow-left.png">
+                    <img id="slideTop" class="arrow" src="/staticFiles/assets/img/others/arrow-top.png">            
+                    <div class="mini-photos__row  ">
+                        {% if arrays_product_detail.product_image_1!='' %}
+                            <div class="mini-photo__col ">
+                                <img class="thumbnail active" src="/staticFiles/assets/img/image_products/{{ arrays_product_detail.product_image_1 }}" alt="">
+                            </div>
+                        {% endif %}
+                        {% if arrays_product_detail.product_image_2!='' %}
+                            <div class="mini-photo__col ">
+                                <img class="thumbnail active" src="/staticFiles/assets/img/image_products/{{ arrays_product_detail.product_image_2 }}" alt="">
+                            </div>
+                        {% endif %}
+                        {% if arrays_product_detail.product_image_3!='' %}
+                            <div class="mini-photo__col ">
+                                <img class="thumbnail active" src="/staticFiles/assets/img/image_products/{{ arrays_product_detail.product_image_3 }}" alt="">
+                            </div>
+                        {% endif %}
+                    </div>
+                    <img id="slideRight" class="arrow" src="/staticFiles/assets/img/others/arrow-right.png">
+                    <img id="slideBottom" class="arrow" src="/staticFiles/assets/img/others/arrow-bottom.png">
+                </div>
+                <div class="prod-content__col--big col-md-6 ">
+                    <img class="big-photo--imageradius featured" src="/staticFiles/assets/img/image_products/{{ arrays_product_detail.product_image_1 }}" />
+                </div>
+                <div class="product-desc__col col-md-4">
+                    <p class="product-desc--name h5"> <strong>{{ arrays_product_detail.product_name }}</strong> </p>
+                    <del class="h7">${{ arrays_product_detail.product_price }}</del>
+                    <strong class="product-desc--price  ">${{ arrays_product_detail.product_price_total }}</strong>
+                    <div class="product-desc--detail">
+                        <p class="h7">{{ arrays_product_detail.product_description }}...</p>
+                    </div>
+                    {% if arrays_product_detail.product_quantity != 0 %}
+                        <form method="POST" action="/_users/product_detail_add_cart">
+                            <input type="hidden" name="product_id" value="{{ arrays_product_detail.product_id }}">
+                            <div>
+                                <div class="buttons_added">
+                                    <input class="minus is-form" type="button" value="-" onclick="DecreaseQuantity()">
+                                    <input aria-label="quantity" name="cart_quantity" class="input-qty" max="{{ arrays_product_detail.product_quantity }}" min="1" value="1" type="number">
+                                    <input class="plus is-form" type="button" value="+" onclick="IncreaseQuantity()">
+                                </div>
+                            </div>
+                            <br>
+                            <button type="submit" name="add" value="add" class="btn-product btn--addCart">Add to cart</button>
+                            <!-- <button type="submit" name="checkout" value="checkout" class="btn-product btn--buyNow">Buy Now</button> -->
+                        </form>
+                    {% else %}
+                        <div class="product-desc--category">
+                            <p class="product-desc__h7 h7">
+                                <strong>The product is out of stock</strong>
+                            </p>
+                        </div>
+                    {% endif %}
+                    <div class="product-desc--category">
+                        <p class="product-desc__h7 h7">
+                            <strong>Category:</strong>
+                            <span class="product-desc__h7--name">{{ arrays_product_detail.product_type_name }}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="product-detail__row row mt-5 ml-4">
+            <div class="product-detail__col--des col col-sm-9">
+                <div class="product-detail--title">
+                    <h4>Product Description</h5>
+                </div>
+                <div class="product-detail--desc">
+                    {{ arrays_product_detail.product_description_all }}
+                </div>
+            </div>
+            <div class=" advertise bouncing col col-md-3">
+                <img src="/staticFiles/assets/img/image_products/{{ arrays_product_detail.product_image_1 }}" alt="">
+            </div>
+        </div>
+        <div class="related-prod">
+            <div class="related-prod__h3">
+                <p class="h3 text-center">Related Products</p>
+            </div>
+            <div class="related-prod__row row justify-content-center">
+                {% for array in arrays_product_related %}
+                    <div class="row">
+                        <a href="/_users/product_detail/{{ array.product_id }}" class="related-prod__col col">
+                            <img src="/staticFiles/assets/img/image_products/{{ array.product_image_1 }}" alt="">
+                            <p class="related-prod__h6--name h6 text-center">{{ array.product_name }}</p>
+                            <p class="related-prod__h6--price h6 text-center"><del>${{ array.product_price }}</del> <strong>${{ array.product_price_total }}</strong></p>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    <script>
+        let quantity = $(".input-qty").attr("value");
+        const DecreaseQuantity = () => {
+            if (Number(quantity) - 1 > 0) {
+                quantity = Number(quantity) - 1;
+                $(".input-qty").attr("value", quantity);
+            }
+        };
+        const IncreaseQuantity = () => {
+            quantity = Number(quantity) + 1;
+            $(".input-qty").attr("value", quantity);
+        };
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#burger-top').click(() => {
+                $('#burger-top').css('display', 'none');
+                $('#close-top').css('display', 'inline-block');
+                $(".panel").slideToggle();
+            });
+            $('#close-top').click(() => {
+                $('#burger-top').css('display', 'inline-block');
+                $('#close-top').css('display', 'none');
+                $(".panel").slideToggle();
+            });
+            $('#topnav__item__cart').click(() => {
+                $('.cart__dropdown').slideDown();
+            });
+            $(document).click(function (e) {
+                if ($(e.target).is('.cart__dropdown, #topnav__item__cart *'))
+                    return;
+                $('.cart__dropdown').slideUp();
+            });
+            const navbarOffset = $('.navbar__topnav').offset();
+            window.onscroll = function () {
+                StickNavBar(navbarOffset.top)
+            };
+        });
+        function StickNavBar(navbarOffset) {
+            if (window.pageYOffset >= 80) {
+                $('.navbar__topnav').addClass('navbar__topnav-sticky ');
+                $(".panel").addClass('panel-stickey');
+            } else {
+                $('.navbar__topnav').removeClass('navbar__topnav-sticky ');
+                $(".panel").removeClass('panel-stickey');
+            }
+        }
+        function RemoveDropDownItem(id) {
+            $.ajax({
+                url: '/cart/remove/' + id,
+                type: 'GET'
+            }).done(function (response) {
+                RemoveItemInCart(response);
+            });
+        }
+        function RemoveItemInCart(response) {
+            var newDropDownItems = $('.cart__dropdown__list', $($.parseHTML(response)));
+            if (newDropDownItems) {
+                $('.cart__dropdown__list').empty();
+                $('.cart__dropdown__list').append(newDropDownItems);
+            }
+            var newCartItems = $('#changing-cart', $($.parseHTML(response)));
+            if (newCartItems) {
+                $('#changing-cart').empty();
+                $('#changing-cart').append(newCartItems);
+            }
+        }
+    </script>
+</body>
+{% endblock body %}

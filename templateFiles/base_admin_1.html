@@ -1,0 +1,228 @@
+{% if(msg != '') %}
+<script>alert('{{ msg }}');</script>
+{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link href="/staticFiles/assets/img/others/logo_mini.png" rel="icon">
+        <link href="/staticFiles/assets/others/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link href="/staticFiles/assets/others/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        {% block stylesheet %}
+        <link href="/staticFiles/assets/css/admin/ruang-admin.min.css" rel="stylesheet">
+        {% endblock stylesheet %}
+        {% block title %}
+        <title>Admin - Dashboard</title>
+        {% endblock title %}
+    </head>
+    <body id="page-top">
+        <div id="wrapper">
+            <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/_admin/index">
+                    <div class="">
+                        <img class="navbar-brand brand-logo" src="/staticFiles/assets/img/others/logo_meow.png" style="max-width: 140px; padding-top: 15px; padding-left: 25px;"
+                             alt="">
+                    </div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/_admin/index">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span></a>
+                </li>
+                <hr class="sidebar-divider">
+                <div class="sidebar-heading">
+                    Option
+                </div>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCustomer"
+                       aria-expanded="true" aria-controls="collapseCustomer">
+                        <i class="fas fa-users"></i>
+                        <span>Customer</span>
+                    </a>
+                    <div id="collapseCustomer" class="collapse" aria-labelledby="headingCustomer" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Customer option</h6>
+                            <a class="collapse-item" href="view_customers.php">View Customer</a>
+                            <a class="collapse-item" href="add_customers.php">Add Customer</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEmployee"
+                       aria-expanded="true" aria-controls="collapseEmployee">
+                        <i class="fas fa-user-friends"></i>
+                        <span>Employee</span>
+                    </a>
+                    <div id="collapseEmployee" class="collapse" aria-labelledby="headingEmployee" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Employee option</h6>
+                            <a class="collapse-item" href="view_employees.php">View Employee</a>
+                            <a class="collapse-item" href="add_employees.php">Add Employee</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSupplier"
+                       aria-expanded="true" aria-controls="collapseSupplier">
+                        <i class="fas fa-handshake"></i>
+                        <span>Supplier</span>
+                    </a>
+                    <div id="collapseSupplier" class="collapse" aria-labelledby="headingSupplier" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Supplier option</h6>
+                            <a class="collapse-item" href="view_suppliers.php">View Supplier</a>
+                            <a class="collapse-item" href="add_suppliers.php">Add Supplier</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategory"
+                       aria-expanded="true" aria-controls="collapseCategory">
+                        <i class="fas fa-layer-group"></i>
+                        <span>Category</span>
+                    </a>
+                    <div id="collapseCategory" class="collapse" aria-labelledby="headingCategory" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Category option</h6>
+                            <a class="collapse-item" href="view_categories.php">View Category</a>
+                            <a class="collapse-item" href="add_categories.php">Add Category</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProduct"
+                       aria-expanded="true" aria-controls="collapseProduct">
+                        <i class="fas fa-drumstick-bite"></i>
+                        <span>Product</span>
+                    </a>
+                    <div id="collapseProduct" class="collapse" aria-labelledby="headingProduct" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Product option</h6>
+                            <a class="collapse-item" href="view_products.php">View Product</a>
+                            <a class="collapse-item" href="add_products.php">Add Product</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCoupon"
+                       aria-expanded="true" aria-controls="collapseCoupon">
+                        <i class="fas fa-dollar-sign"></i>
+                        <span>Coupon</span>
+                    </a>
+                    <div id="collapseCoupon" class="collapse" aria-labelledby="headingCoupon" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Coupon option</h6>
+                            <a class="collapse-item" href="view_coupons.php">View Coupon</a>
+                            <a class="collapse-item" href="add_coupons.php">Add Coupon</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrder"
+                       aria-expanded="true" aria-controls="collapseOrder">
+                        <i class="fas fa-shopping-basket"></i>
+                        <span>Order</span>
+                    </a>
+                    <div id="collapseOrder" class="collapse" aria-labelledby="headingOrder" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Order option</h6>
+                            <a class="collapse-item" href="view_orders.php">View Order</a>  
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReport"
+                       aria-expanded="true" aria-controls="collapseReport">
+                        <i class=	"	fas fa-file-alt"></i>
+                        <span>Report</span>
+                    </a>
+                    <div id="collapseReport" class="collapse" aria-labelledby="headingReport" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Report option</h6>
+                            <a class="collapse-item" href="report_revenues.php">Revenue</a>       
+                            <a class="collapse-item" href="report_customers.php">Customer</a>    
+                            <a class="collapse-item" href="report_products.php">Product</a>   
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div id="content-wrapper" class="d-flex flex-column">
+                <div id="content">
+                    <nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top">
+                        <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-search fa-fw"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                     aria-labelledby="searchDropdown">
+                                    <form class="navbar-search">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control bg-light border-1 small" placeholder="What do you want to look for?"
+                                                   aria-label="Search" aria-describedby="basic-addon2" style="border-color: #3f51b5;">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="button">
+                                                    <i class="fas fa-search fa-sm"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>           
+                            <div class="topbar-divider d-none d-sm-block"></div>
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    {% if session['avatar'] != '' %}
+                                    <img class="img-profile rounded-circle" src="/staticFiles/assets/img/avatars/{{ session['avatar'] }}" style="max-width: 60px">
+                                    {% else %}
+                                    <img class="img-profile rounded-circle" src="/staticFiles/assets/img/avatars/empty.png" style="max-width: 60px">
+                                    {% endif %}
+                                    <span class="ml-2 d-none d-lg-inline text-white small">{{ session['account_name'] }}</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/_users/account_page_logout">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Logout
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                    {% block body %}
+                    {% endblock body %}
+                </div>
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">From <a href="" target="_blank">MEOW SHOP</a> with love</span>
+                                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2022</span>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+        <script src="/staticFiles/assets/others/vendor/apexcharts/apexcharts.min.js"></script>
+        <script src="/staticFiles/assets/others/vendor/jquery/jquery.min.js"></script>
+        <script src="/staticFiles/assets/others/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="/staticFiles/assets/others/vendor/jquery-easing/jquery.easing.min.js"></script>
+        <script src="/staticFiles/assets/js/admin/js/ruang-admin.min.js"></script>
+        <script src="/staticFiles/assets/others/vendor/chart.js/Chart.min.js"></script>
+        <script src="/staticFiles/assets/js/admin/chart-area-demo.js"></script>  
+    </body>
+</html>

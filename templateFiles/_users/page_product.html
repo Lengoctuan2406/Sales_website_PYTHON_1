@@ -1,0 +1,219 @@
+{% extends "base_user_1.html" %} {% block stylesheet %}
+<link rel="stylesheet" href="/staticFiles/assets/css/users/footer.css" />
+<link rel="stylesheet" href="/staticFiles/assets/css/users/header.css" />
+<link rel="stylesheet" href="/staticFiles/assets/css/users/page_product.css" />
+{% endblock stylesheet %} 1 {% block title %}
+<title>Page Product</title>
+{% endblock title %} {% block body %}
+<body>
+  <div class=".container-fluid">
+    <div class="shop">
+      <img id="banner" src="/staticFiles/assets/img/others/banner.png" />
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item ml-5">
+            <i class="fas fa-home" aria-hidden="true"></i>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Products</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  <div class="row mt-5 ml-4">
+    <div class="col-sm-3">
+      <div class="ml-2">
+        <div class="inputWithIcon">
+          <div>
+            <form method="post" action="/_users/page_product/0">
+              <input
+                name="keyword"
+                type="text"
+                placeholder="Search..."
+                class="searchbtn py-1 border"
+                id="searchbtn"
+              />
+              <i class="fa fa-search" aria-hidden="true"></i>
+              <button name="search" type="submit" hidden></button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="categorties ml-2">
+        <div class="titleCategorties mb-3 font-weight-bold">Categories</div>
+        <div class="contentCategorties">
+            {% for array in arrays_category_all %}
+          <div>
+            <a href="/_users/page_category/{{ array.product_type_id }}"
+              class="content mb-2" >{{ array.product_type_name }}</a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <!--Trending product-->
+      <div class="trending mt-4 ml-2">
+        <div class="titleTrending mb-3 font-weight-bold">Trending product</div>
+        {% for array in list_top_3 %}
+        <div class="trendingproduct name">
+          <div class="trendingname">
+            <a
+              href="/_users/product_detail/{{ array.product_id }}"
+            >
+              <div>
+                <div>
+                  <img
+                    class="imageradius"
+                    src="/staticFiles/assets/img/image_products/{{ array.product_image_1 }}"
+                  />
+                </div>
+              </div>
+              <div class="contentTrending">
+                <div>
+                    {{ array.product_name }}...
+                </div>
+                <del class="margimobile">${{ array.product_price }}</del>
+                <strong>${{ array.product_price_total }}</strong>
+              </div>
+            </a>
+          </div>
+          <hr class="my-3" />
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!---product-->
+    <div class="col-sm-9">
+      <br /><br />
+      <div class="grid-container">
+        {% if page != -1 %} 
+        {% for array in arrays_product_search %}
+        <a
+          href="/_users/product_detail/{{ array.product_id }}"
+          class="product-content"
+        >
+          <div class="imageproduct text-center">
+            <img
+              class="radius-product"
+              src="/staticFiles/assets/img/image_products/{{ array.product_image_1 }}"
+            />
+            <div class="productname text-center mt-2">
+                {{ array.product_name }}
+            </div>
+          </div>
+          <div>
+            <del class="margimobile">${{ array.product_price }}</del>
+            <strong>${{ array.product_price_total }}</strong>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+      <div style="text-align: center">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" href="/_users/page_product/{{ page-1 }}">Previous</a>
+          </li>
+          {% if page > 0 %} 
+          <li class="page-item">
+            <a class="page-link" href="/_users/page_product/{{ page-1 }}">{{ page }}</a>
+          </li>
+          {% endif %}
+          <li class="page-item active">
+            <a class="page-link" href="/_users/page_product/{{ page }}">{{ page+1 }}</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="/_users/page_product/{{ page+1 }}">{{ page+2 }}</a>
+          </li>
+          {% if page == 0 %} 
+          <li class="page-item">
+            <a class="page-link" href="/_users/page_product/{{ page+2 }}">{{ page+3 }}</a>
+          </li>
+          {% endif %}
+          <li class="page-item">
+            <a class="page-link" href="/_users/page_product/{{ page+1 }}">Next</a>
+          </li>
+        </ul>
+      </div>
+      {% else %} 
+      {% for array in arrays_product_search %}
+      <div class="grid-container">
+        <a href="/_users/product_detail/{{ array.product_id }}"
+          class="product-content">
+          <div class="imageproduct text-center">
+            <img
+              class="radius-product"
+              src="/staticFiles/assets/img/image_products/{{ array.product_image_1 }}"
+            />
+            <div class="productname text-center mt-2">
+                {{ array.product_name }}...
+            </div>
+          </div>
+          <div>
+            <del class="margimobile">${{ array.product_price }}</del>
+            <strong>${{ array.product_price_total }}</strong>
+          </div>
+        </a>1
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  <script>
+    $(document).ready(function () {
+      $("#burger-top").click(() => {
+        $("#burger-top").css("display", "none");
+        $("#close-top").css("display", "inline-block");
+        $(".panel").slideToggle();
+      });
+      $("#close-top").click(() => {
+        $("#burger-top").css("display", "inline-block");
+        $("#close-top").css("display", "none");
+        $(".panel").slideToggle();
+      });
+      $("#topnav__item__cart").click(() => {
+        $(".cart__dropdown").slideDown();
+      });
+      $(document).click(function (e) {
+        if ($(e.target).is(".cart__dropdown, #topnav__item__cart *")) return;
+        $(".cart__dropdown").slideUp();
+      });
+      const navbarOffset = $(".navbar__topnav").offset();
+      window.onscroll = function () {
+        StickNavBar(navbarOffset.top);
+      };
+    });
+    function StickNavBar(navbarOffset) {
+      if (window.pageYOffset >= 80) {
+        $(".navbar__topnav").addClass("navbar__topnav-sticky ");
+        $(".panel").addClass("panel-stickey");
+      } else {
+        $(".navbar__topnav").removeClass("navbar__topnav-sticky ");
+        $(".panel").removeClass("panel-stickey");
+      }
+    }
+    function RemoveDropDownItem(id) {
+      $.ajax({
+        url: "/cart/remove/" + id,
+        type: "GET",
+      }).done(function (response) {
+        RemoveItemInCart(response);
+      });
+    }
+    function RemoveItemInCart(response) {
+      var newDropDownItems = $(
+        ".cart__dropdown__list",
+        $($.parseHTML(response))
+      );
+      if (newDropDownItems) {
+        $(".cart__dropdown__list").empty();
+        $(".cart__dropdown__list").append(newDropDownItems);
+      }
+      var newCartItems = $("#changing-cart", $($.parseHTML(response)));
+      if (newCartItems) {
+        $("#changing-cart").empty();
+        $("#changing-cart").append(newCartItems);
+      }
+    }
+  </script>
+</body>
+{% endblock body %}

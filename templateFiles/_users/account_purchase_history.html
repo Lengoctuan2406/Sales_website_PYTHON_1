@@ -1,0 +1,100 @@
+{% extends "base_user_2.html" %}
+{% block stylesheet %}
+<link rel="stylesheet" href="/staticFiles/assets/css/users/account_page.css">
+{% endblock stylesheet %}
+{% block title %}
+<title>Purchase history</title>
+{% endblock title %}
+{% block body %}
+<div class="row flex-grow col-6">
+    <div class="content-wrapper">
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card card-rounded">
+                <div class="card-body">
+                    <div class="d-sm-flex justify-content-between align-items-start">
+                        <div>
+                            <h4 class="card-title card-title-dash">Purchase History</h4>                    
+                        </div>                  
+                    </div>
+                    {% for array in order_history %}
+                        <hr style="color:brown">
+                        <div class="infor_product mt-3 row">
+                            <div class="col-4">
+                                <div class="id_product">
+                                    History ID: 
+                                    <span href="" class="id_order_input">{{ array.order_id }}</span>
+                                </div>
+                                <div class="Address">
+                                    Address: 
+                                    <span href="" class="address_order_input">{{ array.order_address }}</span>
+                                </div>
+                            </div>     
+                            <div class="col">
+                                <div class="Phone">
+                                    Phone: 
+                                    <span href="" class="phone_order_input">{{ array.order_phone }}</span>
+                                </div>
+                                <div class="Date">
+                                    Date: 
+                                    <span href="" class="Date_order_input">{{ array.date_invoice_order }}</span>
+                                </div>
+                            </div>             
+                        </div>                
+                        <div class="table-responsive  mt-1">
+                            <table class="table select-table">
+                                <thead>
+                                    <tr>                      
+                                        <th>#</th>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for array1 in array.detail_order %}
+                                            <tr>
+                                                <td class="pt-4 pt-3">
+                                                    <h6>{{ array1.count }}</h6>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex ">
+                                                        <img src="/staticFiles/assets/img/image_products/{{ array1.product_image_1 }}" alt="">
+                                                        <div class="pt-3">
+                                                            <h6>{{ array1.product_name }}</h6>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <h6>${{ array1.product_price_total }}</h6>
+                                                </td>
+                                                <td  style="padding-left: 20px;">
+                                                    <h6>{{ array1.order_all_quantity }}</h6>
+                                                </td>
+                                                <td>
+                                                    <h6>${{ array1.product_price_total_quantity }}</h6>
+                                                </td>
+                                            </tr>  
+                                        {% endfor %}
+                                </tbody>
+                            </table>
+                            <hr style="color:Gray">
+                            <div class="row container-fluid">                   
+                                <div class="col" style="text-align: right; font-size:20px;margin-right: 50px;">
+                                    Total:<span>${{ array.total }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">From <a href="https://www.bootstrapdash.com/" target="_blank">MEOW SHOP</a> with love</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2022</span>
+        </div>
+    </footer>  
+</div>
+{% endblock body %}

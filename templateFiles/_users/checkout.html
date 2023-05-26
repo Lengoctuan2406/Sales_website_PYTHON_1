@@ -1,0 +1,145 @@
+{% extends "base_user_1.html" %}
+{% block stylesheet %}
+<link rel="stylesheet" href="/staticFiles/assets/css/users/footer.css"> 
+<link rel="stylesheet" href="/staticFiles/assets/css/users/header.css"> 
+<link rel="stylesheet" href="/staticFiles/assets/css/users/checkout.css"> 
+{% endblock stylesheet %}
+{% block title %}
+<title>Checkout</title>
+{% endblock title %}
+{% block body %}
+<body>  
+    <div class=".container-fluid">
+        <div class="banner">
+            <img src="/staticFiles/assets/img/others/banner-checkout.png" alt="checkout-banner">
+        </div>
+        <form method="post" action="/_users/checkout_check">
+            <div class="row checkout__page">
+                <div class="col-md-6">
+                    <div class="section__title">Bill Detail</div>
+                    <div class="input__field">
+                        <div class="input__field__title">Your name*</div>
+                        <input type="text" name="order_name" placeholder="Your name" value="{{ customer.account_name }}" required>
+                    </div>
+                    <div class="input__field">
+                        <div class="input__field__title">Your email*</div>
+                        <input type="text" value="{{ customer.email }}" disabled>
+                    </div>
+                    <div class="input__field">
+                        <div class="input__field__title">Street Address*</div>
+                        <input type="text" name="order_address" placeholder="Street Address" value="{{ customer.account_address }}">
+                    </div>
+                    <div class="input__field">
+                        <div class="input__field__title">Phone*</div>
+                        <input type="text" name="order_phone" placeholder="Phone" value="{{ customer.phone }}">
+                    </div>
+                    <div class="input__field">
+                        <div class="input__field__title">Order note (optional)</div>
+                        <textarea class="input__field__textarea" name="order_notes" placeholder="Write something"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-5">
+                    <div class="section__title">Your Order</div>
+                    <div class="border__order">
+                        <table class="table table-condensed">
+                            <tr>
+                                <th>Product</th>
+                                <th>Number</th>
+                                <th>Subtotal</th>
+                            </tr>
+                            {% for array in arrays_product_cart_by_account %}
+                                <tr>
+                                    <td>{{ array.product_name }}</td>
+                                    <td>{{ array.cart_quantity }}</td>
+                                    <td>${{ array.product_price_total_cart }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                        <hr class="line">
+                        <div class="body__order__row">
+                            <b>Sub-Total</b>
+                            <div>${{ total }}</div>
+                        </div>
+                        <hr class="line">
+                        <div class="body__order__row">
+                            <b>
+                                <b class="body__ordershipping">SHIPPING</b>
+                                <div class="body_ordershipping__type">COD - Cash On Delivery</div>
+                            </b>
+                            <div>$2</div>
+                        </div>
+                        <hr class="line">
+                        <div class="body__order__row">
+                            <b>TOTAL</b>
+                            <b class="body__ordertotal__total ">${{ total+2 }}</b>
+                        </div>
+                        <hr class="line">
+                        <div>
+                            <input name="order_product_all_id" type="hidden" value="{{ order_product_all_id }}">
+                            <input name="order_all_quantity" type="hidden" value="{{ order_all_quantity }}">
+                        </div>
+                        <div class="placeorder">
+                            <input name="orders" type="submit" value="Place Order" type="submit" class="btn placeorder--btn">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#burger-top').click(() => {
+                $('#burger-top').css('display', 'none');
+                $('#close-top').css('display', 'inline-block');
+                $(".panel").slideToggle();
+            });
+            $('#close-top').click(() => {
+                $('#burger-top').css('display', 'inline-block');
+                $('#close-top').css('display', 'none');
+                $(".panel").slideToggle();
+            });
+            $('#topnav__item__cart').click(() => {
+                $('.cart__dropdown').slideDown();
+            });
+            $(document).click(function (e) {
+                if ($(e.target).is('.cart__dropdown, #topnav__item__cart *'))
+                    return;
+                $('.cart__dropdown').slideUp();
+            });
+            const navbarOffset = $('.navbar__topnav').offset();
+            window.onscroll = function () {
+                StickNavBar(navbarOffset.top)
+            };
+        });
+        function StickNavBar(navbarOffset) {
+            if (window.pageYOffset >= 80) {
+                $('.navbar__topnav').addClass('navbar__topnav-sticky ');
+                $(".panel").addClass('panel-stickey');
+            } else {
+                $('.navbar__topnav').removeClass('navbar__topnav-sticky ');
+                $(".panel").removeClass('panel-stickey');
+            }
+        }
+        function RemoveDropDownItem(id) {
+            $.ajax({
+                url: '/cart/remove/' + id,
+                type: 'GET'
+            }).done(function (response) {
+                RemoveItemInCart(response);
+            });
+        }
+        function RemoveItemInCart(response) {
+            var newDropDownItems = $('.cart__dropdown__list', $($.parseHTML(response)));
+            if (newDropDownItems) {
+                $('.cart__dropdown__list').empty();
+                $('.cart__dropdown__list').append(newDropDownItems);
+            }
+            var newCartItems = $('#changing-cart', $($.parseHTML(response)));
+            if (newCartItems) {
+                $('#changing-cart').empty();
+                $('#changing-cart').append(newCartItems);
+            }
+        }
+    </script>
+</body>
+{% endblock body %}

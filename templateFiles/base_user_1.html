@@ -1,31 +1,104 @@
-{% block script %}
-{% endblock script %}
+{% if(msg != '') %}
+<script>alert('{{ msg }}');</script>
+{% endif %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+        <link href="/staticFiles/assets/img/others/logo_mini.png" rel="icon">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"></head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     {% block stylesheet %}
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <link
-      href="/staticFiles/assets/others/vendor/fontawesome-free/css/all.min.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="/staticFiles/assets/others/vendor/bootstrap/css/bootstrap.min.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link href="/staticFiles/assets/css/users/login.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/staticFiles/assets/css/users/footer.css"> 
+    <link rel="stylesheet" href="/staticFiles/assets/css/users/header.css"> 
+    <link rel="stylesheet" href="/staticFiles/assets/css/users/home.css"> 
     {% endblock stylesheet %}
-  </head>
-  {% block body %}
-  
-  {% endblock body %}
+    {% block title %}
+    <title>Home Page</title>
+    {% endblock title %}
+</head>
+<header>
+  <nav class="navbar__container">
+    <div class="navbar__topnav navbar__topnav-main">
+        <div class="topnav__item topnav__item__logo">
+            <a href="/_users/index">
+                <img class="imageradius" src="/staticFiles/assets/img/others/logo_meow.png" style="max-width: 130px; padding-top: 10px"
+                     alt="product1">
+            </a>
+        </div>
+        <div class="topnav__item topnav__item-fullscreen">
+            <a href="/_users/index" class="topnav__item__button">
+                HOME
+            </a>
+            <div id="topnav__item-product">
+                <a href="" class="topnav__item__button">
+                    PRODUCT
+                </a>
+                <div class="product__dropdown__content">
+                    {% for array in arrays_all_product %}
+                        <a href="/_users/page_category/{{ array.product_type_id }}">{{ array.product_type_name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            <a href="" class="topnav__item__button">
+                CONTACT
+            </a>
+        </div>
+        <div class="topnav__item topnav__item-fullscreen">
+            <input type="text" id="topnav__search__input" />
+            {% if not 'account_id' in session %}
+                <a href="/_users/login" class="topnav__item__button">
+                    LOG IN
+                </a>
+            {% else %}
+                <a href="/_users/account_page" class="topnav__item__button">
+                    Hello {{session['account_name']}}
+                </a> 
+            {% endif %}
+            <div id="topnav__item__cart">
+                <a class="topnav__item__button topnav__item-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+                <div class="cart__dropdown">
+                    {% if 'account_id' in session %}
+                        <div class="cart__dropdown__list">
+                            {% for array in arrays_carts %}
+                                <div class="cart__dropdown__item">
+                                    <img src="/staticFiles/assets/img/image_products/{{ array.product_image_1 }}" class="cart__dropdown__image" alt="" srcset="">
+                                    <div class="cart__dropdown__content">
+                                        <a href="/_users/product_detail/{{ array.product_id }}" class="cart__dropdown__content-name">
+                                            {{ array.product_name }}
+                                        </a>
+                                        <div class="cart__dropdown__content-price">
+                                            {{ array.cart_quantity }}
+                                        </div>
+                                        <div class="cart__dropdown__content-price">
+                                            ${{ array.product_price_total }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                            {% endfor %}
+                        </div> 
+                    {% endif %}
+                    <div class="cart__dropdown__selection">
+                        <a href="/_users/page_carts" class="cart__dropdown__button">View Cart</a>
+                        <a href="/_users/checkout" class="cart__dropdown__button">Checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+</header>
+{% block body %}
+{% endblock body %}
 </html>
