@@ -1,0 +1,86 @@
+{% extends "base_admin_1.html" %}
+{% block title %}
+<title>Customer</title>
+{% endblock title %}
+{% block body %}
+<div class="container-fluid" id="container-wrapper">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">View Customer</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/_admin/index">Home</a></li>
+            <li class="breadcrumb-item">Customer</li>
+            <li class="breadcrumb-item">View Customer</li>
+            <li class="breadcrumb-item active" aria-current="page">Update Customer</li>
+        </ol>
+    </div>         
+    <div class="col-lg-12">
+        <div class="card mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Update Customer</h6>
+            </div>
+            <form class="forms-sample ml-5 mb-3" method="post" action="/_admin/update_customers_update" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="">Customer name</label>
+                                <input type="hidden" name="account_id" value="{{ list_customer_detail.account_id }}">
+                                <input name="account_name" type="text" class="form-control" id="" value="{{ list_customer_detail.account_name }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Email</label>
+                                <input type="text" class="form-control" id="exampleInputAddress" value="{{ list_customer_detail.email }}" disabled>
+                            </div>  
+                            <div class="form-group">
+                                <label for="">Address</label>
+                                <input name="account_address" type="text" class="form-control" id="exampleInputAddress" value="{{ list_customer_detail.account_address }}">
+                            </div>
+                        </div>    
+                        <div class="ml-3 col-4">
+                            <div class="form-group">
+                                <label for="exampleInputPhone">Phone</label>
+                                <input name="phone" type="text" class="form-control" id="exampleInputPhone" value="{{ list_customer_detail.phone }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="birthday">Birthday</label>
+                                <div>
+                                    <input name="date_of_birth" type="text" class="form-control" value="{{ list_customer_detail.date_of_birth }}">    
+                                </div>                
+                            </div>  
+                            <div class="form-group"> Gender
+                                <div class="ml-3 mt-4">           
+                                    {% if list_customer_detail.gender == 'Male' %}
+                                        <input name="gender" type="radio" value="Male" checked/>Male
+                                        <input class="ml-3" name="gender" type="radio" value="Female" />Female
+                                    {% else %}
+                                        <input name="gender" type="radio" value="Male" checked/>Male
+                                        <input class="ml-3"name="gender" type="radio" value="Female" checked/>Female
+                                    {% endif %}
+                                </div>
+                            </div> 
+                            <div class="form-group">
+                                <label for="exampleInputPhone">Status</label>
+                                {% if list_customer_detail.block == 0 %}
+                                    <span class="badge badge-success">Activiti</span>   
+                                {% else %}
+                                    <span class="badge badge-warning">Locked</span>
+                                {% endif %}
+                            </div>
+                        </div>  
+                        <div class="avatar col-3">
+                            {% if list_customer_detail.avatar != '' %}
+                            <img src="/staticFiles/assets/img/avatars/{{ list_customer_detail.avatar }}" width="200" height="200" alt="Your picture">
+                            {% else %}
+                            <img src="/staticFiles/assets/img/avatars/empty.png" width="200" height="200" alt="Your picture">
+                            {% endif %}
+                            <div class="template-demo">
+                                <input type="file" class="btn btn-danger btn-icon-text" name="avatar" style="width: 180px;">
+                            </div>
+                        </div>            
+                    </div>
+                <button name="update" type="submit" class="btn btn-primary me-2">Submit</button>
+                <a href="/_admin/view_customers" class="btn btn-light">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock body %}

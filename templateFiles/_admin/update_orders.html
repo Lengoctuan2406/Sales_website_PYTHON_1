@@ -1,0 +1,124 @@
+{% extends "base_admin_1.html" %}
+{% block title %}
+<title>Order</title>
+{% endblock title %}
+{% block body %}
+<div class="container-fluid" id="container-wrapper">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">View Order</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/_admin/index">Home</a></li>
+            <li class="breadcrumb-item">Order</li>
+            <li class="breadcrumb-item">View Order</li>
+            <li class="breadcrumb-item active" aria-current="page">Update Order</li>
+        </ol>
+    </div>         
+    <div class="col-lg-12">
+        <div class="card mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Update Order</h6>
+            </div>
+            <form class="forms-sample ml-5 mb-3" method="post" action="/_admin/update_orders_update">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>ID Order: </label>
+                                <input type="hidden" name="order_product_all_id" value="{{ list_order_detail.order_product_all_id }}">
+                                <input type="hidden" name="order_all_quantity" value="{{ list_order_detail.order_all_quantity }}">
+                                <input type="hidden" name="order_id" value="{{ list_order_detail.order_id }}">
+                                <a>{{ list_order_detail.order_id }}</a>
+                            </div>
+                            <div class="form-group">
+                                <label>Customer name: </label>
+                                <a>{{ list_order_detail.order_name }}</a>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Address: </label>
+                                <a>{{ list_order_detail.order_address }}</a>
+                            </div>    
+                            <div class="form-group">
+                                <label>Phone: </label>
+                                <a>{{ list_order_detail.order_phone }}</a>
+                            </div>     
+                        </div>    
+                        <div class="ml-3 col-4">
+                            <div class="form-group">
+                                <label>Order Date: </label>
+                                <a>{{ list_order_detail.date_invoice_order }}</a>
+                            </div>                  
+                            <div class="form-group">
+                                <label>Status: </label>
+                                {% if list_order_detail.order_status_id == 3 %}
+                                <a>Completely</a>
+                                {% elif list_order_detail.order_status_id == 4 %}
+                                <a>Pending</a>
+                                {% else %}
+                                <select class="form-control" name="order_status_id">
+                                    {% for array in list_status %}
+                                    {% if list_order_detail.order_status_id == array.order_status_id %}
+                                            <option value="{{ array.order_status_id }}" selected>{{ array.order_status_name }}</option>
+                                    {% else %}
+                                            <option value="{{ array.order_status_id }}">{{ array.order_status_name }}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                                {% endif %}
+                            </div> 
+                            <div class="form-group">
+                                <label>Note: </label>
+                                <a>{{ list_order_detail.order_notes }}</a>
+                            </div> 
+                        </div>  
+                        <div class="col-11">
+                            <table class="table select-table">
+                                <thead>
+                                    <tr>                      
+                                        <th>#</th>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Cost</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for array in list_order_detail.detail_order %}
+                                            <tr>
+                                                <td>
+                                                    <h6>{{ array.count }}</h6>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <img src="/staticFiles/assets/img/image_products/{{ array.product_image_1 }}" width="50" height="50" >
+                                                        <div class="pt-3">
+                                                            <h6>{{ array.product_name }}...</h6>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <h6>${{ array.product_price_total }}</h6>
+                                                </td>
+                                                <td>
+                                                    <h6>{{ array.order_all_quantity }}</h6>
+                                                </td>
+                                                <td>
+                                                    <h6>${{ array.product_price_total_quantity }}</h6>
+                                                </td>
+                                            </tr>  
+                                        {% endfor %}
+                                </tbody>
+                            </table>
+                            <hr style="color:Gray">
+                            <div class="row container-fluid">                  
+                                <div class="col" style="text-align: right; font-size:20px;margin-right: 50px;">
+                                    Total:<span>${{ list_order_detail.total }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <button name="update_order" type="submit" class="btn btn-primary me-2">Submit</button>
+                <a href="/_admin/view_orders" class="btn btn-light">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock body %}

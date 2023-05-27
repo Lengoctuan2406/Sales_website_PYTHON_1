@@ -9,12 +9,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
+        <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
+        <script type="text/javascript">
+            bkLib.onDomLoaded(function () {
+                new nicEditor().panelInstance('area');
+            });
+        </script>
         <link href="/staticFiles/assets/img/others/logo_mini.png" rel="icon">
         <link href="/staticFiles/assets/others/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
         <link href="/staticFiles/assets/others/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        {% block stylesheet %}
+        <link href="/staticFiles/assets/others/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.js"></script>
+
         <link href="/staticFiles/assets/css/admin/ruang-admin.min.css" rel="stylesheet">
-        {% endblock stylesheet %}
         {% block title %}
         <title>Admin - Dashboard</title>
         {% endblock title %}
@@ -47,8 +54,8 @@
                     <div id="collapseCustomer" class="collapse" aria-labelledby="headingCustomer" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Customer option</h6>
-                            <a class="collapse-item" href="view_customers.php">View Customer</a>
-                            <a class="collapse-item" href="add_customers.php">Add Customer</a>
+                            <a class="collapse-item" href="/_admin/view_customers">View Customer</a>
+                            <a class="collapse-item" href="/_admin/add_customers">Add Customer</a>
                         </div>
                     </div>
                 </li>
@@ -61,8 +68,8 @@
                     <div id="collapseEmployee" class="collapse" aria-labelledby="headingEmployee" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Employee option</h6>
-                            <a class="collapse-item" href="view_employees.php">View Employee</a>
-                            <a class="collapse-item" href="add_employees.php">Add Employee</a>
+                            <a class="collapse-item" href="/_admin/view_employees">View Employee</a>
+                            <a class="collapse-item" href="/_admin/add_employees">Add Employee</a>
                         </div>
                     </div>
                 </li>
@@ -75,8 +82,8 @@
                     <div id="collapseSupplier" class="collapse" aria-labelledby="headingSupplier" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Supplier option</h6>
-                            <a class="collapse-item" href="view_suppliers.php">View Supplier</a>
-                            <a class="collapse-item" href="add_suppliers.php">Add Supplier</a>
+                            <a class="collapse-item" href="/_admin/view_suppliers">View Supplier</a>
+                            <a class="collapse-item" href="/_admin/add_suppliers">Add Supplier</a>
                         </div>
                     </div>
                 </li>
@@ -89,8 +96,8 @@
                     <div id="collapseCategory" class="collapse" aria-labelledby="headingCategory" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Category option</h6>
-                            <a class="collapse-item" href="view_categories.php">View Category</a>
-                            <a class="collapse-item" href="add_categories.php">Add Category</a>
+                            <a class="collapse-item" href="/_admin/view_categories">View Category</a>
+                            <a class="collapse-item" href="/_admin/add_categories">Add Category</a>
                         </div>
                     </div>
                 </li>
@@ -103,8 +110,8 @@
                     <div id="collapseProduct" class="collapse" aria-labelledby="headingProduct" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Product option</h6>
-                            <a class="collapse-item" href="view_products.php">View Product</a>
-                            <a class="collapse-item" href="add_products.php">Add Product</a>
+                            <a class="collapse-item" href="/_admin/view_products">View Product</a>
+                            <a class="collapse-item" href="/_admin/add_products">Add Product</a>
                         </div>
                     </div>
                 </li>
@@ -117,8 +124,8 @@
                     <div id="collapseCoupon" class="collapse" aria-labelledby="headingCoupon" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Coupon option</h6>
-                            <a class="collapse-item" href="view_coupons.php">View Coupon</a>
-                            <a class="collapse-item" href="add_coupons.php">Add Coupon</a>
+                            <a class="collapse-item" href="/_admin/view_coupons">View Coupon</a>
+                            <a class="collapse-item" href="/_admin/add_coupons">Add Coupon</a>
                         </div>
                     </div>
                 </li>
@@ -131,7 +138,7 @@
                     <div id="collapseOrder" class="collapse" aria-labelledby="headingOrder" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Order option</h6>
-                            <a class="collapse-item" href="view_orders.php">View Order</a>  
+                            <a class="collapse-item" href="/_admin/view_orders">View Order</a>  
                         </div>
                     </div>
                 </li>
@@ -144,9 +151,9 @@
                     <div id="collapseReport" class="collapse" aria-labelledby="headingReport" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Report option</h6>
-                            <a class="collapse-item" href="report_revenues.php">Revenue</a>       
-                            <a class="collapse-item" href="report_customers.php">Customer</a>    
-                            <a class="collapse-item" href="report_products.php">Product</a>   
+                            <a class="collapse-item" href="/_admin/report_revenues">Revenue</a>       
+                            <a class="collapse-item" href="/_admin/report_customers">Customer</a>    
+                            <a class="collapse-item" href="/_admin/report_products">Product</a>   
                         </div>
                     </div>
                 </li>
@@ -154,31 +161,7 @@
             <div id="content-wrapper" class="d-flex flex-column">
                 <div id="content">
                     <nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top">
-                        <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
-                            <i class="fa fa-bars"></i>
-                        </button>
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item dropdown no-arrow">
-                                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
-                                   aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-search fa-fw"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                     aria-labelledby="searchDropdown">
-                                    <form class="navbar-search">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control bg-light border-1 small" placeholder="What do you want to look for?"
-                                                   aria-label="Search" aria-describedby="basic-addon2" style="border-color: #3f51b5;">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-primary" type="button">
-                                                    <i class="fas fa-search fa-sm"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </li>           
-                            <div class="topbar-divider d-none d-sm-block"></div>
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                                    aria-haspopup="true" aria-expanded="false">
@@ -207,7 +190,7 @@
                         <div class="copyright text-center my-auto">
                             <div class="d-sm-flex justify-content-center justify-content-sm-between">
                                 <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">From <a href="" target="_blank">MEOW SHOP</a> with love</span>
-                                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2022</span>
+                                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2023</span>
                             </div>
                         </div>
                     </div>
@@ -223,6 +206,21 @@
         <script src="/staticFiles/assets/others/vendor/jquery-easing/jquery.easing.min.js"></script>
         <script src="/staticFiles/assets/js/admin/js/ruang-admin.min.js"></script>
         <script src="/staticFiles/assets/others/vendor/chart.js/Chart.min.js"></script>
-        <script src="/staticFiles/assets/js/admin/chart-area-demo.js"></script>  
+        <script src="/staticFiles/assets/js/admin/chart-area-demo.js"></script> 
+        
+        <script src="/staticFiles/assets/others/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/staticFiles/assets/others/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#dataTableHover').DataTable();
+        });
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+    </script>
     </body>
 </html>

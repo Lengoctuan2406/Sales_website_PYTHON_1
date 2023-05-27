@@ -1,7 +1,4 @@
 {% extends "base_admin_1.html" %}
-{% block stylesheet %}
-<link href="/staticFiles/assets/css/admin/ruang-admin.min.css" rel="stylesheet">
-{% endblock stylesheet %}
 {% block title %}
 <title>Admin - Dashboard</title>
 {% endblock title %}
@@ -160,16 +157,6 @@
             <div class="card mb-4">             
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Products Sold</h6>
-                    <div class="dropdown no-arrow">
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                             aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Select Periode</div>
-                            <a class="dropdown-item" href="#">Today</a>
-                            <a class="dropdown-item" href="#">Week</a>
-                            <a class="dropdown-item active" href="#">Month</a>
-                            <a class="dropdown-item" href="#">This Year</a>
-                        </div>
-                    </div>
                 </div>
                 <div class="card-body">
                     {% for array in list_products %}
@@ -195,7 +182,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Invoice</h6>
                 </div>
                 <div class="table-responsive">
-                    <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                    <table class="table align-items-center table-flush table-hover">
                         <thead class="thead-light">
                             <tr  style="text-align: center;">
                                 <th>Order ID</th>
@@ -223,12 +210,11 @@
                                     {% if array.order_status_id==4 %}
                                         <td><span class="badge badge-secondary">Pending</span></td>
                                     {% endif %}
-                                    <td><a href="update_orders.php?order_id={{ array.order_id }}" class="btn btn-sm btn-primary">Detail</a></td>
+                                    <td><a href="/_admin/update_orders/{{ array.order_id }}" class="btn btn-sm btn-primary">Detail</a></td>
                                 </tr>
                             {% endfor %}
                         </tbody>
                     </table>
-
                 </div>
                 <div class="card-footer"></div>
             </div>

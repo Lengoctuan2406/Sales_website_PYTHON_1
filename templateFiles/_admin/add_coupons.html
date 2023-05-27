@@ -1,0 +1,38 @@
+{% extends "base_admin_1.html" %}
+{% block title %}
+<title>Coupon</title>
+{% endblock title %}
+{% block body %}
+<div class="container-fluid" id="container-wrapper">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Add Coupon</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/_admin/index">Home</a></li>
+            <li class="breadcrumb-item">Coupon</li>
+            <li class="breadcrumb-item active" aria-current="page">Add Coupon</li>
+        </ol>
+    </div>         
+    <div class="col-lg-12">
+        <div class="card mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Add Coupon</h6>
+            </div>
+            <form class="forms-sample ml-5 mb-3" method="post" action="/_admin/add_coupons_add">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="">Coupon name</label>
+                            <input name="coupon_name" type="text" class="form-control" placeholder="Increase 10%" >
+                        </div>
+                        <div class="form-group">
+                            <label for="">Discount</label>
+                            <input name="discount" type="text" class="form-control" placeholder="10" >
+                        </div>
+                    </div>               
+                </div>                                      
+                <button name="add_coupons" type="submit" class="btn btn-primary me-2">Add</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock body %}

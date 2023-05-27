@@ -1,0 +1,161 @@
+{% extends "base_admin_1.html" %}
+{% block title %}
+<title>Revenue</title>
+{% endblock title %}
+{% block body %}
+<div class="row container-fluid" style="width:50%; margin-left:60%;">
+    <form method="post" action="">
+        <div class="row">
+            <div action="" class="form-group col-4">
+                <label for="stardate">Start date</label>
+                <div>
+                    <input type="date" id="stardate" name="start" class="form-control" value="">    
+                </div>
+            </div>
+            <div action="" class="form-group col-4">
+                <label for="enddate">End date</label>
+                <div>
+                    <input type="date" id="enddate" name="end" class="form-control" value="">    
+                </div>                
+            </div> 
+            <div action="" class="form-group col-4" style="padding-top: 35px">
+                <button type="submit" name="report" class="btn btn-primary">Submit</button>               
+            </div>
+        </div>
+    </form>
+</div>
+    <div>
+        <div style="text-align: left;margin-left: 3rem;">
+            <Button class="btn btn-sm btn-primary" onclick="printDiv('printableArea')">Export product</button>
+        </div>
+        <div id="printableArea">
+        <div class="container-fluid" id="invoice">
+            <div class="contentreport" style="text-align:center;">
+                <span>Date report: {{ revenues_each.currentTime }}</span>
+            </div>
+            <div class="table-responsive p-3">
+                <table class="table align-items-center table-flush table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Phone</th>
+                            <th>Orders</th>                  
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for array in revenues_each.table_revenues %}
+                            <tr>
+                                <td>{{ array.order_name }}</td>
+                                <td>{{ array.order_address }}</td>
+                                <td>{{ array.order_phone }}</td>
+                                <td>
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <th>Product name</th>
+                                                <th>Price</th>
+                                                <th>Quantity</th>
+                                                <th>Cost</th>                  
+                                            </tr>
+                                            {% for array1 in array.detail_order %}
+                                                    <tr>
+                                                        <td style="width: 300px;">{{ array1.product_name }}</td>
+                                                        <td>${{ array1.product_price_total }}</td>
+                                                        <td>{{ array1.order_all_quantity }}</td>
+                                                        <td>${{ array1.product_price_total_quantity }}</td>
+                                                    </tr>
+                                            {% endfor %}
+                                        </tbody> 
+                                    </table>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Order</th>
+                            <th></th>
+                            <th></th>
+                            <th>Total Cost</th>                  
+                        </tr>
+                        <tr>
+                            <th>{{ revenues_each.count }}</th>
+                            <th></th>
+                            <th></th>
+                            <th>${{ revenues_each.total }}</th>                  
+                        </tr>
+                    </tfoot>
+                </table>
+                <!-- <div id="main" class="main">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Charts</h5>
+                            <?php
+                            $revenue = "";
+                            $datetime = "";
+                            $query_history = mysqli_query($con, "SELECT purchase_history_total_price, created_date_purchase_history FROM purchases_history WHERE created_date_purchase_history BETWEEN '$start' AND '$end';;");
+                            while ($row_history = mysqli_fetch_array($query_history)) {
+                                //revenue in day
+                                $GLOBALS['revenue'] = $GLOBALS['revenue'] . $row_history['purchase_history_total_price'] . ",";
+                                //date to show charts
+                                $GLOBALS['datetime'] = $GLOBALS['datetime'] . "'" . $row_history['created_date_purchase_history'] . "',";
+                            }
+                            $revenue = substr($revenue, 0, strlen($revenue) - 1);
+                            $datetime = substr($datetime, 0, strlen($datetime) - 1);
+                            ?>
+                            <div id="reportsChart"></div>
+                            <script>
+                                document.addEventListener("DOMContentLoaded", () => {
+                                    new ApexCharts(document.querySelector("#reportsChart"), {
+                                        series: [{
+                                                name: 'Revenue',
+                                                data: [<?php echo $revenue; ?>]
+                                            }],
+                                        chart: {
+                                            height: 350,
+                                            type: 'area',
+                                            toolbar: {
+                                                show: false
+                                            }
+                                        },
+                                        markers: {
+                                            size: 4
+                                        },
+                                        colors: ['#2eca6a'],
+                                        fill: {
+                                            type: "gradient",
+                                            gradient: {
+                                                shadeIntensity: 1,
+                                                opacityFrom: 0.3,
+                                                opacityTo: 0.4,
+                                                stops: [0, 90, 100]
+                                            }
+                                        },
+                                        dataLabels: {
+                                            enabled: false
+                                        },
+                                        stroke: {
+                                            curve: 'smooth',
+                                            width: 2
+                                        },
+                                        xaxis: {
+                                            type: 'datetime',
+                                            categories: [<?php echo $datetime; ?>]
+                                        },
+                                        tooltip: {
+                                            x: {
+                                                format: 'dd/MM/yy HH:mm'
+                                            }
+                                        }
+                                    }).render();
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

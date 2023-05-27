@@ -1,0 +1,45 @@
+{% extends "base_admin_1.html" %}
+{% block title %}
+<title>Category</title>
+{% endblock title %}
+{% block body %}
+<div class="container-fluid" id="container-wrapper">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">View Category</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/_admin/index">Home</a></li>
+            <li class="breadcrumb-item">Category</li>
+            <li class="breadcrumb-item active" aria-current="page">View Category</li>
+        </ol>
+    </div>         
+    <div class="col-lg-12">
+        <div class="card mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Category Information</h6>
+            </div>
+            <div class="table-responsive p-3">
+                <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                    <thead class="thead-light">
+                        <tr  style="text-align: center;">
+                            <th>Category ID</th>
+                            <th>Category name</th>
+                            <th>Coupon name</th>
+                            <th>View Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody  style="text-align: center;">
+                        {% for array in list_categories %}
+                            <tr>
+                                <td><a href="#">{{ array.product_type_id }}</a></td>
+                                <td>{{ array.product_type_name }}</td>
+                                <td>{{ array.coupon_name }}</td>
+                                <td><a href="/_admin/update_categories/{{ array.product_type_id }}" class="btn btn-sm btn-primary">Detail</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

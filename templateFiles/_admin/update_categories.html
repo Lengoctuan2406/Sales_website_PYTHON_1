@@ -1,0 +1,53 @@
+{% extends "base_admin_1.html" %}
+{% block title %}
+<title>Category</title>
+{% endblock title %}
+{% block body %}
+<div class="container-fluid" id="container-wrapper">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">View Category</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/_admin/index">Home</a></li>
+            <li class="breadcrumb-item">Category</li>
+            <li class="breadcrumb-item">View Category</li>
+            <li class="breadcrumb-item active" aria-current="page">Update Category</li>
+        </ol>
+    </div>         
+    <div class="col-lg-12">
+        <div class="card mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Update category</h6>
+            </div>
+            <form class="forms-sample ml-5 mb-3" method="post" action="/_admin/update_categories_update">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="form-group">
+                                <label for="">ID Category</label>
+                                <input name="product_type_id" type="hidden" class="form-control" id="" value="{{ list_categories_detail.product_type_id }}">
+                                <input type="text" class="form-control" id="" value="{{ list_categories_detail.product_type_id }}" disabled >
+                            </div>
+                            <div class="form-group">
+                                <label for="">Category name</label>
+                                <input name="product_type_name" type="text" class="form-control" id="" value="{{ list_categories_detail.product_type_name }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Coupon name</label>
+                                <select class="form-control" name="coupon_id">
+                                    {% for array in list_coupon %}
+                                    {% if list_categories_detail.coupon_id == array.coupon_id %}
+                                            <option value="{{ array.coupon_id }}" selected>{{ array.coupon_name }}</option>
+                                    {% else %}
+                                            <option value="{{ array.coupon_id }}">{{ array.coupon_name }}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>   
+                        </div>
+                    </div> 
+                <button name="update_categories" type="submit" class="btn btn-primary me-2">Submit</button>
+                <a href="/_admin/view_categories" class="btn btn-light">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock body %}

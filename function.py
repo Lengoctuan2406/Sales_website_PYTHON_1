@@ -1,5 +1,6 @@
 from flask import Flask, redirect, url_for, render_template, request, session
 from bs4 import BeautifulSoup
+from datetime import datetime
 import re
 
 def check_login():
@@ -28,9 +29,19 @@ def validate_password(password):
         return False
     return True
 
+def validate_phone_number(phone_number):
+    pattern = r'^(\+\d{1,3}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$'
+    match = re.match(pattern, phone_number)
+    return match is not None
+
 def base_user_1_arrays_all_product(cursor):
     query_all_product = 'SELECT product_type_id, product_type_name FROM product_types;'
     cursor.execute(query_all_product)
+    return cursor.fetchall()
+
+def get_supplier_all(cursor):
+    query_supplier = 'SELECT supplier_id, supplier_name FROM suppliers;'
+    cursor.execute(query_supplier)
     return cursor.fetchall()
 
 def base_user_1_arrays_carts(cursor):
@@ -38,8 +49,8 @@ def base_user_1_arrays_carts(cursor):
     if 'account_id' in session:
         account_id = str(session['account_id'])
         infor_cart = "products.product_id, product_name, product_price, product_image_1, discount, cart_quantity"
-        table = "products, count_sales, product_types, coupons, carts"
-        link = "products.product_type_id=product_types.product_type_id AND product_types.coupon_id=coupons.coupon_id AND count_sales.product_id=products.product_id AND carts.product_id=products.product_id"
+        table = "products, product_types, coupons, carts"
+        link = "products.product_type_id=product_types.product_type_id AND product_types.coupon_id=coupons.coupon_id AND carts.product_id=products.product_id"
         query_cart = "SELECT " + infor_cart + " FROM " + table + " WHERE " + link + " AND account_id=" + account_id + ";"                  
         cursor.execute(query_cart)
         arrays_carts = cursor.fetchall()
@@ -108,54 +119,197 @@ def get_account(cursor):
     customer = cursor.fetchone()
     return customer
 
-def remove_special_characters(string):
-    pattern = r'[^a-zA-Z0-9\s]'
-    return re.sub(pattern, '', string)
-
-def get_all_order_by_status(cursor, order_status_id):
-    query_order = "SELECT order_id, account_id, order_product_all_id, order_all_quantity, order_name, order_address, order_phone, order_notes, date_invoice_order, order_status_id FROM orders WHERE account_id=% s AND order_status_id=% s;"
-    cursor.execute(query_order, (session['account_id'],order_status_id, ))
-    arrays_orders = cursor.fetchall()
-    list = ()
-    for x in arrays_orders:
-        total = 0
-        order_product_all_id = x['order_product_all_id'].split(',')
-        order_all_quantity = x['order_all_quantity'].split(',')
-        count = 1
-        array1 = ()
-        list1 = ()
-        for item in order_product_all_id:
-            info_product = "products.product_id, product_name, product_price, product_image_1, discount"
-            query_each_product = "SELECT " + info_product + " FROM products, product_types, coupons WHERE products.product_type_id=product_types.product_type_id AND product_types.coupon_id=coupons.coupon_id AND products.product_id=% s;"
-            cursor.execute(query_each_product, (item, ))
-            arrays_each_order = cursor.fetchone()
-            if arrays_each_order:
-                array1 = {"count": count     
-                        ,"product_id": arrays_each_order['product_id']
-                        , "product_name": arrays_each_order['product_name']
-                        , "product_price": arrays_each_order['product_price']
-                        , "product_image_1": arrays_each_order['product_image_1']
-                        , "discount": arrays_each_order['discount']
-                        , "order_all_quantity": order_all_quantity[count-1]
-                        , "product_price_total": round(arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100)), 2)
-                        , "product_price_total_quantity": round((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1]), 2)
-                        }
-                list1 += (array1,)
-                total += ((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1]))
-            count += 1
-            
-        array = {"order_id": x['order_id']
-                 , "account_id": x['account_id']
-                 , "order_name": x['order_name']
-                 , "order_address": x['order_address']
-                 , "order_phone": x['order_phone']
-                 , "order_notes": x['order_notes']
-                 , "date_invoice_order": str(x['date_invoice_order'])[0:9]
-                 , "order_status_id": x['order_status_id']
-                 , "total": total
-                 , "detail_order": list1}
-        list += (array,)
+def get_all_order_by_status(cursor, id, type):
+    if type == 'order_account':
+        query_order = "SELECT order_id, account_id, order_product_all_id, order_all_quantity, order_name, order_address, order_phone, order_notes, date_invoice_order, order_status_id FROM orders WHERE account_id=% s AND order_status_id=% s;"
+        cursor.execute(query_order, (session['account_id'],id, ))
+        arrays_orders = cursor.fetchall()
+        list = ()
+        for x in arrays_orders:
+            total = 0
+            order_product_all_id = x['order_product_all_id'].split(',')
+            order_all_quantity = x['order_all_quantity'].split(',')
+            count = 1
+            array1 = ()
+            list1 = ()
+            for item in order_product_all_id:
+                info_product = "products.product_id, product_name, product_price, product_image_1, discount"
+                query_each_product = "SELECT " + info_product + " FROM products, product_types, coupons WHERE products.product_type_id=product_types.product_type_id AND product_types.coupon_id=coupons.coupon_id AND products.product_id=% s;"
+                cursor.execute(query_each_product, (item, ))
+                arrays_each_order = cursor.fetchone()
+                if arrays_each_order:
+                    array1 = {"count": count     
+                            ,"product_id": arrays_each_order['product_id']
+                            , "product_name": arrays_each_order['product_name']
+                            , "product_price": arrays_each_order['product_price']
+                            , "product_image_1": arrays_each_order['product_image_1']
+                            , "discount": arrays_each_order['discount']
+                            , "order_all_quantity": order_all_quantity[count-1]
+                            , "product_price_total": round(arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100)), 2)
+                            , "product_price_total_quantity": round((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1]), 2)
+                            }
+                    list1 += (array1,)
+                    total += ((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1]))
+                count += 1
+                
+            array = {"order_id": x['order_id']
+                    , "account_id": x['account_id']
+                    , "order_name": x['order_name']
+                    , "order_address": x['order_address']
+                    , "order_phone": x['order_phone']
+                    , "order_notes": x['order_notes']
+                    , "date_invoice_order": str(x['date_invoice_order'])[0:9]
+                    , "order_status_id": x['order_status_id']
+                    , "order_product_all_id": x['order_product_all_id']
+                    , "order_all_quantity": x['order_all_quantity']
+                    , "total": total
+                    , "detail_order": list1}
+            list += (array,)
+    elif type == 'order_details_admin':
+        query_order = "SELECT order_id, account_id, order_product_all_id, order_all_quantity, order_name, order_address, order_phone, order_notes, date_invoice_order, order_status_id FROM orders WHERE order_id=% s;"
+        cursor.execute(query_order, (id, ))
+        arrays_orders = cursor.fetchone()
+        list = ()
+        if arrays_orders:
+            total = 0
+            order_product_all_id = arrays_orders['order_product_all_id'].split(',')
+            order_all_quantity = arrays_orders['order_all_quantity'].split(',')
+            count = 1
+            array1 = ()
+            list1 = ()
+            for item in order_product_all_id:
+                info_product = "products.product_id, product_name, product_price, product_image_1, discount"
+                query_each_product = "SELECT " + info_product + " FROM products, product_types, coupons WHERE products.product_type_id=product_types.product_type_id AND product_types.coupon_id=coupons.coupon_id AND products.product_id=% s;"
+                cursor.execute(query_each_product, (item, ))
+                arrays_each_order = cursor.fetchone()
+                if arrays_each_order:
+                    array1 = {"count": count     
+                            ,"product_id": arrays_each_order['product_id']
+                            , "product_name": arrays_each_order['product_name']
+                            , "product_price": arrays_each_order['product_price']
+                            , "product_image_1": arrays_each_order['product_image_1']
+                            , "discount": arrays_each_order['discount']
+                            , "order_all_quantity": order_all_quantity[count-1]
+                            , "product_price_total": round(arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100)), 2)
+                            , "product_price_total_quantity": round((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1]), 2)
+                            }
+                    list1 += (array1,)
+                    total += ((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1]))
+                count += 1
+                
+            array = {"order_id": arrays_orders['order_id']
+                    , "account_id": arrays_orders['account_id']
+                    , "order_name": arrays_orders['order_name']
+                    , "order_address": arrays_orders['order_address']
+                    , "order_phone": arrays_orders['order_phone']
+                    , "order_notes": arrays_orders['order_notes']
+                    , "date_invoice_order": str(arrays_orders['date_invoice_order'])[0:9]
+                    , "order_status_id": arrays_orders['order_status_id']
+                    , "order_product_all_id": arrays_orders['order_product_all_id']
+                    , "order_all_quantity": arrays_orders['order_all_quantity']
+                    , "total": total
+                    , "detail_order": list1}
+            list = array
     return list
+
+def get_all_revenues(cursor, start, end):
+    if start == '' and end == '':
+        query_order = "SELECT order_id, account_id, order_product_all_id, order_all_quantity, order_name, order_address, order_phone, order_notes, date_invoice_order, order_status_id FROM orders WHERE order_status_id=3;"
+        cursor.execute(query_order, ())
+        arrays_orders = cursor.fetchall()
+        list = ()
+        total_all = 0
+        count_all = 0
+        for x in arrays_orders:
+            total = 0
+            order_product_all_id = x['order_product_all_id'].split(',')
+            order_all_quantity = x['order_all_quantity'].split(',')
+            count = 1
+            array1 = ()
+            list1 = ()
+            for item in order_product_all_id:
+                info_product = "products.product_id, product_name, product_price, product_image_1, discount"
+                query_each_product = "SELECT " + info_product + " FROM products, product_types, coupons WHERE products.product_type_id=product_types.product_type_id AND product_types.coupon_id=coupons.coupon_id AND products.product_id=% s;"
+                cursor.execute(query_each_product, (item, ))
+                arrays_each_order = cursor.fetchone()
+                if arrays_each_order:
+                    array1 = {"count": count     
+                            ,"product_id": arrays_each_order['product_id']
+                            , "product_name": arrays_each_order['product_name']
+                            , "product_price": arrays_each_order['product_price']
+                            , "product_image_1": arrays_each_order['product_image_1']
+                            , "discount": arrays_each_order['discount']
+                            , "order_all_quantity": order_all_quantity[count-1]
+                            , "product_price_total": round(arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100)), 2)
+                            , "product_price_total_quantity": round((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1]), 2)
+                            }
+                    list1 += (array1,)
+                    total += ((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1]))
+                count += 1
+                total_all += total
+                
+            array = {"order_id": x['order_id']
+                    , "account_id": x['account_id']
+                    , "order_name": x['order_name']
+                    , "order_address": x['order_address']
+                    , "order_phone": x['order_phone']
+                    , "order_notes": x['order_notes']
+                    , "date_invoice_order": str(x['date_invoice_order'])[0:9]
+                    , "order_status_id": x['order_status_id']
+                    , "total": total
+                    , "detail_order": list1}
+            count_all += 1
+            list += (array,)
+    else:
+        start_date = datetime.strptime(start, '%Y-%m-%d')
+        end_date = datetime.strptime(end, '%Y-%m-%d')
+        query_order = "SELECT order_id, account_id, order_product_all_id, order_all_quantity, order_name, order_address, order_phone, order_notes, date_invoice_order, order_status_id FROM orders WHERE date_invoice_order BETWEEN % s AND % s;"
+        cursor.execute(query_order, (start_date, end_date, ))
+        arrays_orders = cursor.fetchall()
+        list = ()
+        total_all = 0
+        count_all = 0
+        for x in arrays_orders:
+            total = 0
+            order_product_all_id = x['order_product_all_id'].split(',')
+            order_all_quantity = x['order_all_quantity'].split(',')
+            count = 1
+            array1 = ()
+            list1 = ()
+            for item in order_product_all_id:
+                info_product = "products.product_id, product_name, product_price, product_image_1, discount"
+                query_each_product = "SELECT " + info_product + " FROM products, product_types, coupons WHERE products.product_type_id=product_types.product_type_id AND product_types.coupon_id=coupons.coupon_id AND products.product_id=% s;"
+                cursor.execute(query_each_product, (item, ))
+                arrays_each_order = cursor.fetchone()
+                if arrays_each_order:
+                    array1 = {"count": count     
+                            ,"product_id": arrays_each_order['product_id']
+                            , "product_name": arrays_each_order['product_name']
+                            , "product_price": arrays_each_order['product_price']
+                            , "product_image_1": arrays_each_order['product_image_1']
+                            , "discount": arrays_each_order['discount']
+                            , "order_all_quantity": order_all_quantity[count-1]
+                            , "product_price_total": round(arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100)), 2)
+                            , "product_price_total_quantity": round((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1]), 2)
+                            }
+                    list1 += (array1,)
+                    total += ((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1]))
+                count += 1
+                total_all += total
+                
+            array = {"order_id": x['order_id']
+                    , "account_id": x['account_id']
+                    , "order_name": x['order_name']
+                    , "order_address": x['order_address']
+                    , "order_phone": x['order_phone']
+                    , "order_notes": x['order_notes']
+                    , "date_invoice_order": str(x['date_invoice_order'])[0:9]
+                    , "order_status_id": x['order_status_id']
+                    , "total": total
+                    , "detail_order": list1}
+            count_all += 1
+            list += (array,)
+    return list, count_all, total_all
 
 def get_count_order(cursor):
     query = "SELECT count_other FROM count_others WHERE count_other_name='products';"
@@ -179,3 +333,25 @@ def get_count_order(cursor):
             , "arrays_count_customer": arrays_count_customer['count_other']
             , "arrays_count_employees": arrays_count_employees['count_other']}
     return array
+
+def get_list_coupon(cursor):
+    query_coupon = "SELECT coupon_id, coupon_name FROM coupons;"
+    cursor.execute(query_coupon, ())
+    arrays_coupon = cursor.fetchall()
+    list_coupon = ()
+    for x in arrays_coupon:
+        array1 = {"coupon_id": x['coupon_id']
+            , "coupon_name": x['coupon_name']}
+        list_coupon += (array1,)
+    return list_coupon
+
+def get_list_status(cursor):
+    query_status = "SELECT order_status_id, order_status_name FROM order_status;"
+    cursor.execute(query_status, ())
+    arrays_status = cursor.fetchall()
+    list_status = ()
+    for x in arrays_status:
+        array1 = {"order_status_id": x['order_status_id']
+            , "order_status_name": x['order_status_name']}
+        list_status += (array1,)
+    return list_status

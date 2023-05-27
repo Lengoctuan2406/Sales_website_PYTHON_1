@@ -1,0 +1,55 @@
+{% extends "base_admin_1.html" %}
+{% block title %}
+<title>Report customer</title>
+{% endblock title %}
+{% block body %}
+<div class="container-fluid" id="container-wrapper">
+    <div id="printableArea">
+        <div class="contentreport" style="text-align:center;">
+            <h2>Customer report</h2>
+            <span>Date report: {{ customer_each.currentTime }}</span>
+        </div>
+        <div class="table-responsive p-3">
+            <table class="table align-items-center table-flush table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Customer ID</th>
+                        <th>Customer name</th>
+                        <th>Phone</th>
+                        <th>Order</th>   
+                        <th>Cost</th>               
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for array in customer_each.table_customer %}
+                        <tr>
+                            <td>{{ array.account_id }}</td>
+                            <td>{{ array.account_name }}</td>
+                            <td>{{ array.phone }}</td>
+                            <td>{{ array.count }}</td>
+                            <td>{{ array.price }}</td>
+                        </tr>
+                    {% endfor %}             
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Customer ID</th>
+                        <th>Customer name</th>
+                        <th>Phone</th>
+                        <th>Order</th>   
+                        <th>Cost</th>               
+                    </tr>
+                    <tr>
+                        <th colspan="3">Total </th>    
+                        <th>{{ customer_each.total_order }}</th>              
+                        <th>${{ customer_each.total_price }}</th>                  
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <div style="text-align: right; margin-bottom:3rem">
+        <Button class="btn btn-sm btn-primary" onclick="printDiv('printableArea')">Export customer</button>
+    </div>
+</div>
+{% endblock body %}

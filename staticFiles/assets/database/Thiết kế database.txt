@@ -1,0 +1,113 @@
+MÔ TẢ DATABASE CỦA SIÊU THỊ THÚ CƯNG:
+
+create table accounts(
+	account_id int(5) primary key AUTO_INCREMENT,
+	account_name varchar(50),
+	email varchar(50),
+	password varchar(50),
+	date_of_birth datetime,
+	account_address text,
+	gender varchar(5),
+	phone varchar(20),
+	avatar varchar(50),
+	role int(1),
+	block int(1),
+	created_date_account datetime,
+	update_date_account datetime
+);
+
+create table carts(
+	cart_id int(5) primary key AUTO_INCREMENT,
+	account_id int(5),
+	product_id int(5),
+	cart_quantity int(10),
+	cart_price int(10)
+);
+
+create table count_others(
+	count_other_id int(5) primary key AUTO_INCREMENT,
+	count_other_name varchar(50),
+	count_other int(5)
+);
+
+create table count_sales(
+	count_sales_id int(5) primary key AUTO_INCREMENT,
+	product_id int(5),
+	count_sale int(10)
+);
+
+create table coupons(
+	coupon_id int(5) primary key AUTO_INCREMENT,
+	coupon_name varchar(50),
+	discount int(10)
+);
+
+create table customers(
+	customer_id int(5) primary key AUTO_INCREMENT,
+	account_id int(5),
+	customer_bio text
+);
+
+create table employees(
+	employee_id int(5) primary key AUTO_INCREMENT,
+	account_id int(5),
+	employee_position varchar(50)
+);
+
+create table orders(
+	order_id int(5) primary key AUTO_INCREMENT,
+	account_id int(5),
+	order_product_all_id varchar(50),
+	order_all_quantity varchar(50),
+	other_name varchar(50),
+	order_address varchar(50),
+	order_phone varchar(20),
+	order_notes text,
+	date_invoice_order datetime,
+	order_status_id int(5)
+);
+
+create table order_status(
+	order_status_id int(5) primary key AUTO_INCREMENT,
+	order_status_name varchar(50),
+);
+
+create table products(
+	product_id int(5) primary key AUTO_INCREMENT,
+	product_name varchar(50),
+	product_type_id int(5),
+	brand varchar(50),
+	product_quantity int(10),
+	product_description mediumtext,
+	product_price double,
+	product_image_1 varchar(50),
+	product_image_2 varchar(50),
+	product_image_3 varchar(50)
+);
+
+create table product_types(
+	product_type_id int(5) primary key AUTO_INCREMENT,
+	product_type_name varchar(25),
+	coupon_id int(5)
+);
+
+create table purchases_history(
+	purchase_id int(5) primary key AUTO_INCREMENT,
+	account_id int(5),
+	purchase_history_product_all_id varchar(50),
+	purchase_history_all_quantity varchar(50),
+	purchase_history_name varchar(50),
+	purchase_history_address text,
+	purchase_history_phone varchar(20),
+	purchase_history_total_price double,
+	created_date_purchase_history datetime
+);
+
+create table suppliers(
+	supplier_id int(5) primary key AUTO_INCREMENT,
+	supplier_name varchar(50),
+	supplier_email varchar(50),
+	supplier_address text,
+	supplier_phone varchar(20),
+	supplier_avatar varchar(50)
+);
