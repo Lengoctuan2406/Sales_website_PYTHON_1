@@ -135,7 +135,7 @@
                                 <div>
                                     Status:
                                     <span href="" class="Status_order">
-                                        <div class="badge badge-opacity-warning">Waiting</div>
+                                        <div class="badge badge-opacity-success">Delivery</div>
                                     </span>
                                 </div>
                             </div>             
@@ -180,11 +180,6 @@
                             </table>
                             <hr style="color:Gray">
                             <div class="row container-fluid">
-                                <div class="col">
-                                    <a href="/_users/account_order_delete/{{ array.order_id }}" class="btn btn-danger btn-icon-text">
-                                        Pending
-                                    </a>
-                                </div>                    
                                 <div class="col" style="text-align: right; font-size:20px;margin-right: 50px;">
                                     Total:<span>${{ array.total }}</span>
                                 </div>
@@ -194,12 +189,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <footer class="footer">
-        <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">From <a href="https://www.bootstrapdash.com/" target="_blank">MEOW SHOP</a> with love</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2022</span>
-        </div>
-    </footer>  
+    </div> 
 </div>
 {% endblock body %}

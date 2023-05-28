@@ -279,6 +279,9 @@ def admin():
     '''function admin(): Trang dashboards dành cho admin'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         array1 = get_count_order(cursor)
         list_products = ()
@@ -293,7 +296,7 @@ def admin():
             list_products += (array,)
 
         list_order = ()
-        query_order = "SELECT order_id, order_name, order_address, order_status_id FROM orders LIMIT 5;"
+        query_order = "SELECT order_id, order_name, order_address, order_status_id FROM orders ORDER BY order_id DESC LIMIT 5;"
         cursor.execute(query_order, ())
         arrays_order = cursor.fetchall()
         for x in arrays_order:
@@ -314,6 +317,9 @@ def view_customers():
     '''function view_customers(): Trang xem tất cả khách hàng hiện có tài khoản'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
         list_customer = ()
@@ -338,6 +344,9 @@ def update_customers(account_id):
     '''function update_customers(): Trang xem chi tiết một tài khoản và chỉnh sửa tài khoản khi cần'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         list_customer_detail = ()    
         info_account = "account_id, account_name, account_address, gender, phone, email, date_of_birth, block, avatar"
@@ -364,6 +373,9 @@ def add_customers():
     '''function add_customers(): Trang thêm tài khoản khách hàng'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         return render_template('_admin/add_customers.html', msg=msg)
     else:
         msg = 'You must be login first!'
@@ -373,6 +385,9 @@ def view_employees():
     '''function view_employees(): Trang xem thông tin các nhân viên'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
         list_employees = ()
@@ -396,6 +411,9 @@ def update_employees(account_id):
     '''function update_employees(): Trang xem thông tin chi tiết một nhân viên và có thể cập nhật khi cần'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         list_employee_detail = ()    
         info_employee = "accounts.account_id, account_name, account_address, gender, phone, email, date_of_birth, avatar, employee_position"
@@ -422,6 +440,9 @@ def add_employees():
     '''function add_employees(): Trang thêm mới một nhân viên'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         return render_template('_admin/add_employees.html', msg=msg)
     else:
         msg = 'You must be login first!'
@@ -431,6 +452,9 @@ def view_suppliers():
     '''function view_suppliers(): Trang xem chi tiết tất cả các nhà cung cấp hiện có'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
         list_suppliers = ()
@@ -453,6 +477,9 @@ def update_suppliers(supplier_id):
     '''function update_suppliers(): Trang xem chi tiết một nhà cung cấp và có thể cập nhật khi cần'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         list_suppliers_detail = ()    
         info_suppliers = "supplier_id, supplier_name, supplier_email, supplier_address, supplier_phone, supplier_avatar"
@@ -476,6 +503,9 @@ def add_suppliers():
     '''function add_suppliers(): Trang thêm mới một nhà cung cấp'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         return render_template('_admin/add_suppliers.html', msg=msg)
     else:
         msg = 'You must be login first!'
@@ -485,6 +515,9 @@ def view_categories():
     '''function view_categories(): Trang xem thông tin các thể loại sản phẩm'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
         list_categories = ()
@@ -506,6 +539,9 @@ def update_categories(product_type_id):
     '''function update_categories(): Trang xem thông tin chi tiết một thể loại và cập nhật khi cần'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         list_categories_detail = ()    
         query_categories = "SELECT product_type_id, product_type_name, coupon_id FROM product_types WHERE product_type_id=% s;"
@@ -528,6 +564,9 @@ def add_categories():
     '''function add_categories(): Trang thêm thể loại mới'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         list_coupon = get_list_coupon(cursor)  
         return render_template('_admin/add_categories.html', list_coupon=list_coupon, msg=msg)
@@ -539,6 +578,9 @@ def view_coupons():
     '''function view_coupons(): Trang xem chi tiết tất cả mã giảm giá hiện có'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         list_coupons = get_list_coupon(cursor)  
         return render_template('_admin/view_coupons.html', list_coupons=list_coupons, msg=msg)
@@ -550,6 +592,9 @@ def add_coupons():
     '''function add_coupons(): Trang thêm mới một mã giảm giá'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         return render_template('_admin/add_coupons.html', msg=msg)
     else:
         msg = 'You must be login first!'
@@ -559,6 +604,9 @@ def view_orders():
     '''function view_orders(): Trang thêm tất cả các đơn bán hàng hiện có'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         list_all_order = ()
         info_all_order = "order_id, order_name, order_address, date_invoice_order, order_status_id"
@@ -581,6 +629,9 @@ def update_orders(order_id):
     '''function update_orders(): Trang cập nhật đơn hàng bán trong quá trình giao hàng'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         list_order_detail = get_all_order_by_status(cursor, order_id, 'order_details_admin')
         list_status = get_list_status(cursor)    
@@ -594,6 +645,9 @@ def report_customers():
     '''function report_customers(): Trang hiện báo cáo tất cả khách hàng'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         today = date.today()
         currentTime = today.strftime("%Y/%m/%d")
@@ -628,6 +682,9 @@ def report_products():
     '''function report_products(): Trang hiện báo cáo tất cả sản phẩm hiện có'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         today = date.today()
         currentTime = today.strftime("%Y/%m/%d")
@@ -662,6 +719,9 @@ def report_revenues():
     '''function report_revenues(): Trang hiện báo cáo doanh thu'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         today = date.today()
         currentTime = today.strftime("%Y/%m/%d")
@@ -691,6 +751,9 @@ def view_products():
     '''function view_products(): Trang xem tất cả các sản phẩm hiện có'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         list_products = ()
         info_product = "product_id, product_name, product_type_name, product_price, product_quantity"
@@ -713,6 +776,9 @@ def update_products(product_id):
     '''function update_products(): Trang xem chi tiết một sản phẩm và cập nhật khi cần'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         list_product_detail = ()    
         query_product_detail = "SELECT * FROM products, product_types WHERE products.product_type_id=product_types.product_type_id AND product_id=% s;"
@@ -745,6 +811,9 @@ def add_products():
     '''function add_products(): Trang thêm mới một sản phẩm'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         
         type_product = base_user_1_arrays_all_product(cursor)  
@@ -770,26 +839,14 @@ def add_products():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @app.route('/_admin/add_products_add', methods = ['POST', 'GET'])
 def add_products_add():
     '''function add_products_add(): Xử lí thêm sản phẩm mới'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         if request.method == 'POST' and 'add_product' in request.form:
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             app.config['UPLOAD_FOLDER'] = os.path.join(path, 'staticFiles\\assets\\img\\image_products')
@@ -804,6 +861,11 @@ def add_products_add():
             product_image_2 = request.files['product_image_2']
             product_image_3 = request.files['product_image_3']
             product_description = request.form['product_description']
+
+            if product_name == '' or product_type_id == '' or supplier_id == '' or product_price == '' or product_description == '':
+                msg = 'Please enter enough information!'
+                return redirect(url_for('add_products', message = msg))
+
             product_image_1_add = 'empty_product.png'
             product_image_2_add = 'empty_product.png'
             product_image_3_add = 'empty_product.png'
@@ -829,8 +891,11 @@ def add_products_add():
 @app.route('/_admin/update_products_update', methods = ['POST', 'GET'])
 def update_products_update():
     '''function update_products_update(): Xử lí thay đổi sản phẩm'''
+    msg = request.args.get('message', '')
     if(check_login()):
-        msg = request.args.get('message', '')
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         if request.method == 'POST' and 'update_product' in request.form:
             app.config['UPLOAD_FOLDER'] = os.path.join(path, 'staticFiles\\assets\\img\\image_products')
@@ -846,6 +911,11 @@ def update_products_update():
             product_image_2 = request.files['product_image_2']
             product_image_3 = request.files['product_image_3']
             product_description = request.form['product_description']
+
+            if product_name == '' or product_type_id == '' or supplier_id == '' or product_price == '' or product_description == '':
+                msg = 'Please enter enough information!'
+                return redirect(url_for('update_products', product_id = product_id, message = msg))
+
             if product_image_1.filename != '':
                 product_image_1.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(str(product_image_1.filename))))
                 cursor.execute("UPDATE products SET product_image_1=% s WHERE product_id=% s;"
@@ -874,8 +944,11 @@ def update_products_update():
 @app.route('/_admin/update_orders_update', methods = ['POST', 'GET'])
 def update_orders_update():
     '''function update_orders_update(): Xử lý thay đổi trạng thái đơn hàng'''
+    msg = request.args.get('message', '')
     if(check_login()):
-        msg = request.args.get('message', '')
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         if request.method == 'POST' and 'update_order' in request.form:
             order_status_id = request.form['order_status_id']
@@ -916,9 +989,16 @@ def add_coupons_add():
     '''function add_coupons_add(): Xử lý thêm mới mã giảm giá'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         if request.method == 'POST' and 'add_coupons' in request.form:
             coupon_name = request.form['coupon_name']
             discount = request.form['discount']
+
+            if coupon_name == '' or discount == '':
+                msg = 'Please enter enough information!'
+                return redirect(url_for('add_coupons', message = msg))
 
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             cursor.execute('INSERT INTO coupons (coupon_name, discount) VALUES (% s,% s);',
@@ -935,9 +1015,16 @@ def add_categories_add():
     '''function add_categories_add(): Xử lý thêm mới thể loại sản phẩm'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         if request.method == 'POST' and 'add_categories' in request.form:
             product_type_name = request.form['product_type_name']
             coupon_id = request.form['coupon_id']
+
+            if product_type_name == '' or coupon_id == '':
+                msg = 'Please enter enough information!'
+                return redirect(url_for('add_categories', message = msg))
 
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             cursor.execute('INSERT INTO product_types (product_type_name, coupon_id) VALUES (% s,% s);',
@@ -952,13 +1039,21 @@ def add_categories_add():
 @app.route('/_admin/update_categories_update', methods = ['POST', 'GET'])
 def update_categories_update():
     '''function update_categories_update(): Xử lý cập nhật thể loại sản phẩm'''
+    msg = request.args.get('message', '')
     if(check_login()):
-        msg = request.args.get('message', '')
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         if request.method == 'POST' and 'update_categories' in request.form:
             product_type_id = request.form['product_type_id']
             product_type_name = request.form['product_type_name']
             coupon_id = request.form['coupon_id']
+
+            if product_type_name == '' or coupon_id == '':
+                msg = 'Please enter enough information!'
+                return redirect(url_for('update_categories', product_type_id = product_type_id, message = msg))
+
             cursor.execute("UPDATE product_types SET product_type_name=% s, coupon_id=% s WHERE product_type_id=% s;"
                                 , (product_type_name, coupon_id, product_type_id, ))
             mysql.connection.commit()
@@ -972,6 +1067,9 @@ def add_suppliers_add():
     '''function add_suppliers_add(): Xử lý thêm mới nhà cung cấp'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         if request.method == 'POST' and 'add_suppliers' in request.form:
             supplier_name = request.form['supplier_name']
             supplier_email = request.form['supplier_email']
@@ -979,28 +1077,30 @@ def add_suppliers_add():
             supplier_phone = request.form['supplier_phone']
             avatar = request.files['avatar']
             
+            if supplier_name == '' or supplier_email == '' or supplier_address == '' or supplier_phone == '':
+                msg = 'Please enter enough information!'
+                return redirect(url_for('add_suppliers', message = msg))
+
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             cursor.execute('SELECT * FROM suppliers WHERE supplier_email= % s;', (supplier_email, ))
             supplier = cursor.fetchone()
             if not supplier:
                 if not validate_email(supplier_email):
-                    msg = 'Email or password arent allowed!'
+                    msg = 'Email arent allowed!'
                     return redirect(url_for('add_suppliers', message = msg))
                 else:
-                    if avatar.filename == '':
-                        cursor.execute('INSERT INTO suppliers (supplier_name, supplier_email, supplier_address, supplier_phone, supplier_avatar) VALUES (% s,% s,% s,% s, % s);',
-                                (supplier_name, supplier_email, supplier_address, supplier_phone, 'empty.png', ))
-                        mysql.connection.commit()
-
-                        msg = 'Create supplier account successfully!'
-                    else:
+                    avatar_result = 'empty.png'
+                    if avatar.filename != '':
                         app.config['UPLOAD_FOLDER'] = os.path.join(path, 'staticFiles\\assets\\img\\avatars')
                         avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(str(avatar.filename))))
-                        cursor.execute('INSERT INTO suppliers (supplier_name, supplier_email, supplier_address, supplier_phone, supplier_avatar) VALUES (% s,% s,% s,% s, % s);',
-                                (supplier_name, supplier_email, supplier_address, supplier_phone, avatar.filename, ))
-                        mysql.connection.commit()
+                        avatar_result = avatar.filename
 
-                        msg = 'Create supplier account successfully!'
+                    cursor.execute('INSERT INTO suppliers (supplier_name, supplier_email, supplier_address, supplier_phone, supplier_avatar) VALUES (% s,% s,% s,% s, % s);',
+                            (supplier_name, supplier_email, supplier_address, supplier_phone, avatar_result, ))
+                    mysql.connection.commit()
+
+                    msg = 'Create supplier account successfully!'
+                    
                     cursor.execute("UPDATE count_others SET count_other=count_other+1 WHERE count_other_name='suppliers';", ())
                     mysql.connection.commit()
                     return redirect(url_for('add_suppliers', message = msg))
@@ -1013,8 +1113,11 @@ def add_suppliers_add():
 @app.route('/_admin/update_suppliers_delete/<int:supplier_id>', methods = ['POST', 'GET'])
 def update_suppliers_delete(supplier_id):
     '''function update_suppliers_delete(): Xử lý xóa nhà cung cấp'''
+    msg = request.args.get('message', '')
     if(check_login()):
-        msg = request.args.get('message', '')
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('DELETE FROM suppliers WHERE supplier_id=% s',
                             (supplier_id, ))
@@ -1031,8 +1134,11 @@ def update_suppliers_delete(supplier_id):
 @app.route('/_admin/update_suppliers_update', methods = ['POST', 'GET'])
 def update_suppliers_update():
     '''function update_suppliers_update(): Xử lý cập nhật nhà cung cấp'''
+    msg = request.args.get('message', '')
     if(check_login()):
-        msg = request.args.get('message', '')
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         if request.method == 'POST' and 'update' in request.form:
             supplier_id = request.form['supplier_id']
@@ -1041,6 +1147,11 @@ def update_suppliers_update():
             supplier_address = request.form['supplier_address']
             supplier_phone = request.form['supplier_phone']
             avatar = request.files['avatar']
+
+            if supplier_name == '' or supplier_email == '' or supplier_address == '' or supplier_phone == '':
+                msg = 'Please enter enough information!'
+                return redirect(url_for('update_suppliers', supplier_id = supplier_id, message = msg))
+
             if not validate_phone_number(supplier_phone):
                 msg = 'Invalid phone number!'
             else:
@@ -1067,12 +1178,20 @@ def add_employees_add():
     '''function add_employees_add(): Xử lý thêm mới nhân viên'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         if request.method == 'POST' and 'add_employees' in request.form:
             name = request.form['name']
             email = request.form['email']
             password = request.form['password']
             re_password = request.form['re-password']
             avatar = request.files['avatar']
+
+            if name == '' or email == '' or password == '' or re_password == '':
+                msg = 'Please enter enough information!'
+                return redirect(url_for('register', message = msg))
+
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             cursor.execute('SELECT * FROM accounts WHERE email= % s;', (email, ))
             account = cursor.fetchone()
@@ -1084,39 +1203,26 @@ def add_employees_add():
                     msg = 'Password does not match!'
                     return redirect(url_for('add_employees', message = msg))
                 else:
-                    if avatar.filename == '':
-                        cursor.execute('INSERT INTO accounts(account_name, email, password, avatar, role, block) VALUES \
-                            (% s, % s, % s, % s, % s, % s)',
-                                (name, email, password, 'empty.png', '0', '0', ))
-                        mysql.connection.commit()
-
-                        cursor.execute('SELECT account_id FROM accounts WHERE email= % s;', (email, ))
-                        create_employee = cursor.fetchone()
-                        if create_employee:
-                            cursor.execute('INSERT INTO employees(account_id) VALUES \
-                            (% s)',
-                                (create_employee['account_id'], ))
-                            mysql.connection.commit()
-
-                        msg = 'Create employee account successfully!'
-                    else:
+                    avatar_result = 'empty.png'
+                    if avatar.filename != '':
                         app.config['UPLOAD_FOLDER'] = os.path.join(path, 'staticFiles\\assets\\img\\avatars')
                         avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(str(avatar.filename))))
-                        cursor.execute('INSERT INTO accounts(account_name, email, password, avatar, role, block) VALUES \
-                            (% s, % s, % s, % s, % s, % s)',
-                                (name, email, password, avatar.filename, '0', '0', ))
+                        avatar_result = avatar.filename
+                    cursor.execute('INSERT INTO accounts(account_name, email, password, date_of_birth, account_address, phone, avatar, role, block) VALUES \
+                            (% s, % s, % s, % s, % s, % s, % s, % s, % s)',
+                                (name, email, password, '2000-01-01', '', '', avatar_result, '0', '0', ))
+                    mysql.connection.commit()
+                    
+                    cursor.execute('SELECT account_id FROM accounts WHERE email= % s;', (email, ))
+                    create_employee = cursor.fetchone()
+                    if create_employee:
+                        cursor.execute('INSERT INTO employees(account_id, employee_position) VALUES \
+                        (% s,% s)',
+                            (create_employee['account_id'], '', ))
                         mysql.connection.commit()
+                    msg = 'Create employee account successfully!'
 
-                        cursor.execute('SELECT account_id FROM accounts WHERE email= % s;', (email, ))
-                        create_employee = cursor.fetchone()
-                        if create_employee:
-                            cursor.execute('INSERT INTO employees(account_id) VALUES \
-                            (% s)',
-                                (create_employee['account_id'], ))
-                            mysql.connection.commit()
-
-                        msg = 'Create employee account successfully!'
-                    cursor.execute("UPDATE count_others SET count_other=count_other+1 WHERE count_other_name='customers';", ())
+                    cursor.execute("UPDATE count_others SET count_other=count_other+1 WHERE count_other_name='employees';", ())
                     mysql.connection.commit()
                     return redirect(url_for('add_employees', message = msg))
             else:
@@ -1128,8 +1234,11 @@ def add_employees_add():
 @app.route('/_admin/update_employees_delete/<int:account_id>', methods = ['POST', 'GET'])
 def update_employees_delete(account_id):
     '''function update_employees_delete(): Xử lý xóa nhân viên'''
+    msg = request.args.get('message', '')
     if(check_login()):
-        msg = request.args.get('message', '')
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('DELETE FROM accounts WHERE account_id=% s',
                             (account_id, ))
@@ -1150,8 +1259,11 @@ def update_employees_delete(account_id):
 @app.route('/_admin/update_employees_update', methods = ['POST', 'GET'])
 def update_employees_update():
     '''function update_employees_update(): Xử lý cập nhật nhân viên'''
+    msg = request.args.get('message', '')
     if(check_login()):
-        msg = request.args.get('message', '')
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         if request.method == 'POST' and 'update' in request.form:
             today = date.today()
@@ -1164,6 +1276,11 @@ def update_employees_update():
             date_of_birth = request.form['date_of_birth']
             employee_position = request.form['employee_position']
             avatar = request.files['avatar']
+
+            if account_name == '' or account_address == '' or gender == '' or phone == '' or date_of_birth == '' or employee_position == '':
+                msg = 'Please enter enough information!'
+                return redirect(url_for('update_employees', account_id = account_id, message = msg))
+
             if not validate_phone_number(phone):
                 msg = 'Invalid phone number!'
             else:
@@ -1198,12 +1315,20 @@ def add_customers_add():
     '''function add_customers_add(): Xử lý thêm mới tài khoản khách hàng'''
     msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         if request.method == 'POST' and 'add_customers' in request.form:
             name = request.form['name']
             email = request.form['email']
             password = request.form['password']
             re_password = request.form['re-password']
             avatar = request.files['avatar']
+
+            if name == '' or email == '' or password == '' or re_password == '':
+                msg = 'Please enter enough information!'
+                return redirect(url_for('add_customers', message = msg))
+            
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             cursor.execute('SELECT * FROM accounts WHERE email= % s;', (email, ))
             account = cursor.fetchone()
@@ -1241,7 +1366,11 @@ def add_customers_add():
 @app.route('/_admin/update_customers_update', methods = ['POST', 'GET'])
 def update_customers_update():
     '''function update_customers_update(): Xử lý cập nhật tài khoản khách hàng'''
+    msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         msg = request.args.get('message', '')
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         if request.method == 'POST' and 'update' in request.form:
@@ -1254,6 +1383,11 @@ def update_customers_update():
             phone = request.form['phone']
             date_of_birth = request.form['date_of_birth']
             avatar = request.files['avatar']
+
+            if account_name == '' or account_address == '' or gender == '' or phone == '' or date_of_birth == '':
+                msg = 'Please enter enough information!'
+                return redirect(url_for('update_customers', account_id = account_id, message = msg))
+            
             if not validate_phone_number(phone):
                 msg = 'Invalid phone number!'
             else:
@@ -1276,7 +1410,11 @@ def update_customers_update():
 @app.route('/_admin/view_customers_unblock/<int:account_id>', methods = ['POST', 'GET'])
 def view_customers_unblock(account_id):
     '''function view_customers_unblock(): Xử lý mở khóa tài khoản khách hàng'''
+    msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         msg = request.args.get('message', '')
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute("UPDATE accounts SET block=0 WHERE account_id=% s;"
@@ -1290,7 +1428,11 @@ def view_customers_unblock(account_id):
 @app.route('/_admin/view_customers_block/<int:account_id>', methods = ['POST', 'GET'])
 def view_customers_block(account_id):
     '''function view_customers_block(): Xử lý khóa tài khoản khách hàng'''
+    msg = request.args.get('message', '')
     if(check_login()):
+        if session['role'] == 0:
+            msg = 'You must login with an admin account!'
+            return redirect(url_for('login', message = msg))
         msg = request.args.get('message', '')
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute("UPDATE accounts SET block=1 WHERE account_id=% s;"
@@ -1304,6 +1446,7 @@ def view_customers_block(account_id):
 @app.route('/_users/account_order_delete/<int:order_id>', methods = ['POST', 'GET'])
 def account_order_delete(order_id):
     '''function account_order_delete(): Xử lý hủy đơn hàng đã đặt'''
+    msg = request.args.get('message', '')
     if(check_login()):
         msg = request.args.get('message', '')
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -1318,6 +1461,7 @@ def account_order_delete(order_id):
 @app.route('/_users/page_carts_delete/<int:product_id>', methods = ['POST', 'GET'])
 def page_carts_delete(product_id):
     '''function page_carts_delete(): Xử lý xóa sản phẩm trong giỏ hàng'''
+    msg = request.args.get('message', '')
     if(check_login()):
         msg = request.args.get('message', '')
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -1332,6 +1476,7 @@ def page_carts_delete(product_id):
 @app.route('/_users/account_reset_pass_check', methods = ['POST', 'GET'])
 def account_reset_pass_check():
     '''function account_reset_pass_check(): Xử lý thay đổi mật khẩu'''
+    msg = request.args.get('message', '')
     if(check_login()):
         msg = request.args.get('message', '')
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -1339,12 +1484,20 @@ def account_reset_pass_check():
             current_password = request.form['current-password']
             new_password = request.form['new-password']
             verify_password = request.form['verify-password']
-            # if not validate_email(current_password) or not validate_password(new_password) or not validate_password(verify_password):
-            #     msg = 'Invalid password!'
-            #     return redirect(url_for('account_reset_pass', message = msg))
+            if current_password == '' or new_password == '' or verify_password == '':
+                msg = 'Please enter enough information!'
+                return redirect(url_for('account_reset_pass', message = msg))
+
+            if not validate_password(current_password) or not validate_password(new_password) or not validate_password(verify_password):
+                msg = 'Invalid password!'
+                return redirect(url_for('account_reset_pass', message = msg))
             if new_password != verify_password:
                 msg = 'Passwords do not match!'
                 return redirect(url_for('account_reset_pass', message = msg))
+            if current_password == new_password:
+                msg = 'The new password must not be the same as the old password!'
+                return redirect(url_for('account_reset_pass', message = msg))
+                    
             cursor.execute("UPDATE accounts SET password=% s WHERE account_id=% s;"
                             , (new_password, session['account_id'], ))
             mysql.connection.commit()
@@ -1356,6 +1509,7 @@ def account_reset_pass_check():
 @app.route('/_users/account_page_update_info', methods = ['POST', 'GET'])
 def account_page_update_info():
     '''function account_page_update_info(): Xử lý thay đổi thông tin các nhân'''
+    msg = request.args.get('message', '')
     if(check_login()):
         msg = request.args.get('message', '')
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -1368,6 +1522,9 @@ def account_page_update_info():
             gender = request.form['gender']
             phone = request.form['phone']
             avatar = request.files['avatar']
+            if account_name == '' or date_of_birth == '' or account_address == '' or gender == '' or phone == '':
+                msg = 'Please enter enough information!'
+                return redirect(url_for('account_page', message = msg))
             if not validate_phone_number(phone):
                 msg = 'Invalid phone number!'
             else:
@@ -1390,6 +1547,7 @@ def account_page_update_info():
 @app.route('/_users/account_page_logout')
 def account_page_logout():
     '''function account_page_logout(): Xử lý đăng xuất tài khoản'''
+    msg = request.args.get('message', '')
     if(check_login()):
         msg = request.args.get('message', '')
         session.clear()
@@ -1404,6 +1562,7 @@ def account_page_logout():
 @app.route('/_users/product_detail_add_cart', methods = ['POST', 'GET'])
 def product_detail_add_cart():
     '''function product_detail_add_cart(): Xử lý thêm sản phẩm vào giỏ hàng'''
+    msg = request.args.get('message', '')
     if(check_login()):
         product_id = -1
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -1434,6 +1593,7 @@ def product_detail_add_cart():
 @app.route('/_users/checkout_check', methods = ['POST', 'GET'])
 def checkout_check():
     '''function checkout_check(): Xử lý thanh toán đơn hàng trong giỏ hàng'''
+    msg = request.args.get('message', '')
     if(check_login()):
         msg = request.args.get('message', '')
         if request.method == 'POST' and 'orders' in request.form:
@@ -1467,9 +1627,9 @@ def login_check():
     if request.method == 'POST' and 'login' in request.form:
         email = request.form['email']
         password = request.form['password']
-            # if(not validate_email(email) or not validate_password(password)):
-            #     msg = 'Email or password arent allowed!'
-            #     return redirect(url_for('login', message = msg))
+        if(not validate_email(email) or not validate_password(password)):
+            msg = 'Email or password arent allowed!'
+            return redirect(url_for('login', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute(
             'SELECT * FROM accounts WHERE email = % s AND password = % s', (email, password, ))
@@ -1505,6 +1665,9 @@ def register_check():
         email = request.form['email']
         password = request.form['password']
         re_password = request.form['re-password']
+        if name == '' or email == '' or password == '' or re_password == '':
+            msg = 'Please enter enough information!'
+            return redirect(url_for('register', message = msg))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM accounts WHERE email= % s;', (email, ))
         account = cursor.fetchone()
@@ -1516,9 +1679,9 @@ def register_check():
                 msg = 'Password does not match!'
                 return redirect(url_for('register', message = msg))
             else:
-                cursor.execute('INSERT INTO accounts(account_name, email, password, avatar, role, block) VALUES \
-                    (% s, % s, % s, % s, % s, % s)',
-                        (name, email, password, 'empty.png', '0', '0', ))
+                cursor.execute('INSERT INTO accounts(account_name, email, password, date_of_birth, account_address, gender, phone, avatar, role, block) VALUES \
+                    (% s, % s, % s, % s, % s, % s, % s, % s, % s, % s)',
+                        (name, email, password,'2000-01-01', '', '', '', 'empty.png', '0', '0', ))
                 mysql.connection.commit()
                 msg = 'You have successfully registered!'
                 return redirect(url_for('index', message = msg))

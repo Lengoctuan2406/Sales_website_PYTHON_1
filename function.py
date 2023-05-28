@@ -106,14 +106,14 @@ def get_product_cart_by_account(cursor):
                     , "product_price_total": round(x['product_price'] - (x['product_price'] * (x['discount'] / 100)), 2)
                     , "product_price_total_cart": round((x['product_price'] - (x['product_price'] * (x['discount'] / 100))) * x['cart_quantity'], 2)}
         list += (array,)
-        total += round(((x['product_price'] - (x['product_price'] * (x['discount'] / 100))) * x['cart_quantity']), 2)
+        total += ((x['product_price'] - (x['product_price'] * (x['discount'] / 100))) * x['cart_quantity'])
 
         order_product_all_id += str(x['product_id']) + ','
         order_all_quantity += str(x['cart_quantity']) + ','
     total_all += total
     order_product_all_id = order_product_all_id[:-1]
     order_all_quantity = order_all_quantity[:-1]
-    return list, total, order_product_all_id, order_all_quantity, total_all
+    return list, total, order_product_all_id, order_all_quantity, round(total_all, 2)
 
 def get_account(cursor):
     query_customer = "SELECT * FROM accounts WHERE account_id=% s;"
@@ -123,11 +123,9 @@ def get_account(cursor):
 
 def get_report(cursor, start, end): 
     if start == '' and end == '':
-        #for report
         sale = ''
         revenue = ''
         date = ''
-        total_all = 0
         total_order = 0
 
         query_order = "SELECT order_id, account_id, order_product_all_id, order_all_quantity, order_name, order_address, order_phone, order_notes, date_invoice_order, order_status_id FROM orders WHERE order_status_id=3;"
@@ -145,19 +143,17 @@ def get_report(cursor, start, end):
                 arrays_each_order = cursor.fetchone()
                 if arrays_each_order:
 
-                    #chú ý chỗ này
                     total_order += int(order_all_quantity[count-1])
 
-                    total += round(((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1])), 2)
+                    total += ((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1]))
                 count += 1
-                total_all += total
 
             sale += str(total_order) + ','
-            revenue += str(total_all) + ','
+            revenue += str(round(total,2)) + ','
             date += str(x['date_invoice_order'])[:10] + ","
 
+            total = 0
             total_order = 0
-            total_all = 0
 
         sale = sale[:-1]
         revenue = revenue[:-1]
@@ -172,7 +168,6 @@ def get_report(cursor, start, end):
         sale = ''
         revenue = ''
         date = ''
-        total_all = 0
         total_order = 0
         start_date = datetime.strptime(start, '%Y-%m-%d')
         end_date = datetime.strptime(end, '%Y-%m-%d')
@@ -191,19 +186,17 @@ def get_report(cursor, start, end):
                 arrays_each_order = cursor.fetchone()
                 if arrays_each_order:
 
-                    #chú ý chỗ này
                     total_order += int(order_all_quantity[count-1])
 
-                    total += round(((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1])), 2)
+                    total += ((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1]))
                 count += 1
-                total_all += total
 
             sale += str(total_order) + ','
-            revenue += str(total_all) + ','
+            revenue += str(round(total,2)) + ','
             date += str(x['date_invoice_order'])[:10] + ","
 
+            total = 0
             total_order = 0
-            total_all = 0
 
         sale = sale[:-1]
         revenue = revenue[:-1]
@@ -217,7 +210,7 @@ def get_report(cursor, start, end):
 def get_all_order_by_status(cursor, id, type):
     list = ()
     if type == 'order_account':
-        query_order = "SELECT order_id, account_id, order_product_all_id, order_all_quantity, order_name, order_address, order_phone, order_notes, date_invoice_order, order_status_id FROM orders WHERE account_id=% s AND order_status_id=% s;"
+        query_order = "SELECT order_id, account_id, order_product_all_id, order_all_quantity, order_name, order_address, order_phone, order_notes, date_invoice_order, order_status_id FROM orders WHERE account_id=% s AND order_status_id=% s ORDER BY order_id DESC;"
         cursor.execute(query_order, (session['account_id'],id, ))
         arrays_orders = cursor.fetchall()
         for x in arrays_orders:
@@ -244,7 +237,7 @@ def get_all_order_by_status(cursor, id, type):
                             , "product_price_total_quantity": round((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1]), 2)
                             }
                     list1 += (array1,)
-                    total += round(((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1])), 2)
+                    total += ((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1]))
                 count += 1
                 
             array = {"order_id": x['order_id']
@@ -257,7 +250,7 @@ def get_all_order_by_status(cursor, id, type):
                     , "order_status_id": x['order_status_id']
                     , "order_product_all_id": x['order_product_all_id']
                     , "order_all_quantity": x['order_all_quantity']
-                    , "total": total
+                    , "total": round(total, 2)
                     , "detail_order": list1}
             list += (array,)
     elif type == 'order_details_admin':
@@ -288,7 +281,7 @@ def get_all_order_by_status(cursor, id, type):
                             , "product_price_total_quantity": round((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1]), 2)
                             }
                     list1 += (array1,)
-                    total += round(((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1])), 2)
+                    total += ((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1]))
                 count += 1
                 
             array = {"order_id": arrays_orders['order_id']
@@ -301,7 +294,7 @@ def get_all_order_by_status(cursor, id, type):
                     , "order_status_id": arrays_orders['order_status_id']
                     , "order_product_all_id": arrays_orders['order_product_all_id']
                     , "order_all_quantity": arrays_orders['order_all_quantity']
-                    , "total": total
+                    , "total": round(total,2)
                     , "detail_order": list1}
             list = array
     return list
@@ -338,7 +331,7 @@ def get_all_revenues(cursor, start, end):
                             , "product_price_total_quantity": round((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1]), 2)
                             }
                     list1 += (array1,)
-                    total += round(((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1])), 2)
+                    total += ((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1]))
                 count += 1
                 total_all += total
                 
@@ -350,7 +343,7 @@ def get_all_revenues(cursor, start, end):
                     , "order_notes": x['order_notes']
                     , "date_invoice_order": str(x['date_invoice_order'])[0:9]
                     , "order_status_id": x['order_status_id']
-                    , "total": total
+                    , "total": round(total,2)
                     , "detail_order": list1}
             count_all += 1
             list += (array,)
@@ -387,7 +380,7 @@ def get_all_revenues(cursor, start, end):
                             , "product_price_total_quantity": round((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1]), 2)
                             }
                     list1 += (array1,)
-                    total += round(((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1])),2)
+                    total += ((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1]))
                 count += 1
                 total_all += total
                 
@@ -399,7 +392,7 @@ def get_all_revenues(cursor, start, end):
                     , "order_notes": x['order_notes']
                     , "date_invoice_order": str(x['date_invoice_order'])[0:9]
                     , "order_status_id": x['order_status_id']
-                    , "total": total
+                    , "total": round(total, 2)
                     , "detail_order": list1}
             count_all += 1
             list += (array,)

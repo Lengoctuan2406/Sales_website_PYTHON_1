@@ -146,17 +146,14 @@
                     {% for array in list_products %}
                         <div class="mb-3">
                             <div class="small text-gray-500">{{ array.product_name }}...
-                                <div class="small float-right"><b>{{ array.count_sale }} of {{ array.product_quantity }} Items</b></div>
+                                <div class="small float-right"><b>{{ array.count_sale }} of 1000</b></div>
                             </div>
                             <div class="progress" style="height: 12px;">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: {{ array.percentage }}%" aria-valuenow="{{ array.percentage }}"
-                                     aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: {{ array.count_sale }}%" aria-valuenow="{{ array.count_sale }}"
+                                     aria-valuemin="0" aria-valuemax="1000"></div>
                             </div>
                         </div>
                     {% endfor %}
-                </div>
-                <div class="card-footer text-center">
-                    <a class="m-0 small text-primary card-link" href="#">View More <i class="fas fa-chevron-right"></i></a>
                 </div>
             </div>
         </div>

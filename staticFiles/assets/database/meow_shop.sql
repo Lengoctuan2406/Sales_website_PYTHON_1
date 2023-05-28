@@ -50,30 +50,30 @@ CREATE TABLE IF NOT EXISTS `accounts` (
 --
 
 INSERT INTO `accounts` (`account_id`, `account_name`, `email`, `password`, `date_of_birth`, `account_address`, `gender`, `phone`, `avatar`, `role`, `block`, `created_date_account`, `update_date_account`) VALUES
-(1, 'Lê Ngọc Tuấn', 'lengoctuan2406@gmail.com', '1234', '2001-06-27', 'Hà Nội', 'Male', '0564789546', 'avatar1.png', 1, 0, '2022-06-27 15:05:00', '2023-05-26 00:00:00'),
-(2, 'Lê Hoàng Khoa', 'hoangkhoa47@gmail.com', '123', '1995-06-14', 'Xã Cổ Loa, Huyện Đông Anh, Thành phố Hà Nội.', 'Male', '0358745698', 'avatar2.png', 1, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
-(3, 'Nguyễn Hồng Loan', 'hongloan28@gmail.com', '123', '2001-07-13', 'xã Tiến Thắng, huyện Mê Linh, Tp Hà Nội', 'Female', '0548256587', 'avatar3.png', 1, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
-(4, 'Lê Hồng Ngọc', 'hongngoc46@gmail.com', '123', '1998-03-17', 'xã Phúc Lâm, huyện Mỹ Đức, Tp. Hà Nội', 'Female', '0956857259', 'avatar4.png', 0, 0, '2022-06-27 15:05:00', '2023-05-27 00:00:00'),
-(5, 'Nguyễn Mai Linh', 'mailinh25@gmail.com', '123', '1976-03-09', '61 Lê Văn Lương, P. Trung Hòa, Q. Cầu Giấy, TP. Hà', 'Female', '0586965487', 'avatar5.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
-(6, 'Mai Hông Ngọc', 'hongngoc49@gmail.com', '123', '1995-05-11', 'X. Đa Tốn, H. Gia Lâm, TP. Hà Nội', 'Female', '0958587458', 'avatar6.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
-(7, 'Lê Thanh Linh', 'thanhlinh76@gmail.com', '123', '1997-08-07', 'thôn Quỳnh Đô, Xã Vĩnh Quỳnh, Huyện Thanh Trì, Thành phố Hà Nội', 'Female', '0658745465', 'avatar7.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
-(8, 'Lê Thanh Như', 'thanhnhu5@gmail.com', '123', '1998-05-12', 'P. Nhân Chính, Q. Thanh Xuân, TP. Hà Nội', 'Female', '0258985879', 'avatar8.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
-(9, 'Lê Như Ngọc', 'nhungoc29@gmail.com', '123', '1996-02-12', 'Xã Thủy Xuân Tiên, Huyện Chương Mỹ, Thành phố Hà Nội', 'Female', '0258565475', 'avatar9.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
-(10, 'Đỗ Thị Mai', 'domai28@gmaiil.com', '123', '1990-04-13', 'Xã Trung Tú, Huyện Ứng Hòa, Thành phố Hà Nội', 'Female', '0258985478', 'avatar10.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
-(11, 'Trần Hồng Trang', 'hongtrang37@gmail.com', '123', '1999-06-10', 'xã Đại Thịnh, H. Mê Linh, Tp. Hà Nội (Ngã 3 Thường Lệ)', 'Female', '0589875489', 'avatar11.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
-(12, 'Đỗ Khánh Linh', 'khanhlinh58@gmail.com', '123', '2000-02-07', 'Xã Phụng Thượng, Huyện Phúc Thọ, Thành phố Hà Nội', 'Female', '0695453216', 'avatar12.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
-(13, 'Trần Ngọc Anh', 'ngocanh25@gmai.com', '123', '2000-02-08', 'Phường Thổ Quan, Quận Đống Đa, TP Hà Nội', 'Female', '0956254897', 'avatar13.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
-(14, 'Trần Bảo Linh', 'baolinh57@gmail.com', '123', '1996-04-12', 'Xã Trung Tú, Huyện Ứng Hòa, Thành phố Hà Nội', 'Female', '0626512651', 'avatar14.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
-(15, 'Nguyễn Quốc Hùng', 'quochung96@gmail.com', '123', '1996-07-12', 'Xuân Phương, Vân Canh, Từ Liêm , Hà Nội', 'Male', '0489465131', 'avatar15.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
-(16, 'Kiều Chí Thành', 'chithanhnh@gmail.com', '123', '1996-07-20', '1174 Đường Láng, P. Láng thượng, Q. Đống Đa, TP. Hà Nội', 'Male', '0589685475', 'avatar16.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
-(17, 'Trương Công Lập', 'conglapknt@gmail.com', '123', '1997-02-20', 'Xã Thủy Xuân Tiên, Huyện Chương Mỹ, Thành phố Hà Nội', 'Male', '0256454121', 'avatar17.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
-(18, 'Hà  Ðức Quang', 'ducquang2@gmail.com', '123', '1993-04-01', 'P. Nhân Chính, Q. Thanh Xuân, TP. Hà Nội ', 'Male', '0546853541', 'avatar18.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
-(19, 'Tiền Hoài Vỹ', 'hoaivy@gmail.com', '123', '1990-05-01', 'Thôn Cấn Thượng, Xã Cấn Hữu, Huyện Quốc Oai, Thành phố Hà Nội', 'Male', '0256485156', 'avatar19.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
-(20, 'Đường Thanh Nhàn', 'thanhnhan@gmail.com', '123', '1996-05-20', 'P. Đông Ngạc, Q. Bắc Từ Liêm, TP. Hà Nội (ngã 3 Tân Xuân - Đông Ngạc)', 'Female', '0256485135', 'avatar20.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
-(22, 'Tống Khánh Vi', 'khanhvi@gmail.com', '123', '1994-04-05', 'TT. Liên Quan, H. Thạch Thất, Tp. Hà Nội', 'Female', '0369524568', 'avatar22.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
-(23, 'Lư Hồng Quế', 'hongque@gmail.com', '123', '1997-06-13', 'Thôn Tràng An, TT. Chúc Sơn, H. Chương Mỹ, TP. Hà Nội', 'Female', '0368547895', 'avatar23.png', 0, 0, '2022-06-27 15:05:00', '2023-05-27 00:00:00'),
-(24, 'Đàm Thục Ðoan', 'thucdoan@gmail.com', '123', '1999-03-08', 'Tờ bản đồ số 10, thôn 5, xã Hạ Bằng, huyện Thạch Thất, thành phố Hà Nội', 'Female', '0358515152', 'avatar24.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
-(25, 'Viên Quỳnh Dung', 'quynhdung@gmail.com', '123', '1996-03-08', 'Xã Hiền Ninh, Huyện Sóc Sơn, Thành phố Hà Nội', 'Female', '0259874256', 'avatar25.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00');
+(1, 'Lê Ngọc Tuấn', 'lengoctuan2406@gmail.com', '123456789(Tuan)', '2001-06-27', 'Hà Nội', 'Male', '0564789546', 'avatar1.png', 1, 0, '2022-06-27 15:05:00', '2023-05-26 00:00:00'),
+(2, 'Lê Hoàng Khoa', 'hoangkhoa47@gmail.com', '123456789(Tuan)', '1995-06-14', 'Xã Cổ Loa, Huyện Đông Anh, Thành phố Hà Nội.', 'Male', '0358745698', 'avatar2.png', 1, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
+(3, 'Nguyễn Hồng Loan', 'hongloan28@gmail.com', '123456789(Tuan)', '2001-07-13', 'xã Tiến Thắng, huyện Mê Linh, Tp Hà Nội', 'Female', '0548256587', 'avatar3.png', 1, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
+(4, 'Lê Hồng Ngọc', 'hongngoc46@gmail.com', '123456789(Tuan)', '1998-03-17', 'xã Phúc Lâm, huyện Mỹ Đức, Tp. Hà Nội', 'Female', '0956857259', 'avatar4.png', 0, 0, '2022-06-27 15:05:00', '2023-05-27 00:00:00'),
+(5, 'Nguyễn Mai Linh', 'mailinh25@gmail.com', '123456789(Tuan)', '1976-03-09', '61 Lê Văn Lương, P. Trung Hòa, Q. Cầu Giấy, TP. Hà', 'Female', '0586965487', 'avatar5.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
+(6, 'Mai Hông Ngọc', 'hongngoc49@gmail.com', '123456789(Tuan)', '1995-05-11', 'X. Đa Tốn, H. Gia Lâm, TP. Hà Nội', 'Female', '0958587458', 'avatar6.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
+(7, 'Lê Thanh Linh', 'thanhlinh76@gmail.com', '123456789(Tuan)', '1997-08-07', 'thôn Quỳnh Đô, Xã Vĩnh Quỳnh, Huyện Thanh Trì, Thành phố Hà Nội', 'Female', '0658745465', 'avatar7.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
+(8, 'Lê Thanh Như', 'thanhnhu5@gmail.com', '123456789(Tuan)', '1998-05-12', 'P. Nhân Chính, Q. Thanh Xuân, TP. Hà Nội', 'Female', '0258985879', 'avatar8.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
+(9, 'Lê Như Ngọc', 'nhungoc29@gmail.com', '123456789(Tuan)', '1996-02-12', 'Xã Thủy Xuân Tiên, Huyện Chương Mỹ, Thành phố Hà Nội', 'Female', '0258565475', 'avatar9.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
+(10, 'Đỗ Thị Mai', 'domai28@gmaiil.com', '123456789(Tuan)', '1990-04-13', 'Xã Trung Tú, Huyện Ứng Hòa, Thành phố Hà Nội', 'Female', '0258985478', 'avatar10.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
+(11, 'Trần Hồng Trang', 'hongtrang37@gmail.com', '123456789(Tuan)', '1999-06-10', 'xã Đại Thịnh, H. Mê Linh, Tp. Hà Nội (Ngã 3 Thường Lệ)', 'Female', '0589875489', 'avatar11.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
+(12, 'Đỗ Khánh Linh', 'khanhlinh58@gmail.com', '123456789(Tuan)', '2000-02-07', 'Xã Phụng Thượng, Huyện Phúc Thọ, Thành phố Hà Nội', 'Female', '0695453216', 'avatar12.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
+(13, 'Trần Ngọc Anh', 'ngocanh25@gmai.com', '123456789(Tuan)', '2000-02-08', 'Phường Thổ Quan, Quận Đống Đa, TP Hà Nội', 'Female', '0956254897', 'avatar13.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
+(14, 'Trần Bảo Linh', 'baolinh57@gmail.com', '123456789(Tuan)', '1996-04-12', 'Xã Trung Tú, Huyện Ứng Hòa, Thành phố Hà Nội', 'Female', '0626512651', 'avatar14.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
+(15, 'Nguyễn Quốc Hùng', 'quochung96@gmail.com', '123456789(Tuan)', '1996-07-12', 'Xuân Phương, Vân Canh, Từ Liêm , Hà Nội', 'Male', '0489465131', 'avatar15.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
+(16, 'Kiều Chí Thành', 'chithanhnh@gmail.com', '123456789(Tuan)', '1996-07-20', '1174 Đường Láng, P. Láng thượng, Q. Đống Đa, TP. Hà Nội', 'Male', '0589685475', 'avatar16.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
+(17, 'Trương Công Lập', 'conglapknt@gmail.com', '123456789(Tuan)', '1997-02-20', 'Xã Thủy Xuân Tiên, Huyện Chương Mỹ, Thành phố Hà Nội', 'Male', '0256454121', 'avatar17.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
+(18, 'Hà  Ðức Quang', 'ducquang2@gmail.com', '123456789(Tuan)', '1993-04-01', 'P. Nhân Chính, Q. Thanh Xuân, TP. Hà Nội ', 'Male', '0546853541', 'avatar18.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
+(19, 'Tiền Hoài Vỹ', 'hoaivy@gmail.com', '123456789(Tuan)', '1990-05-01', 'Thôn Cấn Thượng, Xã Cấn Hữu, Huyện Quốc Oai, Thành phố Hà Nội', 'Male', '0256485156', 'avatar19.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
+(20, 'Đường Thanh Nhàn', 'thanhnhan@gmail.com', '123456789(Tuan)', '1996-05-20', 'P. Đông Ngạc, Q. Bắc Từ Liêm, TP. Hà Nội (ngã 3 Tân Xuân - Đông Ngạc)', 'Female', '0256485135', 'avatar20.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
+(22, 'Tống Khánh Vi', 'khanhvi@gmail.com', '123456789(Tuan)', '1994-04-05', 'TT. Liên Quan, H. Thạch Thất, Tp. Hà Nội', 'Female', '0369524568', 'avatar22.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
+(23, 'Lư Hồng Quế', 'hongque@gmail.com', '123456789(Tuan)', '1997-06-13', 'Thôn Tràng An, TT. Chúc Sơn, H. Chương Mỹ, TP. Hà Nội', 'Female', '0368547895', 'avatar23.png', 0, 0, '2022-06-27 15:05:00', '2023-05-27 00:00:00'),
+(24, 'Đàm Thục Ðoan', 'thucdoan@gmail.com', '123456789(Tuan)', '1999-03-08', 'Tờ bản đồ số 10, thôn 5, xã Hạ Bằng, huyện Thạch Thất, thành phố Hà Nội', 'Female', '0358515152', 'avatar24.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00'),
+(25, 'Viên Quỳnh Dung', 'quynhdung@gmail.com', '123456789(Tuan)', '1996-03-08', 'Xã Hiền Ninh, Huyện Sóc Sơn, Thành phố Hà Nội', 'Female', '0259874256', 'avatar25.png', 0, 0, '2022-06-27 15:05:00', '2022-06-27 15:05:00');
 
 -- --------------------------------------------------------
 
@@ -123,7 +123,7 @@ INSERT INTO `count_others` (`count_other_id`, `count_other_name`, `count_other`)
 (1, 'account_online', 0),
 (2, 'products', 29),
 (3, 'customers', 17),
-(4, 'employees', 5),
+(4, 'employees', 4),
 (5, 'suppliers', 5);
 
 -- --------------------------------------------------------
