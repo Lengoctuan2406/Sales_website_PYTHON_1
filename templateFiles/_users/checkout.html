@@ -18,6 +18,7 @@
                 <div class="col-md-6">
                     <div class="section__title">Bill Detail</div>
                     <div class="input__field">
+                        <input type="hidden" name="order_total" value="{{ total_all }}">
                         <div class="input__field__title">Your name*</div>
                         <input type="text" name="order_name" placeholder="Your name" value="{{ customer.account_name }}" required>
                     </div>

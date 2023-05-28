@@ -59,9 +59,15 @@
                     LOG IN
                 </a>
             {% else %}
+                {% if session['role']==0 %}
                 <a href="/_users/account_page" class="topnav__item__button">
                     Hello {{session['account_name']}}
                 </a> 
+                {% else %}
+                <a href="/_admin/index" class="topnav__item__button">
+                    Hello {{session['account_name']}}
+                </a> 
+                {% endif %}  
             {% endif %}
             <div id="topnav__item__cart">
                 <a class="topnav__item__button topnav__item-icon">
