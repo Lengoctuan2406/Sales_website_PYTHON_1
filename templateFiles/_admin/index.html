@@ -76,39 +76,24 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <h5 class="card-title">Charts</h5>
-                    <?php
-                    $sale = "";
-                    $revenue = "";
-                    $datetime = "";
-                    $query_history = mysqli_query($con, "SELECT purchase_history_all_quantity, purchase_history_total_price, created_date_purchase_history FROM purchases_history;");
-                    while ($row_history = mysqli_fetch_array($query_history)) {
-                        $number_product = 0;
-                        //revenue in day
-                        $GLOBALS['revenue'] = $GLOBALS['revenue'] . $row_history['purchase_history_total_price'] . ",";
-                        //date to show charts
-                        $GLOBALS['datetime'] = $GLOBALS['datetime'] . "'" . $row_history['created_date_purchase_history'] . "',";
-
-                        $purchase_history_all_quantity = explode(',', $row_history['purchase_history_all_quantity']);
-                        for ($i = 0; $i < count($purchase_history_all_quantity); $i++) {
-                            $number_product += (int)$purchase_history_all_quantity[$i];
-                        }
-                        //sale in day
-                        $GLOBALS['sale'] = $GLOBALS['sale'] . "$number_product,";
-                    }
-                    $sale = substr($sale, 0, strlen($sale) - 1);
-                    $revenue = substr($revenue, 0, strlen($revenue) - 1);
-                    $datetime = substr($datetime, 0, strlen($datetime) - 1);
-                    ?>
                     <div id="reportsChart"></div>
                     <script>
                         document.addEventListener("DOMContentLoaded", () => {
+                            var sale = '{{ array_report.sale }}';
+                            var revenue = '{{ array_report.revenue }}';
+                            var date = '{{ array_report.date }}';
+
+                            var arr_sale = sale.split(",");
+                            var arr_revenue = revenue.split(",");
+                            var arr_date = date.split(",");
+
                             new ApexCharts(document.querySelector("#reportsChart"), {
                                 series: [{
                                         name: 'Sales',
-                                        data: [<?php echo $sale; ?>]
+                                        data: arr_sale
                                     }, {
                                         name: 'Revenue',
-                                        data: [<?php echo $revenue; ?>]
+                                        data: arr_revenue
                                     }],
                                 chart: {
                                     height: 350,
@@ -138,12 +123,12 @@
                                     width: 2
                                 },
                                 xaxis: {
-                                    type: 'datetime',
-                                    categories: [<?php echo $datetime; ?>]
+                                    type: 'date',
+                                    categories: arr_date
                                 },
                                 tooltip: {
                                     x: {
-                                        format: 'dd/MM/yy HH:mm'
+                                        format: 'yy-MM-dd'
                                     }
                                 }
                             }).render();
@@ -152,7 +137,6 @@
                 </div>
             </div>
         </div>
-
         <div class="col-xl-4 col-lg-5">
             <div class="card mb-4">             
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">

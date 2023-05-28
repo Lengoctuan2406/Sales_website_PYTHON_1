@@ -57,7 +57,7 @@
                                 <div class="buttons_added">
                                     <input name="product_{{ array.product_id }}" type="hidden" value="{{ array.product_id }}">
                                     <input class="minus is-form" type="button" value="-" onclick="DecreaseQuantity('{{ array.product_id }}')">
-                                    <input aria-label="quantity" name="cart_quantity_{{ array.product_id }}" class="input-qty input-qty-value{{ array.product_id }}; ?>" max="{{ array.product_quantity }}" min="1" value="{{ array.cart_quantity }}" type="number">
+                                    <input aria-label="quantity" name="cart_quantity_{{ array.product_id }}" class="input-qty input-qty-value-{{ array.product_id }}" max="{{ array.product_quantity }}" min="1" value="{{ array.cart_quantity }}" type="number">
                                     <input class="plus is-form" type="button" value="+" onclick="IncreaseQuantity('{{ array.product_id }}')">
                                 </div>
                             </div>
@@ -118,16 +118,16 @@
     </div>  
     <script>
         const DecreaseQuantity = (id) => {
-            let quantity = $('.input-qty-value' + id).attr('value');
+            let quantity = $('.input-qty-value-' + id).attr('value');
             if (Number(quantity) - 1 > 0) {
                 quantity = Number(quantity) - 1;
-                $('.input-qty-value' + id).attr('value', quantity);
+                $('.input-qty-value-' + id).attr('value', quantity);
             }
         };
         const IncreaseQuantity = (id) => {
-            let quantity = $('.input-qty-value' + id).attr('value');
+            let quantity = $('.input-qty-value-' + id).attr('value');
             quantity = Number(quantity) + 1;
-            $('.input-qty-value' + id).attr('value', quantity);
+            $('.input-qty-value-' + id).attr('value', quantity);
         };
     </script>
     <script>

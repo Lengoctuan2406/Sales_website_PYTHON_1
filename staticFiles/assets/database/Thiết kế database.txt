@@ -42,12 +42,6 @@ create table coupons(
 	discount int(10)
 );
 
-create table customers(
-	customer_id int(5) primary key AUTO_INCREMENT,
-	account_id int(5),
-	customer_bio text
-);
-
 create table employees(
 	employee_id int(5) primary key AUTO_INCREMENT,
 	account_id int(5),
@@ -61,6 +55,7 @@ create table orders(
 	order_all_quantity varchar(50),
 	other_name varchar(50),
 	order_address varchar(50),
+	order_total double,
 	order_phone varchar(20),
 	order_notes text,
 	date_invoice_order datetime,
@@ -89,18 +84,6 @@ create table product_types(
 	product_type_id int(5) primary key AUTO_INCREMENT,
 	product_type_name varchar(25),
 	coupon_id int(5)
-);
-
-create table purchases_history(
-	purchase_id int(5) primary key AUTO_INCREMENT,
-	account_id int(5),
-	purchase_history_product_all_id varchar(50),
-	purchase_history_all_quantity varchar(50),
-	purchase_history_name varchar(50),
-	purchase_history_address text,
-	purchase_history_phone varchar(20),
-	purchase_history_total_price double,
-	created_date_purchase_history datetime
 );
 
 create table suppliers(

@@ -87,30 +87,21 @@
                         </tr>
                     </tfoot>
                 </table>
-                <!-- <div id="main" class="main">
+                <div id="main" class="main">
                     <div class="card mb-4">
                         <div class="card-body">
                             <h5 class="card-title">Charts</h5>
-                            <?php
-                            $revenue = "";
-                            $datetime = "";
-                            $query_history = mysqli_query($con, "SELECT purchase_history_total_price, created_date_purchase_history FROM purchases_history WHERE created_date_purchase_history BETWEEN '$start' AND '$end';;");
-                            while ($row_history = mysqli_fetch_array($query_history)) {
-                                //revenue in day
-                                $GLOBALS['revenue'] = $GLOBALS['revenue'] . $row_history['purchase_history_total_price'] . ",";
-                                //date to show charts
-                                $GLOBALS['datetime'] = $GLOBALS['datetime'] . "'" . $row_history['created_date_purchase_history'] . "',";
-                            }
-                            $revenue = substr($revenue, 0, strlen($revenue) - 1);
-                            $datetime = substr($datetime, 0, strlen($datetime) - 1);
-                            ?>
                             <div id="reportsChart"></div>
                             <script>
                                 document.addEventListener("DOMContentLoaded", () => {
+                                    var revenue = '{{ array_report.revenue }}';
+                                    var date = '{{ array_report.date }}';
+                                    var arr_revenue = revenue.split(",");
+                                    var arr_date = date.split(",");
                                     new ApexCharts(document.querySelector("#reportsChart"), {
                                         series: [{
                                                 name: 'Revenue',
-                                                data: [<?php echo $revenue; ?>]
+                                                data: arr_revenue
                                             }],
                                         chart: {
                                             height: 350,
@@ -140,12 +131,12 @@
                                             width: 2
                                         },
                                         xaxis: {
-                                            type: 'datetime',
-                                            categories: [<?php echo $datetime; ?>]
+                                            type: 'date',
+                                            categories: arr_date
                                         },
                                         tooltip: {
                                             x: {
-                                                format: 'dd/MM/yy HH:mm'
+                                                format: 'yy-MM-dd'
                                             }
                                         }
                                     }).render();
@@ -153,7 +144,7 @@
                             </script>
                         </div>
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>

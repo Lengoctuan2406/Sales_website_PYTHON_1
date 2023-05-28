@@ -48,10 +48,10 @@ def base_user_1_arrays_carts(cursor):
     list = ()
     if 'account_id' in session:
         account_id = str(session['account_id'])
-        infor_cart = "products.product_id, product_name, product_price, product_image_1, discount, cart_quantity"
+        info_cart = "products.product_id, product_name, product_price, product_image_1, discount, cart_quantity"
         table = "products, product_types, coupons, carts"
         link = "products.product_type_id=product_types.product_type_id AND product_types.coupon_id=coupons.coupon_id AND carts.product_id=products.product_id"
-        query_cart = "SELECT " + infor_cart + " FROM " + table + " WHERE " + link + " AND account_id=" + account_id + ";"                  
+        query_cart = "SELECT " + info_cart + " FROM " + table + " WHERE " + link + " AND account_id=" + account_id + ";"                  
         cursor.execute(query_cart)
         arrays_carts = cursor.fetchall()
         for x in arrays_carts:
@@ -84,10 +84,10 @@ def top_3_product(cursor):
     return list
 
 def get_product_cart_by_account(cursor):
-    infor_product = 'products.product_id, product_name, product_price, product_image_1, discount, cart_quantity, product_quantity'
+    info_product = 'products.product_id, product_name, product_price, product_image_1, discount, cart_quantity, product_quantity'
     table = 'products, product_types, coupons, carts'
     link = "products.product_type_id=product_types.product_type_id AND product_types.coupon_id=coupons.coupon_id AND carts.product_id=products.product_id"
-    query_product_cart_all = "SELECT " + infor_product + " FROM " + table + " WHERE " + link + " AND account_id=% s;"
+    query_product_cart_all = "SELECT " + info_product + " FROM " + table + " WHERE " + link + " AND account_id=% s;"
     cursor.execute(query_product_cart_all, (session['account_id'], ))
     arrays_product_cart_all = cursor.fetchall()
     list = ()
@@ -119,12 +119,105 @@ def get_account(cursor):
     customer = cursor.fetchone()
     return customer
 
+def get_report(cursor, start, end): 
+    if start == '' and end == '':
+        #for report
+        sale = ''
+        revenue = ''
+        date = ''
+        total_all = 0
+        total_order = 0
+
+        query_order = "SELECT order_id, account_id, order_product_all_id, order_all_quantity, order_name, order_address, order_phone, order_notes, date_invoice_order, order_status_id FROM orders WHERE order_status_id=3;"
+        cursor.execute(query_order, ())
+        arrays_orders = cursor.fetchall()
+        for x in arrays_orders:
+            total = 0
+            order_product_all_id = x['order_product_all_id'].split(',')
+            order_all_quantity = x['order_all_quantity'].split(',')
+            count = 1
+            for item in order_product_all_id:
+                info_product = "products.product_id, product_name, product_price, product_image_1, discount"
+                query_each_product = "SELECT " + info_product + " FROM products, product_types, coupons WHERE products.product_type_id=product_types.product_type_id AND product_types.coupon_id=coupons.coupon_id AND products.product_id=% s;"
+                cursor.execute(query_each_product, (item, ))
+                arrays_each_order = cursor.fetchone()
+                if arrays_each_order:
+
+                    #chú ý chỗ này
+                    total_order += int(order_all_quantity[count-1])
+
+                    total += ((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1]))
+                count += 1
+                total_all += total
+
+            sale += str(total_order) + ','
+            revenue += str(total_all) + ','
+            date += str(x['date_invoice_order'])[:10] + ","
+
+            total_order = 0
+            total_all = 0
+
+        sale = sale[:-1]
+        revenue = revenue[:-1]
+        date = date[:-1]
+
+        list = {"sale": sale
+                , "revenue": revenue
+                , "date": date}
+        return list
+    elif start != '' and end != '':
+        #for report
+        sale = ''
+        revenue = ''
+        date = ''
+        total_all = 0
+        total_order = 0
+        start_date = datetime.strptime(start, '%Y-%m-%d')
+        end_date = datetime.strptime(end, '%Y-%m-%d')
+        query_order = "SELECT order_id, account_id, order_product_all_id, order_all_quantity, order_name, order_address, order_phone, order_notes, date_invoice_order, order_status_id FROM orders WHERE order_status_id=3 AND date_invoice_order BETWEEN % s AND % s;"
+        cursor.execute(query_order, (start_date, end_date, ))
+        arrays_orders = cursor.fetchall()
+        for x in arrays_orders:
+            total = 0
+            order_product_all_id = x['order_product_all_id'].split(',')
+            order_all_quantity = x['order_all_quantity'].split(',')
+            count = 1
+            for item in order_product_all_id:
+                info_product = "products.product_id, product_name, product_price, product_image_1, discount"
+                query_each_product = "SELECT " + info_product + " FROM products, product_types, coupons WHERE products.product_type_id=product_types.product_type_id AND product_types.coupon_id=coupons.coupon_id AND products.product_id=% s;"
+                cursor.execute(query_each_product, (item, ))
+                arrays_each_order = cursor.fetchone()
+                if arrays_each_order:
+
+                    #chú ý chỗ này
+                    total_order += int(order_all_quantity[count-1])
+
+                    total += ((arrays_each_order['product_price'] - (arrays_each_order['product_price'] * (arrays_each_order['discount'] / 100))) * int(order_all_quantity[count-1]))
+                count += 1
+                total_all += total
+
+            sale += str(total_order) + ','
+            revenue += str(total_all) + ','
+            date += str(x['date_invoice_order'])[:10] + ","
+
+            total_order = 0
+            total_all = 0
+
+        sale = sale[:-1]
+        revenue = revenue[:-1]
+        date = date[:-1]
+
+        list = {"sale": sale
+                , "revenue": revenue
+                , "date": date}
+        return list
+
 def get_all_order_by_status(cursor, id, type):
+    list = ()
     if type == 'order_account':
         query_order = "SELECT order_id, account_id, order_product_all_id, order_all_quantity, order_name, order_address, order_phone, order_notes, date_invoice_order, order_status_id FROM orders WHERE account_id=% s AND order_status_id=% s;"
         cursor.execute(query_order, (session['account_id'],id, ))
         arrays_orders = cursor.fetchall()
-        list = ()
         for x in arrays_orders:
             total = 0
             order_product_all_id = x['order_product_all_id'].split(',')
@@ -158,7 +251,7 @@ def get_all_order_by_status(cursor, id, type):
                     , "order_address": x['order_address']
                     , "order_phone": x['order_phone']
                     , "order_notes": x['order_notes']
-                    , "date_invoice_order": str(x['date_invoice_order'])[0:9]
+                    , "date_invoice_order": str(x['date_invoice_order'])[0:10]
                     , "order_status_id": x['order_status_id']
                     , "order_product_all_id": x['order_product_all_id']
                     , "order_all_quantity": x['order_all_quantity']
@@ -169,7 +262,6 @@ def get_all_order_by_status(cursor, id, type):
         query_order = "SELECT order_id, account_id, order_product_all_id, order_all_quantity, order_name, order_address, order_phone, order_notes, date_invoice_order, order_status_id FROM orders WHERE order_id=% s;"
         cursor.execute(query_order, (id, ))
         arrays_orders = cursor.fetchone()
-        list = ()
         if arrays_orders:
             total = 0
             order_product_all_id = arrays_orders['order_product_all_id'].split(',')
@@ -203,7 +295,7 @@ def get_all_order_by_status(cursor, id, type):
                     , "order_address": arrays_orders['order_address']
                     , "order_phone": arrays_orders['order_phone']
                     , "order_notes": arrays_orders['order_notes']
-                    , "date_invoice_order": str(arrays_orders['date_invoice_order'])[0:9]
+                    , "date_invoice_order": str(arrays_orders['date_invoice_order'])[0:10]
                     , "order_status_id": arrays_orders['order_status_id']
                     , "order_product_all_id": arrays_orders['order_product_all_id']
                     , "order_all_quantity": arrays_orders['order_all_quantity']

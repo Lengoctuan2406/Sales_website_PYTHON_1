@@ -194,7 +194,7 @@ def page_carts():
         return render_template('_users/page_carts.html', arrays_all_product=arrays_all_product, arrays_carts=arrays_carts, arrays_product_cart_all=list, total=round(total, 2), msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_users/checkout', methods = ['POST', 'GET'])
 def checkout():
     msg = request.args.get('message', '')
@@ -218,7 +218,7 @@ def checkout():
         return render_template('_users/checkout.html', arrays_all_product=arrays_all_product, arrays_carts=arrays_carts, arrays_product_cart_by_account=list, total=round(total, 2), order_product_all_id=order_product_all_id, order_all_quantity=order_all_quantity, customer=customer, msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_users/account_page', methods = ['POST', 'GET'])
 def account_page():
     msg = request.args.get('message', '')
@@ -229,7 +229,7 @@ def account_page():
         return render_template('_users/account_page.html', customer=customer, msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_users/account_reset_pass')
 def account_reset_pass():
     msg = request.args.get('message', '')
@@ -237,7 +237,7 @@ def account_reset_pass():
         return render_template('_users/account_reset_pass.html', msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_users/account_order')
 def account_order():
     msg = request.args.get('message', '')
@@ -248,17 +248,17 @@ def account_order():
         return render_template('_users/account_order.html', orders_1=orders_1, orders_2=orders_2, msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_users/account_purchase_history')
 def account_purchase_history():
     msg = request.args.get('message', '')
     if(check_login()):
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        order_history = get_all_order_by_status(cursor, 3)
+        order_history = get_all_order_by_status(cursor, 3, 'order_account')
         return render_template('_users/account_purchase_history.html', order_history=order_history, msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/index')
 @app.route('/_users/admin')
 def admin():
@@ -288,10 +288,12 @@ def admin():
                     , "order_status_id": x['order_status_id']}
             list_order += (array,)
 
-        return render_template('_admin/index.html', array1=array1, list_products=list_products, list_order=list_order, msg=msg)
+        array_report = get_report(cursor, '', '')
+
+        return render_template('_admin/index.html', array1=array1, list_products=list_products, list_order=list_order, array_report=array_report, msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/view_customers')
 def view_customers():
     msg = request.args.get('message', '')
@@ -314,7 +316,7 @@ def view_customers():
         return render_template('_admin/view_customers.html', list_customer=list_customer, msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/update_customers/<int:account_id>')
 def update_customers(account_id):
     msg = request.args.get('message', '')
@@ -339,7 +341,7 @@ def update_customers(account_id):
         return render_template('_admin/update_customers.html', list_customer_detail=list_customer_detail, msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/add_customers')
 def add_customers():
     msg = request.args.get('message', '')
@@ -347,7 +349,7 @@ def add_customers():
         return render_template('_admin/add_customers.html', msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/view_employees')
 def view_employees():
     msg = request.args.get('message', '')
@@ -369,7 +371,7 @@ def view_employees():
         return render_template('_admin/view_employees.html', list_employees=list_employees, msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/update_employees/<int:account_id>')
 def update_employees(account_id):
     msg = request.args.get('message', '')
@@ -394,7 +396,7 @@ def update_employees(account_id):
         return render_template('_admin/update_employees.html', list_employee_detail=list_employee_detail, msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/add_employees')
 def add_employees():
     msg = request.args.get('message', '')
@@ -402,7 +404,7 @@ def add_employees():
         return render_template('_admin/add_employees.html', msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/view_suppliers')
 def view_suppliers():
     msg = request.args.get('message', '')
@@ -423,7 +425,7 @@ def view_suppliers():
         return render_template('_admin/view_suppliers.html', list_suppliers=list_suppliers, msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/update_suppliers/<int:supplier_id>')
 def update_suppliers(supplier_id):
     msg = request.args.get('message', '')
@@ -445,7 +447,7 @@ def update_suppliers(supplier_id):
         return render_template('_admin/update_suppliers.html', list_suppliers_detail=list_suppliers_detail, msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/add_suppliers')
 def add_suppliers():
     msg = request.args.get('message', '')
@@ -453,7 +455,7 @@ def add_suppliers():
         return render_template('_admin/add_suppliers.html', msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/view_categories')
 def view_categories():
     msg = request.args.get('message', '')
@@ -473,7 +475,7 @@ def view_categories():
         return render_template('_admin/view_categories.html', list_categories=list_categories, msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/update_categories/<int:product_type_id>')
 def update_categories(product_type_id):
     msg = request.args.get('message', '')
@@ -494,7 +496,7 @@ def update_categories(product_type_id):
         return render_template('_admin/update_categories.html', list_categories_detail=list_categories_detail, list_coupon=list_coupon, msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/add_categories')
 def add_categories():
     msg = request.args.get('message', '')
@@ -504,7 +506,7 @@ def add_categories():
         return render_template('_admin/add_categories.html', list_coupon=list_coupon, msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/view_coupons')
 def view_coupons():
     msg = request.args.get('message', '')
@@ -522,7 +524,7 @@ def add_coupons():
         return render_template('_admin/add_coupons.html', msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/view_orders')
 def view_orders():
     msg = request.args.get('message', '')
@@ -543,7 +545,7 @@ def view_orders():
         return render_template('_admin/view_orders.html', list_all_order=list_all_order, msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/update_orders/<int:order_id>')
 def update_orders(order_id):
     msg = request.args.get('message', '')
@@ -555,7 +557,7 @@ def update_orders(order_id):
         return render_template('_admin/update_orders.html', list_order_detail=list_order_detail, list_status=list_status, msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/report_customers')
 def report_customers():
     msg = request.args.get('message', '')
@@ -588,7 +590,7 @@ def report_customers():
         return render_template('_admin/report_customers.html', customer_each=customer_each, msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/report_products')
 def report_products():
     msg = request.args.get('message', '')
@@ -621,7 +623,7 @@ def report_products():
         return render_template('_admin/report_products.html', product_each=product_each, msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/report_revenues', methods = ['POST', 'GET'])
 def report_revenues():
     msg = request.args.get('message', '')
@@ -639,15 +641,17 @@ def report_revenues():
             end = ''
         table_revenues, count, total = get_all_revenues(cursor, start, end)
 
+        array_report = get_report(cursor, start, end)
+
         revenues_each = {"currentTime": currentTime
                     , "count": count
                     , "total": round(total, 2)
                     , "table_revenues": table_revenues}
 
-        return render_template('_admin/report_revenues.html', revenues_each=revenues_each, msg=msg)
+        return render_template('_admin/report_revenues.html', revenues_each=revenues_each, array_report=array_report, msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/view_products')
 def view_products():
     msg = request.args.get('message', '')
@@ -668,7 +672,7 @@ def view_products():
         return render_template('_admin/view_products.html', list_products=list_products, msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/update_products/<int:product_id>')
 def update_products(product_id):
     msg = request.args.get('message', '')
@@ -699,7 +703,7 @@ def update_products(product_id):
         return render_template('_admin/update_products.html', list_product_detail=list_product_detail, type_product=type_product, suppliers=suppliers, msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/add_products')
 def add_products():
     msg = request.args.get('message', '')
@@ -712,7 +716,7 @@ def add_products():
         return render_template('_admin/add_products.html', type_product=type_product, suppliers=suppliers, msg=msg)
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 
 
 
@@ -766,13 +770,13 @@ def add_products_add():
             product_image_2_add = 'empty_product.png'
             product_image_3_add = 'empty_product.png'
             if product_image_1.filename != '':
-                product_image_1.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(product_image_1.filename)))
+                product_image_1.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(str(product_image_1.filename))))
                 product_image_1_add = product_image_1.filename
             if product_image_2.filename != '':
-                product_image_2.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(product_image_2.filename)))
+                product_image_2.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(str(product_image_2.filename))))
                 product_image_2_add = product_image_2.filename
             if product_image_3.filename != '':
-                product_image_3.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(product_image_3.filename)))
+                product_image_3.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(str(product_image_3.filename))))
                 product_image_3_add = product_image_3.filename
 
             cursor.execute('INSERT INTO products (product_name, product_type_id, supplier_id, product_quantity, product_price, product_description, product_image_1, product_image_2, product_image_3) VALUES (% s,% s,% s,% s,% s,% s,% s,% s,% s);',
@@ -783,7 +787,7 @@ def add_products_add():
             return redirect(url_for('add_products', message = msg))
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/update_products_update', methods = ['POST', 'GET'])
 def update_products_update():
     if(check_login()):
@@ -804,17 +808,17 @@ def update_products_update():
             product_image_3 = request.files['product_image_3']
             product_description = request.form['product_description']
             if product_image_1.filename != '':
-                product_image_1.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(product_image_1.filename)))
+                product_image_1.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(str(product_image_1.filename))))
                 cursor.execute("UPDATE products SET product_image_1=% s WHERE product_id=% s;"
                                 , (product_image_1.filename, product_id, ))
                 mysql.connection.commit()
             if product_image_2.filename != '':
-                product_image_2.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(product_image_2.filename)))
+                product_image_2.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(str(product_image_2.filename))))
                 cursor.execute("UPDATE products SET product_image_2=% s WHERE product_id=% s;"
                                 , (product_image_2.filename, product_id, ))
                 mysql.connection.commit()
             if product_image_3.filename != '':
-                product_image_3.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(product_image_3.filename)))
+                product_image_3.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(str(product_image_3.filename))))
                 cursor.execute("UPDATE products SET product_image_3=% s WHERE product_id=% s;"
                                 , (product_image_3.filename, product_id, ))
                 mysql.connection.commit()
@@ -827,7 +831,7 @@ def update_products_update():
             return redirect(url_for('update_products', product_id = product_id, message = msg))
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/update_orders_update', methods = ['POST', 'GET'])
 def update_orders_update():
     if(check_login()):
@@ -843,25 +847,30 @@ def update_orders_update():
 
             count = 0
             for array in order_product_all_id_array:
-                order_product_all_id_array[count] 
-                cursor.execute('SELECT * FROM count_sales WHERE product_id=' + order_product_all_id_array[count], ())
+                cursor.execute('SELECT * FROM count_sales WHERE product_id=' + array, ())
                 product = cursor.fetchone()
                 if product:
-                    cursor.execute("UPDATE count_sales SET count_sale=count_sale+" + order_all_quantity_array[count] + " WHERE product_id=" + order_product_all_id_array[count], ())
+                    cursor.execute("UPDATE count_sales SET count_sale=count_sale+" + order_all_quantity_array[count] + " WHERE product_id=" + array, ())
                     mysql.connection.commit()
                 else:
-                    cursor.execute('INSERT INTO count_sales (product_id, count_sale) VALUES (' + order_product_all_id_array[count] + ',' + order_all_quantity_array[count] + ');', ())
+                    cursor.execute('INSERT INTO count_sales (product_id, count_sale) VALUES ('+array+','+order_all_quantity_array[count]+');'
+                                   , ())
+                    mysql.connection.commit()
+                if order_status_id == '3':
+                    cursor.execute('UPDATE products SET product_quantity=product_quantity-'+order_all_quantity_array[count]+' WHERE product_id='+array+';'
+                                , ())
                     mysql.connection.commit()
                 count += 1
 
             cursor.execute("UPDATE orders SET order_status_id=% s WHERE order_id=% s;"
                                 , (order_status_id, order_id, ))
             mysql.connection.commit()
+
             msg = 'Update order successful!'
             return redirect(url_for('update_orders', order_id = order_id, message = msg))
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/add_coupons_add', methods = ['POST', 'GET'])
 def add_coupons_add():
     msg = request.args.get('message', '')
@@ -879,7 +888,7 @@ def add_coupons_add():
             return redirect(url_for('add_coupons', message = msg))
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/add_categories_add', methods = ['POST', 'GET'])
 def add_categories_add():
     msg = request.args.get('message', '')
@@ -897,7 +906,7 @@ def add_categories_add():
             return redirect(url_for('add_categories', message = msg))
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/update_categories_update', methods = ['POST', 'GET'])
 def update_categories_update():
     if(check_login()):
@@ -914,7 +923,7 @@ def update_categories_update():
             return redirect(url_for('update_categories', product_type_id = product_type_id, message = msg))
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/add_suppliers_add', methods = ['POST', 'GET'])
 def add_suppliers_add():
     msg = request.args.get('message', '')
@@ -942,7 +951,7 @@ def add_suppliers_add():
                         msg = 'Create supplier account successfully!'
                     else:
                         app.config['UPLOAD_FOLDER'] = os.path.join(path, 'staticFiles\\assets\\img\\avatars')
-                        avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(avatar.filename)))
+                        avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(str(avatar.filename))))
                         cursor.execute('INSERT INTO suppliers (supplier_name, supplier_email, supplier_address, supplier_phone, supplier_avatar) VALUES (% s,% s,% s,% s, % s);',
                                 (supplier_name, supplier_email, supplier_address, supplier_phone, avatar.filename, ))
                         mysql.connection.commit()
@@ -956,7 +965,7 @@ def add_suppliers_add():
                 return redirect(url_for('add_suppliers', message = msg))
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/update_suppliers_delete/<int:supplier_id>', methods = ['POST', 'GET'])
 def update_suppliers_delete(supplier_id):
     if(check_login()):
@@ -973,7 +982,7 @@ def update_suppliers_delete(supplier_id):
         return redirect(url_for('view_suppliers', message = msg))
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/update_suppliers_update', methods = ['POST', 'GET'])
 def update_suppliers_update():
     if(check_login()):
@@ -997,7 +1006,7 @@ def update_suppliers_update():
                     msg = 'Update supplier successful!'
                 else:
                     app.config['UPLOAD_FOLDER'] = os.path.join(path, 'staticFiles\\assets\\img\\avatars')
-                    avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(avatar.filename)))
+                    avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(str(avatar.filename))))
                     cursor.execute("UPDATE suppliers SET supplier_name=% s, supplier_email=% s, supplier_address=% s, supplier_avatar=% s, supplier_phone=% s WHERE supplier_id=% s;"
                                 , (supplier_name, supplier_email, supplier_address, avatar.filename, supplier_phone, supplier_id, ))
                     mysql.connection.commit()
@@ -1006,7 +1015,7 @@ def update_suppliers_update():
             return redirect(url_for('update_suppliers', supplier_id = supplier_id, message = msg))
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/add_employees_add', methods = ['POST', 'GET'])
 def add_employees_add():
     msg = request.args.get('message', '')
@@ -1045,7 +1054,7 @@ def add_employees_add():
                         msg = 'Create employee account successfully!'
                     else:
                         app.config['UPLOAD_FOLDER'] = os.path.join(path, 'staticFiles\\assets\\img\\avatars')
-                        avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(avatar.filename)))
+                        avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(str(avatar.filename))))
                         cursor.execute('INSERT INTO accounts(account_name, email, password, avatar, role, block) VALUES \
                             (% s, % s, % s, % s, % s, % s)',
                                 (name, email, password, avatar.filename, '0', '0', ))
@@ -1068,7 +1077,7 @@ def add_employees_add():
                 return redirect(url_for('add_employees', message = msg))
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/update_employees_delete/<int:account_id>', methods = ['POST', 'GET'])
 def update_employees_delete(account_id):
     if(check_login()):
@@ -1089,7 +1098,7 @@ def update_employees_delete(account_id):
         return redirect(url_for('view_employees', message = msg))
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/update_employees_update', methods = ['POST', 'GET'])
 def update_employees_update():
     if(check_login()):
@@ -1121,7 +1130,7 @@ def update_employees_update():
                     msg = 'Update customer successful!'
                 else:
                     app.config['UPLOAD_FOLDER'] = os.path.join(path, 'staticFiles\\assets\\img\\avatars')
-                    avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(avatar.filename)))
+                    avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(str(avatar.filename))))
                     cursor.execute("UPDATE accounts SET account_name=% s, account_address=% s, avatar=% s, phone=% s, gender=% s, update_date_account=% s, date_of_birth=% s WHERE account_id=% s;"
                                 , (account_name, account_address, avatar.filename, phone, gender, currentTime, date_of_birth, account_id, ))
                     mysql.connection.commit()
@@ -1134,7 +1143,7 @@ def update_employees_update():
             return redirect(url_for('update_employees', account_id = account_id, message = msg))
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/add_customers_add', methods = ['POST', 'GET'])
 def add_customers_add():
     msg = request.args.get('message', '')
@@ -1164,7 +1173,7 @@ def add_customers_add():
                         msg = 'Account successfully created!'
                     else:
                         app.config['UPLOAD_FOLDER'] = os.path.join(path, 'staticFiles\\assets\\img\\avatars')
-                        avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(avatar.filename)))
+                        avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(str(avatar.filename))))
                         cursor.execute('INSERT INTO accounts(account_name, email, password, avatar, role, block) VALUES \
                             (% s, % s, % s, % s, % s, % s)',
                                 (name, email, password, avatar.filename, '0', '0', ))
@@ -1178,7 +1187,7 @@ def add_customers_add():
                 return redirect(url_for('add_employees', message = msg))
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/update_customers_update', methods = ['POST', 'GET'])
 def update_customers_update():
     if(check_login()):
@@ -1204,7 +1213,7 @@ def update_customers_update():
                     msg = 'Update customer successful!'
                 else:
                     app.config['UPLOAD_FOLDER'] = os.path.join(path, 'staticFiles\\assets\\img\\avatars')
-                    avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(avatar.filename)))
+                    avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(str(avatar.filename))))
                     cursor.execute("UPDATE accounts SET account_name=% s, account_address=% s, avatar=% s, phone=% s, gender=% s, update_date_account=% s, date_of_birth=% s WHERE account_id=% s;"
                                 , (account_name, account_address, avatar.filename, phone, gender, currentTime, date_of_birth, account_id, ))
                     mysql.connection.commit()
@@ -1212,7 +1221,7 @@ def update_customers_update():
             return redirect(url_for('update_customers', account_id = account_id, message = msg))
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/view_customers_unblock/<int:account_id>', methods = ['POST', 'GET'])
 def view_customers_unblock(account_id):
     if(check_login()):
@@ -1225,7 +1234,7 @@ def view_customers_unblock(account_id):
         return redirect(url_for('view_customers', message = msg))
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_admin/view_customers_block/<int:account_id>', methods = ['POST', 'GET'])
 def view_customers_block(account_id):
     if(check_login()):
@@ -1238,7 +1247,7 @@ def view_customers_block(account_id):
         return redirect(url_for('view_customers', message = msg))
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_users/account_order_delete/<int:order_id>', methods = ['POST', 'GET'])
 def account_order_delete(order_id):
     if(check_login()):
@@ -1251,7 +1260,7 @@ def account_order_delete(order_id):
         return redirect(url_for('account_order', message = msg))
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_users/page_carts_delete/<int:product_id>', methods = ['POST', 'GET'])
 def page_carts_delete(product_id):
     if(check_login()):
@@ -1264,7 +1273,7 @@ def page_carts_delete(product_id):
         return redirect(url_for('page_carts', message = msg))
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_users/account_reset_pass_check', methods = ['POST', 'GET'])
 def account_reset_pass_check():
     if(check_login()):
@@ -1287,7 +1296,7 @@ def account_reset_pass_check():
         return redirect(url_for('account_reset_pass', message = msg))
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_users/account_page_update_info', methods = ['POST', 'GET'])
 def account_page_update_info():
     if(check_login()):
@@ -1312,7 +1321,7 @@ def account_page_update_info():
                     msg = 'Update account successful!'
                 else:
                     app.config['UPLOAD_FOLDER'] = os.path.join(path, 'staticFiles\\assets\\img\\avatars')
-                    avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(avatar.filename)))
+                    avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(str(avatar.filename))))
                     cursor.execute("UPDATE accounts SET account_name=% s, date_of_birth=% s, account_address=% s, avatar=% s, phone=% s, gender=% s, update_date_account=% s WHERE account_id=% s;"
                                 , (account_name, date_of_birth, account_address, avatar.filename, phone, gender, currentTime, session['account_id'], ))
                     mysql.connection.commit()
@@ -1320,12 +1329,15 @@ def account_page_update_info():
         return redirect(url_for('account_page', message = msg))
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_users/account_page_logout')
 def account_page_logout():
     if(check_login()):
         msg = request.args.get('message', '')
         session.clear()
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute("UPDATE count_others SET count_other=count_other-1 WHERE count_other_name='account_online';", ())
+        mysql.connection.commit()
         msg = 'Successful logout!'
         return redirect(url_for('login', message = msg))
     else:
@@ -1334,6 +1346,7 @@ def account_page_logout():
 @app.route('/_users/product_detail_add_cart', methods = ['POST', 'GET'])
 def product_detail_add_cart():
     if(check_login()):
+        product_id = -1
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         msg = request.args.get('message', '')
         if request.method == 'POST' and 'add' in request.form:
@@ -1358,7 +1371,7 @@ def product_detail_add_cart():
         return redirect(url_for('product_detail', product_id=product_id, message = msg))
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_users/checkout_check', methods = ['POST', 'GET'])
 def checkout_check():
     if(check_login()):
@@ -1385,8 +1398,7 @@ def checkout_check():
             return redirect(url_for('index', message = msg))
     else:
         msg = 'You must be login first!'
-        return redirect(url_for('login', message = msg))
-
+    return redirect(url_for('login', message = msg))
 @app.route('/_users/login_check', methods = ['POST', 'GET'])
 def login_check():
     msg = request.args.get('message', '')
@@ -1406,14 +1418,21 @@ def login_check():
                 return redirect(url_for('login', message = msg))
             session['account_id'] = account['account_id']
             session['account_name'] = account['account_name']
-            session['avatar'] = account['avatar']
+            if account['avatar'] == '':
+                session['avatar'] = 'empty.png'
+            else:
+                session['avatar'] = account['avatar']
+
+            cursor.execute("UPDATE count_others SET count_other=count_other+1 WHERE count_other_name='account_online';", ())
+            mysql.connection.commit()
+
             msg = 'Logged in successfully!'
             if account['role'] == 1:
                 return redirect(url_for('admin', message = msg))
             return redirect(url_for('index', message = msg))
         else:
             msg = 'Incorrect email or password!'
-            return redirect(url_for('login', message = msg))
+    return redirect(url_for('login', message = msg))
 @app.route('/_users/register_check', methods = ['POST', 'GET'])
 def register_check():
     msg = request.args.get('message', '')
@@ -1441,7 +1460,7 @@ def register_check():
                 return redirect(url_for('index', message = msg))
         else:
             msg = 'Email already exists!'
-            return redirect(url_for('register', message = msg))
+    return redirect(url_for('register', message = msg))
 
 
 if __name__=='__main__':
