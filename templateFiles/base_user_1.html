@@ -58,49 +58,81 @@
                 <a href="/_users/login" class="topnav__item__button">
                     LOG IN
                 </a>
+                <div id="topnav__item__cart">
+                    <a class="topnav__item__button topnav__item-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </a>
+                    <div class="cart__dropdown">
+                        {% if 'account_id' in session %}
+                            <div class="cart__dropdown__list">
+                                {% for array in arrays_carts %}
+                                    <div class="cart__dropdown__item">
+                                        <img src="/staticFiles/assets/img/image_products/{{ array.product_image_1 }}" class="cart__dropdown__image" alt="" srcset="">
+                                        <div class="cart__dropdown__content">
+                                            <a href="/_users/product_detail/{{ array.product_id }}" class="cart__dropdown__content-name">
+                                                {{ array.product_name }}
+                                            </a>
+                                            <div class="cart__dropdown__content-price">
+                                                {{ array.cart_quantity }}
+                                            </div>
+                                            <div class="cart__dropdown__content-price">
+                                                ${{ array.product_price_total }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                {% endfor %}
+                            </div> 
+                        {% endif %}
+                        <div class="cart__dropdown__selection">
+                            <a href="/_users/page_carts" class="cart__dropdown__button">View Cart</a>
+                            <a href="/_users/checkout" class="cart__dropdown__button">Checkout</a>
+                        </div>
+                    </div>
+                </div>
             {% else %}
                 {% if session['role']==0 %}
                 <a href="/_users/account_page" class="topnav__item__button">
                     Hello {{session['account_name']}}
                 </a> 
+                <div id="topnav__item__cart">
+                    <a class="topnav__item__button topnav__item-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </a>
+                    <div class="cart__dropdown">
+                        {% if 'account_id' in session %}
+                            <div class="cart__dropdown__list">
+                                {% for array in arrays_carts %}
+                                    <div class="cart__dropdown__item">
+                                        <img src="/staticFiles/assets/img/image_products/{{ array.product_image_1 }}" class="cart__dropdown__image" alt="" srcset="">
+                                        <div class="cart__dropdown__content">
+                                            <a href="/_users/product_detail/{{ array.product_id }}" class="cart__dropdown__content-name">
+                                                {{ array.product_name }}
+                                            </a>
+                                            <div class="cart__dropdown__content-price">
+                                                {{ array.cart_quantity }}
+                                            </div>
+                                            <div class="cart__dropdown__content-price">
+                                                ${{ array.product_price_total }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                {% endfor %}
+                            </div> 
+                        {% endif %}
+                        <div class="cart__dropdown__selection">
+                            <a href="/_users/page_carts" class="cart__dropdown__button">View Cart</a>
+                            <a href="/_users/checkout" class="cart__dropdown__button">Checkout</a>
+                        </div>
+                    </div>
+                </div>
                 {% else %}
                 <a href="/_admin/index" class="topnav__item__button">
                     Hello {{session['account_name']}}
                 </a> 
                 {% endif %}  
             {% endif %}
-            <div id="topnav__item__cart">
-                <a class="topnav__item__button topnav__item-icon">
-                    <i class="fas fa-shopping-cart"></i>
-                </a>
-                <div class="cart__dropdown">
-                    {% if 'account_id' in session %}
-                        <div class="cart__dropdown__list">
-                            {% for array in arrays_carts %}
-                                <div class="cart__dropdown__item">
-                                    <img src="/staticFiles/assets/img/image_products/{{ array.product_image_1 }}" class="cart__dropdown__image" alt="" srcset="">
-                                    <div class="cart__dropdown__content">
-                                        <a href="/_users/product_detail/{{ array.product_id }}" class="cart__dropdown__content-name">
-                                            {{ array.product_name }}
-                                        </a>
-                                        <div class="cart__dropdown__content-price">
-                                            {{ array.cart_quantity }}
-                                        </div>
-                                        <div class="cart__dropdown__content-price">
-                                            ${{ array.product_price_total }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                            {% endfor %}
-                        </div> 
-                    {% endif %}
-                    <div class="cart__dropdown__selection">
-                        <a href="/_users/page_carts" class="cart__dropdown__button">View Cart</a>
-                        <a href="/_users/checkout" class="cart__dropdown__button">Checkout</a>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </nav>

@@ -62,7 +62,13 @@
                                 </div>
                             </div>
                             <br>
+                            {% if session['role']==0 %}
                             <button type="submit" name="add" value="add" class="btn-product btn--addCart">Add to cart</button>
+                            {% elif session['role']==1 %}
+                            <a class="btn-product btn--addCart" href="#" style="text-decoration: none">Not available for admin :))</a>
+                            {% else %}
+                            <button type="submit" name="add" value="add" class="btn-product btn--addCart">Add to cart</button>
+                            {% endif %}  
                             <!-- <button type="submit" name="checkout" value="checkout" class="btn-product btn--buyNow">Buy Now</button> -->
                         </form>
                     {% else %}
