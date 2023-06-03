@@ -33,7 +33,7 @@
                     <tbody  style="text-align: center;">
                         {% for array in list_customer %}
                             <tr>
-                                <td><a href="#">{{ array.account_id }}</a></td>
+                                <td><a href="/_admin/update_customers/{{ array.account_id }}">{{ array.account_id }}</a></td>
                                 <td>{{ array.account_name }}</td>
                                 <td>{{ array.phone }}</td>                      
                                 <td>{{ array.date_of_birth }}</td>

@@ -32,7 +32,7 @@
                     <tbody  style="text-align: center;">
                         {% for array in list_products %}
                             <tr>
-                                <td><a href="#">{{ array.product_id }}</a></td>
+                                <td><a href="/_admin/update_products/{{ array.product_id }}">{{ array.product_id }}</a></td>
                                 <td>{{ array.product_name }}...</td>
                                 <td>{{ array.product_type_name }}</td>                      
                                 <td>{{ array.product_price }}</td>

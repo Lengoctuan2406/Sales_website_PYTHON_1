@@ -30,7 +30,7 @@
                     <tbody  style="text-align: center;">
                         {% for array in list_categories %}
                             <tr>
-                                <td><a href="#">{{ array.product_type_id }}</a></td>
+                                <td><a href="/_admin/update_categories/{{ array.product_type_id }}">{{ array.product_type_id }}</a></td>
                                 <td>{{ array.product_type_name }}</td>
                                 <td>{{ array.coupon_name }}</td>
                                 <td><a href="/_admin/update_categories/{{ array.product_type_id }}" class="btn btn-sm btn-primary">Detail</a></td>
